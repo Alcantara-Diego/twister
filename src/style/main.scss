@@ -1,0 +1,52 @@
+:root {
+    --gradientLeve: linear-gradient(95deg, rgb(0, 0, 150), rgb(150, 0, 0));
+    --gradientForte: linear-gradient(95deg, rgb(0, 0, 255), rgb(255, 0, 0));
+    --corFundo1: #1e1e1e;
+    --corPrimaria: #fdfdfd;
+    --corSecundaria: #ffffff;
+    
+    
+    --corOutline: black;
+    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+
+    font-family: sans-serif;
+    overflow: hidden;
+}
+button{
+    cursor: pointer;
+}
+.container{
+    margin: auto;
+    position: relative;
+    height: 100vh;
+    max-width: 1300px;
+    background-color: #1e1e1e;
+    border: 2px solid var(--corOutline);
+    
+}
+
+.bordaGradient{
+    border: 2px solid transparent;
+    border-image: var(--gradientLeve);
+    border-image-slice: 1;
+}
+.conteudo{
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+
+
+
+@media (max-width: 700px){
+    .conteudo{
+        grid-template-columns: 100%;
+    }
+}

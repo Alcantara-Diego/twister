@@ -1,0 +1,101 @@
+main{
+    padding: 10px;
+}
+.postConfigPadrao{
+    margin-bottom: 8px;
+    background-color: rgb(37, 37, 37);
+    color: white;
+    padding: 12px;
+
+    
+
+    .userFoto{
+        height: 25px;
+        width: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: start;
+        margin-right: 5px;
+       
+    }
+
+    .conteudo{
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+.criarPost{
+
+    header{
+        display: flex;
+        flex-direction: row;
+        align-items: top;
+    }
+
+    .userFoto{
+        width: 35px;
+    }
+
+    textarea{
+        
+        color: white;
+        background: none;
+        border: none;
+    }
+
+    .publicarPostBtn{
+        padding: 5px;
+        background: none;
+        color: white;
+        font-weight: bold;
+        border: none;
+        
+    }
+
+    
+
+}
+.post{
+    display: flex;
+    flex-direction: row;
+
+    .linha1{
+        display: flex;
+        flex-direction: row;
+
+        .userName{
+            margin-right: 10px;
+        }
+
+        .data{
+            color: rgb(164, 164, 164);
+            font-size: 1rem;
+        }
+    }
+    
+
+    
+
+    footer{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: end;
+
+        
+
+        button{
+            text-align: center;
+            width: max-content;
+            color: white;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            padding: 5px 15px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+    }
+}

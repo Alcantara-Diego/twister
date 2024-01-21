@@ -1,0 +1,41 @@
+nav{
+    height: 3vh;
+    padding: 10px;
+    background-color: #1e1e1e;
+    color: white;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 100;
+
+    .logo{
+        font-size: 1.1rem;
+        font-family: sans-serif;
+        font-weight: 700;
+        cursor: default;
+
+        .icone{
+            color: red!important;
+        }
+        .titulo {
+            background: var(--gradientForte);
+            -webkit-background-clip: text;
+            color: transparent;
+          }
+
+    }
+    div{
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 550px){
+    .logo{
+        font-size: 1rem!important;
+    }
+}

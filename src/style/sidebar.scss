@@ -1,0 +1,124 @@
+.sidebar{
+
+    position: relative;
+    height: 90vh;
+    padding: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--corFundo1);
+    border-top: 2px solid var(--gradientLeve);
+
+    list-style: none;
+    z-index: 100;
+
+    li{
+        padding: 5px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        list-style: none;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    .sidebarDesktop{
+        padding: 5px 5px;
+        width: 100%;
+    }
+
+    .sidebarGrupo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin-top: 25px;
+
+        p{
+            text-align: start;
+            width: 100%;
+            margin-bottom: 10px;
+            text-indent: 15px;
+            color: #8d8d8d;
+            font-weight: bold;
+        }
+
+        li{
+            width: 85%;
+            margin-top: 4px;
+            padding: 10px;
+            background-color: #262626;
+            
+
+            border-radius: 8px;
+        }
+    }
+
+    .sidebarMobile{
+        display: none;
+    
+    }
+
+}
+
+@media (max-width: 700px){
+    .sidebar{
+        padding: 7px 0px;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        height: 4vh;
+        
+        flex-direction: row;
+        justify-content: center;
+
+        border-top: 1px solid var(--corOutline);
+        border-right: none;
+        z-index: 10;
+
+        .sidebarGrupo{
+            display: flex;
+            flex-direction: row;
+            width: min-content;
+            
+        }
+
+        
+
+        .sidebarMobile{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            padding-top: 6px;
+
+            width: 100vw;
+            height: fill-available;
+
+            font-size: 1.3rem;
+            z-index: 101;
+
+            
+
+            
+            li{
+                &:hover{
+                    color: black;
+                }
+
+            }
+
+            
+            
+        }
+        .sidebarDesktop{
+            display: none;
+        }
+    }
+}
