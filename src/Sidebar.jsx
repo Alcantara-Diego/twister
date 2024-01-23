@@ -13,9 +13,9 @@ import { BsPersonCircle } from "react-icons/bs";
 function resetTelaPrincipal(){
     console.log("entrou reset")
     const telaFeed = document.getElementById("telaFeed");
-    const telaUsuarioInfo = document.getElementById("telaUsuarioInfo");
+    const telaPerfilInfo = document.getElementById("telaPerfilInfo");
 
-    telaUsuarioInfo.style.display="none";
+    telaPerfilInfo.style.display="none";
     telaFeed.style.display="block";
 }
 
@@ -23,15 +23,15 @@ function toggleTelaPrincipal(trigger){
     console.log(trigger)
 
     let telaFeed = document.getElementById("telaFeed");
-    let telaUsuarioInfo = document.getElementById("telaUsuarioInfo");
+    let telaPerfilInfo = document.getElementById("telaPerfilInfo");
 
 
-    console.log(getComputedStyle(telaUsuarioInfo).display === "none")
+    console.log(getComputedStyle(telaPerfilInfo).display === "none")
 
     switch (trigger) {
-        case "usuario":
-            if(getComputedStyle(telaUsuarioInfo).display === "none"){
-                telaUsuarioInfo.style.display = "block";
+        case "perfil":
+            if(getComputedStyle(telaPerfilInfo).display === "none"){
+                telaPerfilInfo.style.display = "block";
                 telaFeed.style.display = "none";
             } else {
                 resetTelaPrincipal();
@@ -83,7 +83,7 @@ function Sidebar () {
                         Notificações <IoMdNotifications />
                     </li>
                     
-                    <li onClick={()=> toggleTelaPrincipal("usuario")}>
+                    <li onClick={()=> toggleTelaPrincipal("perfil")}>
                         Perfil <BsPersonCircle />
                     </li>
                 
@@ -104,7 +104,7 @@ function Sidebar () {
                 <li>
                     <IoMdNotifications />
                 </li>
-                <li onClick={()=> toggleTelaPrincipal("usuario")}>
+                <li onClick={()=> toggleTelaPrincipal("perfil")}>
                     <BsPersonCircle />
                 </li>
                 

@@ -3,7 +3,7 @@ import './style/main.scss'
 import Nav from "./Nav"
 import Sidebar from "./Sidebar"
 import Feed from './Feed'
-import UsuarioInfo from  './UsuarioInfo'
+import PerfilInfo from  './PerfilInfo'
 function App() {
   
   return (
@@ -12,7 +12,7 @@ function App() {
       <div className="conteudo">
         <Sidebar></Sidebar>
         <Feed></Feed>
-        <UsuarioInfo></UsuarioInfo>
+        <PerfilInfo></PerfilInfo>
       </div>
     </div>
   )
