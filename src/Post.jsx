@@ -8,11 +8,25 @@ import { FaHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 
+import { userInfoDb } from './dbTeste';
+
+
 
 
 function Post(props){
-    return (
 
+
+    function carregarUser(username){
+
+        let userInfo = userInfoDb.filter(users => users.username == username)[0]
+
+        console.log(userInfo);
+
+
+
+    }
+
+    return (
         <span>
             {props.postsInfo.map((info) => (
                 <div className="post postConfigPadrao" key={info.id}>
@@ -20,7 +34,7 @@ function Post(props){
                     <BsPersonCircle className='userFoto'></BsPersonCircle>
                     <header className="conteudo">
                         <span className='linha1'>
-                        <h3 className='userName'>{info.username}</h3>
+                        <h3 className='userName'  onClick={() => carregarUser(info.username)}>{info.username}</h3>
                         <p className='data'>{info.data}</p>
                         </span>
                         <p className='texto'>{info.texto}</p>
