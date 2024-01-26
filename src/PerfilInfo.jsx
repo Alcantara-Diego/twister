@@ -3,14 +3,31 @@ import { BsPersonCircle } from "react-icons/bs";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
-function PerfilInfo(){
+import { carregarUserPosts } from './functions/users';
+import Post from './Post';
 
-    const [posts, setPosts] = useState([]);
 
-    useEffect(()=>{
-        console.log("POOOOOOOOOOOOOOOOOOOOOO")
+function PerfilInfo(props){
 
-    }, [posts]);
+    const [postsInfo, setPostsInfo] = useState([])
+
+    useEffect(() =>{
+
+        if(props.usuario){
+            let posts = carregarUserPosts(props.usuario.username)
+
+            setPostsInfo(posts)
+            
+
+        }
+
+
+        
+    }, [props.usuario])
+
+   
+
+
 
     return (
         <div id="telaPerfilInfo">
@@ -21,7 +38,7 @@ function PerfilInfo(){
 
                 <p id="recadoPerfilDisplay">Dono de tudo, se eu não gostar eu mudo</p>
 
-                <button className="bordaGradient">Editar
+                <button className="bordaGradient">Seguir
                 </button>
             </header>
             
@@ -43,28 +60,8 @@ function PerfilInfo(){
 
             <div className="perfilPosts">
                 <h3>Posts</h3>
-                
-            {/* <div className="post postConfigPadrao">
-                <BsPersonCircle className='userFoto'></BsPersonCircle>
-                <header className="conteudo">
-                    <span className='linha1'>
-                    <h3 className='userName'>User033</h3>
 
-                    
-                    <p className='data'>21/01/2024</p>
-                    </span>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos inventore, cum in doloribus eveniet! Autem, adipisci.</p>
-
-                </header>
-                <footer>
-                    
-                    <button>
-                        <FaRegTrashCan />
-                    </button>
-                </footer>
-                            
-                        
-            </div> */}
+                {postsInfo.length>0? <Post postsInfo={postsInfo}></Post> : <div>nao</div>}
 
 
             </div>

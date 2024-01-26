@@ -12,7 +12,7 @@ function App() {
       <div className="conteudo">
         <Sidebar></Sidebar>
         <Feed></Feed>
-        <PerfilInfo></PerfilInfo>
+        
       </div>
     </div>
   )

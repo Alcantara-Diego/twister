@@ -14,27 +14,16 @@ import { mostrarPerfil } from './functions/users';
 
 
 function Post(props){
-
-
-    function carregarUser(username){
-
-        let userInfo = userInfoDb.filter(users => users.username == username)[0]
-
-        mostrarPerfil(userInfo);
-
-
-
-    }
-
+    
     return (
         <span>
-            {props.postsInfo.map((info) => (
+            {props.postsInfo.slice().reverse().map((info) => (
                 <div className="post postConfigPadrao" key={info.id}>
                 <span className='alinhamento'>
                     <BsPersonCircle className='userFoto'></BsPersonCircle>
                     <header className="conteudo">
                         <span className='linha1'>
-                        <h3 className='userName'  onClick={() => carregarUser(info.username)}>{info.username}</h3>
+                        <h3 className='userName'  onClick={() => props.carregarUsuario(info.username)}>{info.username}</h3>
                         <p className='data'>{info.data}</p>
                         </span>
                         <p className='texto'>{info.texto}</p>
@@ -60,6 +49,7 @@ function Post(props){
                 </footer>
                 </div>
             ))}
+            
     </span>
     )
 }

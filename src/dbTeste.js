@@ -66,6 +66,29 @@ let postsInfo = [
         likes: 11,
         repostado: false,
         curtido: false
+    },
+
+    {
+        id: 7,
+        username: "Diego_Alc",
+        data: "26/01/2024",
+        texto: "Agora tudo aparece no perfil certinho",
+        reposts: 9,
+        comentarios: 29,
+        likes: 203,
+        repostado: false,
+        curtido: true
+    },
+    {
+        id: 8,
+        username: "Diego_Alc",
+        data: "26/01/2024",
+        texto: "Carregar os posts por username da menos problema q por id",
+        reposts: 2,
+        comentarios: 12,
+        likes: 93,
+        repostado: true,
+        curtido: false
     }
 ];
 
@@ -78,7 +101,7 @@ let userInfoDb = [
         sigo: true,
         recado: "Primeiro recado",
         cadastro: "01/01/2024",
-        idPostsCriados: [4]
+        idPostsCriados: [4, 7]
     },
     {
         username: "propsUser",

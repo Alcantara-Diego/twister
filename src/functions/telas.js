@@ -1,16 +1,16 @@
 function resetTelaPrincipal(){
     
-    const telaFeed = document.getElementById("telaFeed");
+    const telaPosts = document.getElementById("telaPosts");
     const telaPerfilInfo = document.getElementById("telaPerfilInfo");
 
     telaPerfilInfo.style.display="none";
-    telaFeed.style.display="block";
+    telaPosts.style.display="block";
 }
 
 function toggleTelaPrincipal(trigger){
     console.log(trigger)
 
-    let telaFeed = document.getElementById("telaFeed");
+    let telaPosts = document.getElementById("telaPosts");
     let telaPerfilInfo = document.getElementById("telaPerfilInfo");
 
 
@@ -20,7 +20,7 @@ function toggleTelaPrincipal(trigger){
         case "perfil":
             if(getComputedStyle(telaPerfilInfo).display === "none"){
                 telaPerfilInfo.style.display = "block";
-                telaFeed.style.display = "none";
+                telaPosts.style.display = "none";
             } else {
                 resetTelaPrincipal();
             }

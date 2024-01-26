@@ -16,28 +16,32 @@ function mostrarPerfil(userArray){
     seguidores.innerText=userArray.seguidores
     cadastro.innerText=userArray.cadastro
     
-
-
-    carregarUserPosts(userArray.idPostsCriados);
     toggleTelaPrincipal("perfil")
 
 }
 
 
-function carregarUserPosts(idArray){
+function carregarUserPosts(nome){
 
-    idArray.forEach(id => {
+
+    let posts = []
+
+    if(nome){
 
         postsInfo.map((post)=>{
-
-            if (post.id === id) {
-                console.log(post)
+    
+            if (post.username == nome) {
+                posts.push(post)
             }    
-
         })
-    });
+
+        return posts;
+
+
+    }
+    
     
 
 }
 
-export {mostrarPerfil}
+export {mostrarPerfil, carregarUserPosts}
