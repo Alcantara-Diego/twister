@@ -77,7 +77,8 @@ let userInfoDb = [
         seguindo: 2,
         sigo: true,
         recado: "Primeiro recado",
-        cadastro: "10/01/2024"
+        cadastro: "01/01/2024",
+        idPostsCriados: [4]
     },
     {
         username: "propsUser",
@@ -85,31 +86,35 @@ let userInfoDb = [
         seguindo: 5,
         sigo: false,
         recado: "Recado de teste",
-        cadastro: "10/01/2024"
+        cadastro: "09/01/2024",
+        idPostsCriados: [1]
     },
     {
         username: "infinity",
         seguidores: 20,
         seguindo: 5,
         sigo: true,
-        recado: "Recado de teste",
-        cadastro: "10/01/2024"
+        recado: "infinity stones",
+        cadastro: "10/01/2024",
+        idPostsCriados: [5, 6]
     },
     {
         username: "User033",
         seguidores: 20,
         seguindo: 5,
         sigo: false,
-        recado: "Recado de teste",
-        cadastro: "10/01/2024"
+        recado: "mensagem do user",
+        cadastro: "04/01/2024",
+        idPostsCriados: [3]
     },
     {
         username: "segundo323",
         seguidores: 20,
         seguindo: 5,
         sigo: false,
-        recado: "Recado de teste",
-        cadastro: "10/01/2024"
+        recado: "Recado do segundo",
+        cadastro: "17/01/2024",
+        idPostsCriados: [2]
     }
 
 ]

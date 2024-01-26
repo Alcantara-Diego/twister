@@ -8,10 +8,7 @@ import { postsInfo } from './dbTeste';
 
 function Feed(){
 
-    useEffect(()=>{
-        console.log(postsInfo)
-
-    }, [])
+    
 
     
 

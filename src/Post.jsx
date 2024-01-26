@@ -9,7 +9,7 @@ import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 
 import { userInfoDb } from './dbTeste';
-
+import { mostrarPerfil } from './functions/users';
 
 
 
@@ -20,7 +20,7 @@ function Post(props){
 
         let userInfo = userInfoDb.filter(users => users.username == username)[0]
 
-        console.log(userInfo);
+        mostrarPerfil(userInfo);
 
 
 

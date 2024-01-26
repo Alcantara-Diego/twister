@@ -1,17 +1,25 @@
 import "./style/perfilInfo.scss"
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegTrashCan } from "react-icons/fa6";
-
+import { useEffect, useState } from "react";
 
 function PerfilInfo(){
+
+    const [posts, setPosts] = useState([]);
+
+    useEffect(()=>{
+        console.log("POOOOOOOOOOOOOOOOOOOOOO")
+
+    }, [posts]);
+
     return (
         <div id="telaPerfilInfo">
             <header className="perfilInfoPrincipal">
                 <BsPersonCircle className="foto"></BsPersonCircle>
-                <h1>Nome de usuário</h1>
+                <h1 id="usernamePerfilDisplay">Nome de usuário</h1>
                 
 
-                <p id="meuRecado">Dono de tudo, se eu não gostar eu mudo</p>
+                <p id="recadoPerfilDisplay">Dono de tudo, se eu não gostar eu mudo</p>
 
                 <button className="bordaGradient">Editar
                 </button>
@@ -21,22 +29,22 @@ function PerfilInfo(){
             <ul className="dados">
                 <div className="seguidores">
                     <li>
-                        <p>Seguidores <span className="dadosContagem">30</span></p>
+                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem">30</span></p>
                     </li>
                     <li>
-                        <p>Seguindo <span className="dadosContagem">15</span></p>
+                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem">15</span></p>
                     </li>
                 </div>
 
                 <li>
-                    <p>Conta criada em <span className="dadosContagem">20/01/2024</span></p>
+                    <p>Conta criada em <span className="dadosContagem" id="cadastroPerfilDisplay">20/01/2024</span></p>
                 </li>
             </ul>
 
             <div className="perfilPosts">
-                <h3>Seus posts</h3>
+                <h3>Posts</h3>
                 
-            <div className="post postConfigPadrao">
+            {/* <div className="post postConfigPadrao">
                 <BsPersonCircle className='userFoto'></BsPersonCircle>
                 <header className="conteudo">
                     <span className='linha1'>
@@ -56,7 +64,9 @@ function PerfilInfo(){
                 </footer>
                             
                         
-            </div>
+            </div> */}
+
+
             </div>
 
 

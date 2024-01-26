@@ -1,52 +1,12 @@
 import './style/sidebar.scss'
-
 import { FaSearch } from "react-icons/fa";
 import { IoHomeSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa6";
-
 import { IoIosAddCircle } from "react-icons/io";
 import { IoMdNotifications } from "react-icons/io";
-
-
 import { BsPersonCircle } from "react-icons/bs";
 
-function resetTelaPrincipal(){
-    console.log("entrou reset")
-    const telaFeed = document.getElementById("telaFeed");
-    const telaPerfilInfo = document.getElementById("telaPerfilInfo");
-
-    telaPerfilInfo.style.display="none";
-    telaFeed.style.display="block";
-}
-
-function toggleTelaPrincipal(trigger){
-    console.log(trigger)
-
-    let telaFeed = document.getElementById("telaFeed");
-    let telaPerfilInfo = document.getElementById("telaPerfilInfo");
-
-
-    console.log(getComputedStyle(telaPerfilInfo).display === "none")
-
-    switch (trigger) {
-        case "perfil":
-            if(getComputedStyle(telaPerfilInfo).display === "none"){
-                telaPerfilInfo.style.display = "block";
-                telaFeed.style.display = "none";
-            } else {
-                resetTelaPrincipal();
-            }
-           
-
-            
-            break;
-    
-        default:
-            break;
-    }
-
-    
-}
+import { resetTelaPrincipal, toggleTelaPrincipal } from './functions/telas';
 
 
 function Sidebar () {
