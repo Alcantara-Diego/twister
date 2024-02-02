@@ -95,6 +95,15 @@ let postsInfo = [
 
 let userInfoDb = [
     {
+        username: "Você",
+        seguidores: 94,
+        seguindo: 11,
+        sigo: true,
+        recado: "Personalizado",
+        cadastro: "01/02/2024",
+        idPostsCriados: []
+    },
+    {
         username: "Diego_Alc",
         seguidores: 50,
         seguindo: 2,
@@ -141,4 +150,7 @@ let userInfoDb = [
     }
 
 ]
-export { postsInfo, userInfoDb };
+
+let donoPerfil = userInfoDb[0]
+
+export { postsInfo, userInfoDb, donoPerfil };
