@@ -1,6 +1,6 @@
 let postsInfo = [
     {
-        id: 1,
+        id: "1",
         username: "propsUser",
         data: "22/01/2024",
         texto: "esse é o primeiro texto personalizado do app",
@@ -12,7 +12,7 @@ let postsInfo = [
     },
 
     {
-        id: 2,
+        id: "2",
         username: "segundo323",
         data: "10/01/2024",
         texto: "esse é o segundo texto personalizado do app",
@@ -23,7 +23,7 @@ let postsInfo = [
         curtido: false
     },
     {
-        id: 3,
+        id: "3",
         username: "User033",
         data: "10/01/2024",
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos inventore, cum in doloribus eveniet! Autem, adipisci.",
@@ -35,7 +35,7 @@ let postsInfo = [
     },
 
     {
-        id: 4,
+        id: "4",
         username: "Diego_Alc",
         data: "16/01/2024",
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -46,7 +46,7 @@ let postsInfo = [
         curtido: true
     },
     {
-        id: 5,
+        id: "5",
         username: "infinity",
         data: "12/01/2024",
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos.",
@@ -57,7 +57,7 @@ let postsInfo = [
         curtido: false
     },
     {
-        id: 6,
+        id: "6",
         username: "infinity",
         data: "12/01/2024",
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos.",
@@ -69,7 +69,7 @@ let postsInfo = [
     },
 
     {
-        id: 7,
+        id: "7",
         username: "Diego_Alc",
         data: "26/01/2024",
         texto: "Agora tudo aparece no perfil certinho",
@@ -80,7 +80,7 @@ let postsInfo = [
         curtido: true
     },
     {
-        id: 8,
+        id: "8",
         username: "Diego_Alc",
         data: "26/01/2024",
         texto: "Carregar os posts por username da menos problema q por id",

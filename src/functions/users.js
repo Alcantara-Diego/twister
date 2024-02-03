@@ -1,22 +1,25 @@
 import { toggleTelaPrincipal } from './telas';
 import { postsInfo } from '../dbTeste';
 
-function mostrarPerfil(userArray){
+function mostrarPerfil(userObj){
 
-    console.log(userArray);
+    console.log(userObj);
     let nome = document.getElementById("usernamePerfilDisplay");
     let recado = document.getElementById("recadoPerfilDisplay");
     let seguindo = document.getElementById("seguindoPerfilDisplay");
     let seguidores = document.getElementById("seguidoresPerfilDisplay");
     let cadastro = document.getElementById("cadastroPerfilDisplay");
 
-    nome.innerText=userArray.username
-    recado.innerText=userArray.recado
-    seguindo.innerText=userArray.seguindo
-    seguidores.innerText=userArray.seguidores
-    cadastro.innerText=userArray.cadastro
+    nome.innerText=userObj.username
+    recado.innerText=userObj.recado
+    seguindo.innerText=userObj.seguindo
+    seguidores.innerText=userObj.seguidores
+    cadastro.innerText=userObj.cadastro
     
+    let posts = carregarUserPosts(userObj.username)
     toggleTelaPrincipal("perfil")
+
+    return posts
 
 }
 

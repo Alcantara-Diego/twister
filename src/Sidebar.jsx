@@ -7,9 +7,20 @@ import { IoMdNotifications } from "react-icons/io";
 import { BsPersonCircle } from "react-icons/bs";
 
 import { resetTelaPrincipal, toggleTelaPrincipal } from './functions/telas';
+import { donoPerfil } from './dbTeste';
+import { mostrarPerfil } from './functions/users';
 
 
-function Sidebar () {
+function Sidebar (props) {
+
+    function atualizarPerfil(){
+
+        // mostrar perfil atualiza as informações com o perfil do usuário e retorna os posts que o usuário criou
+        const posts = mostrarPerfil(donoPerfil)
+        console.log("dfv")
+        props.setCarregarDonoDoPerfil(posts)
+
+    }
     return (
         <ul className="sidebar bordaGradient">
             
@@ -43,7 +54,7 @@ function Sidebar () {
                         Notificações <IoMdNotifications />
                     </li>
                     
-                    <li onClick={()=> toggleTelaPrincipal("perfil")}>
+                    <li onClick={()=> atualizarPerfil()}>
                         Perfil <BsPersonCircle />
                     </li>
                 
@@ -64,7 +75,7 @@ function Sidebar () {
                 <li>
                     <IoMdNotifications />
                 </li>
-                <li onClick={()=> toggleTelaPrincipal("perfil")}>
+                <li onClick={()=> atualizarPerfil()}>
                     <BsPersonCircle />
                 </li>
                 

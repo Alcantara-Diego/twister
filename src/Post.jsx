@@ -111,7 +111,7 @@ function Post(props){
 Post.propTypes = {
     postsInfo: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         data: PropTypes.string.isRequired,
         texto: PropTypes.string.isRequired,

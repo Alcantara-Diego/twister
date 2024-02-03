@@ -3,29 +3,11 @@ import { BsPersonCircle } from "react-icons/bs";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
-import { carregarUserPosts } from './functions/users';
+import { carregarUserPosts, mostrarPerfil } from './functions/users';
 import Post from './Post';
 
 
-function PerfilInfo(props){
-
-    const [postsInfo, setPostsInfo] = useState([])
-
-    useEffect(() =>{
-
-        if(props.usuario){
-            let posts = carregarUserPosts(props.usuario.username)
-
-            setPostsInfo(posts)
-            
-
-        }
-
-
-        
-    }, [props.usuario])
-
-   
+function PerfilInfo(props){ 
 
 
 
@@ -61,7 +43,7 @@ function PerfilInfo(props){
             <div className="perfilPosts">
                 <h3>Posts</h3>
 
-                {postsInfo.length>0? <Post postsInfo={postsInfo}></Post> : <div>nao</div>}
+                {props.userPosts.length>0? <Post postsInfo={props.userPosts}></Post> : <div>Usuário ainda não publicou nenhum post</div>}
 
 
             </div>
