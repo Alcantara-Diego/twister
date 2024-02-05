@@ -3,8 +3,7 @@ import { BiSolidPencil } from "react-icons/bi";
 
 function NovoPost(props){
 
-    const gerarPost =() => {
-        console.log("eon")        
+    const gerarPost =() => {       
         let data = salvarData();
         props.publicarPost(data);
     }

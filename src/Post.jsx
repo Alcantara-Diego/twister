@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-
 import './style/post.scss'
+import { toggleTelaPrincipal } from './functions/telas';
 
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
@@ -50,6 +50,15 @@ function Post(props){
         setUpdate(!update)
         
     }
+
+    function abrirPost(postId){
+
+        console.log(postId)
+        toggleTelaPrincipal("postAberto");
+
+    }
+
+    
     
     return (
         <span>
@@ -58,14 +67,17 @@ function Post(props){
 
                 <div className="post postConfigPadrao" key={info.id}>
 
-                <span className='alinhamento'>
+                <span className='alinhamento' onClick={() => {abrirPost(info.id)}}>
                     <BsPersonCircle className='userFoto'></BsPersonCircle>
 
                     <header className="conteudo">
 
                         <span className='linha1'>
 
-                        <h3 className='userName'  onClick={() => props.carregarUsuario(info.username)}>{info.username}</h3>
+                        {/* <h3 className='userName'  onClick={() => props.carregarUsuario(info.username)}>{info.username}</h3> */}
+
+                        <h3 className='userName'>{info.username}</h3>
+
 
                         <p className='data'>{info.data}</p>
                         </span>

@@ -1,8 +1,12 @@
 main{
     height: 90vh;
-    padding: 10px;
+    // padding: 10px;
     overflow: auto;
    
+}
+
+#telaPosts{
+    display: none;
 }
 
 .postConfigPadrao{

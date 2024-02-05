@@ -3,6 +3,7 @@ import './style/feed.scss'
 import Post from './Post';
 import NovoPost from './NovoPost'
 import PerfilInfo from  './PerfilInfo'
+import PostAberto from './PostAberto';
 
 import { userInfoDb } from './dbTeste';
 import { postsInfo, donoPerfil } from './dbTeste';
@@ -85,6 +86,8 @@ function Feed(props){
             </span>
 
             <PerfilInfo usuario={usuarioCarregado} carregarUsuario={carregarUsuario} userPosts={userPosts}></PerfilInfo>
+
+            <PostAberto></PostAberto>
 
 
 

@@ -9,11 +9,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    &:hover{
+        background-color: #2e2e2e;
+    }
 
     .alinhamento{
         display: flex;
         flex-direction: row;
         align-items: flex-start;
+        min-width: 85%;
     }
 
     header{

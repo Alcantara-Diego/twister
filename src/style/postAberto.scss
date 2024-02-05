@@ -1,0 +1,78 @@
+.voltarFeed{
+    position: sticky;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: #1e1e1e;
+    height: 2vh;
+    border-bottom: 1px solid gray;
+
+    .seta{
+        cursor: pointer;
+    }
+
+    p{
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+}
+
+.inputContainer{
+
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    background-color: #1e1e1e;
+    border: 1px solid gray;
+
+
+    input{
+    // height: 100%;
+    width: 80%;
+    margin-bottom: 5px;
+    padding: 0px;
+    color: white;
+    font-weight: bold;
+    background-color: #1e1e1e; 
+    border: none;
+
+    }
+
+    button{
+        
+        background: none;
+        color: white;
+        padding: 10px;
+        font-weight: bold;
+    }
+    
+
+}
+
+
+#telaPostAberto{
+    position: relative;
+    width: fit-content;
+    // border: 1px solid yellow;
+
+    height: inherit;
+  
+    display: block;
+    padding: 0px;
+    // display: none;
+    background-color: rgb(37, 37, 37);
+    color: white;
+
+    .postAberto{
+        border-bottom: 1px solid white;
+    }
+}
+
