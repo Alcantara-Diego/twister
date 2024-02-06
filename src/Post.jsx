@@ -19,6 +19,8 @@ function Post(props){
     const [update, setUpdate] = useState(false)
 
     function alterarLikeRepost(id, btn){
+        
+        
 
         let index = postsInfo.findIndex(post => post.id == id)
 
@@ -51,15 +53,9 @@ function Post(props){
         
     }
 
-    function abrirPost(postId){
 
-        console.log(postId)
-        toggleTelaPrincipal("postAberto");
 
-    }
 
-    
-    
     return (
         <span>
             {props.postsInfo.slice().reverse().map((info) => (
@@ -67,14 +63,13 @@ function Post(props){
 
                 <div className="post postConfigPadrao" key={info.id}>
 
-                <span className='alinhamento' onClick={() => {abrirPost(info.id)}}>
+                <span className='alinhamento'  onClick={info.comentariosArray? () => {props.abrirPost(info.id)}: null}>
                     <BsPersonCircle className='userFoto'></BsPersonCircle>
 
                     <header className="conteudo">
 
                         <span className='linha1'>
 
-                        {/* <h3 className='userName'  onClick={() => props.carregarUsuario(info.username)}>{info.username}</h3> */}
 
                         <h3 className='userName'>{info.username}</h3>
 
@@ -89,26 +84,36 @@ function Post(props){
 
 
                 <footer>
-                    {/* REPOST BTN */}
-                    <button className={info.repostado? "postRepostado repostBtn" : "repostBtn"} onClick={() => alterarLikeRepost(info.id, "repost")}>
 
-                        <FaRetweet />{info.reposts}
+        
+                    {info.comentariosArray? 
+                            <button className={info.repostado? "postRepostado repostBtn" : "repostBtn"} onClick={() => alterarLikeRepost(info.id, "repost")}>
+                            <FaRetweet />{info.reposts}
+                            </button>       
+                    : null}
 
-                    </button>
+                    {info.comentariosArray? 
+                        <button>
+                        <FaRegComment />{info.comentariosArray.length}
+                        </button>
+                : null}
 
-                    {/* COMENTARIO BTN */}
-                    <button>
-                        <FaRegComment />{info.comentarios}
-                    </button>
 
-                    {/* LIKE BTN */}
+                {info.comentariosArray? 
                     <button className={info.curtido? "postCurtido likeBtn" : "likeBtn"} id={`likeBtn${info.id}`} onClick={() => alterarLikeRepost(info.id, "like")}>
 
                         {info.curtido ? <FaHeart /> : <FaRegHeart />}
                         {info.likes}
 
-                    </button>
+                                
+                    </button>    
+            
+                : null}
 
+               
+
+
+        
                        
 
                     

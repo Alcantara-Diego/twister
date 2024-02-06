@@ -8,7 +8,25 @@ let postsInfo = [
         comentarios: 3,
         likes: 45,
         repostado: false,
-        curtido: true
+        curtido: true,
+        comentariosArray: [
+            {
+                id: "1.1",
+                username: "propsUser",
+                data: "22/01/2024",
+                texto: "comentario numero 1",
+                likes: 5,
+                curtido: false,
+            },
+            {
+                id: "1.2",
+                username: "infinity",
+                data: "22/01/2024",
+                texto: "comentario numero 2",
+                likes: 0,
+                curtido: true,
+            }
+        ]
     },
 
     {
@@ -20,7 +38,8 @@ let postsInfo = [
         comentarios: 9,
         likes: 14,
         repostado: false,
-        curtido: false
+        curtido: false,
+        comentariosArray: []
     },
     {
         id: "3",
@@ -31,7 +50,8 @@ let postsInfo = [
         comentarios: 11,
         likes: 90,
         repostado: false,
-        curtido: false
+        curtido: false,
+        comentariosArray: []
     },
 
     {
@@ -43,7 +63,17 @@ let postsInfo = [
         comentarios: 17,
         likes: 126,
         repostado: true,
-        curtido: true
+        curtido: true,
+        comentariosArray: [
+            {
+                id: "4.1",
+                username: "infinity",
+                data: "22/01/2024",
+                texto: "esse só 1",
+                likes: 0,
+                curtido: true,
+            }
+        ]
     },
     {
         id: "5",
@@ -54,7 +84,25 @@ let postsInfo = [
         comentarios: 13,
         likes: 11,
         repostado: false,
-        curtido: false
+        curtido: false,
+        comentariosArray: [
+            {
+                id: "5.1",
+                username: "propsUser",
+                data: "22/01/2024",
+                texto: "comentario numero 1",
+                likes: 5,
+                curtido: false,
+            },
+            {
+                id: "5.2",
+                username: "infinity",
+                data: "22/01/2024",
+                texto: "comentario numero 2",
+                likes: 0,
+                curtido: true,
+            }
+        ]
     },
     {
         id: "6",
@@ -65,7 +113,8 @@ let postsInfo = [
         comentarios: 13,
         likes: 11,
         repostado: false,
-        curtido: false
+        curtido: false,
+        comentariosArray: []
     },
 
     {
@@ -77,7 +126,8 @@ let postsInfo = [
         comentarios: 29,
         likes: 203,
         repostado: false,
-        curtido: true
+        curtido: true,
+        comentariosArray: []
     },
     {
         id: "8",
@@ -88,7 +138,33 @@ let postsInfo = [
         comentarios: 12,
         likes: 93,
         repostado: true,
-        curtido: false
+        curtido: false,
+        comentariosArray: [
+            {
+                id: "8.1",
+                username: "propsUser",
+                data: "22/01/2024",
+                texto: "comentario numero 1",
+                likes: 5,
+                curtido: false,
+            },
+            {
+                id: "8.2",
+                username: "infinity",
+                data: "22/01/2024",
+                texto: "comentario numero 2",
+                likes: 0,
+                curtido: true,
+            },
+            {
+                id: "8.3",
+                username: "infinity",
+                data: "20/01/2024",
+                texto: "esse tem até 3",
+                likes: 5,
+                curtido: false,
+            }
+        ]
     }
 ];
 

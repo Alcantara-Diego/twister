@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 import { mostrarPerfil } from './functions/users';
+import { toggleTelaPrincipal } from './functions/telas';
 
 function Feed(props){
 
@@ -19,6 +20,10 @@ function Feed(props){
     // Informações do usuário apresentado no perfilInfo.jsx
     const [usuarioCarregado, setUsuarioCarregado] = useState(null);
     const [userPosts, setUserPosts] = useState([])
+
+    const [postAbertoInfo, setPostAbertoInfo] = useState('');
+
+
 
     // gerar os posts do dono do perfil em perfilInfo.jsx se clicar no botão de perfil na sidebar
     useEffect(() =>{
@@ -31,8 +36,20 @@ function Feed(props){
 
         let posts = mostrarPerfil(usuarioInfo)
     
+        // info do usuario puxado
         setUserPosts(posts)
         setUsuarioCarregado(usuarioInfo);
+    }
+
+    const abrirPost = (postId) =>{
+
+        console.log(postId)
+        const postDetalhes = postsInfo.find(post => post.id == postId)
+
+        toggleTelaPrincipal("postAberto")
+        setPostAbertoInfo(postDetalhes)
+
+        
     }
 
     const publicarPost = (data) =>{
@@ -82,12 +99,13 @@ function Feed(props){
                 <NovoPost publicarPost={publicarPost}></NovoPost>
                 
 
-                <Post postsInfo={postsInfo} carregarUsuario={carregarUsuario}></Post>
+                <Post postsInfo={postsInfo} 
+                abrirPost={abrirPost} carregarUsuario={carregarUsuario}></Post>
             </span>
 
             <PerfilInfo usuario={usuarioCarregado} carregarUsuario={carregarUsuario} userPosts={userPosts}></PerfilInfo>
 
-            <PostAberto></PostAberto>
+            <PostAberto postAbertoInfo={postAbertoInfo}></PostAberto>
 
 
 

@@ -17,7 +17,6 @@ function Sidebar (props) {
 
         // mostrar perfil atualiza as informações com o perfil do usuário e retorna os posts que o usuário criou
         const posts = mostrarPerfil(donoPerfil)
-        console.log("dfv")
         props.setCarregarDonoDoPerfil(posts)
 
     }

@@ -1,6 +1,6 @@
 import "./style/postAberto.scss"
 import { resetTelaPrincipal } from "./functions/telas";
-
+import Post from "./Post";
 import { FaArrowLeft } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
@@ -8,206 +8,84 @@ import { FaHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 
-import { IoSendOutline } from "react-icons/io5";
 
 
-function PostAberto(){
+function PostAberto(props){
+
+   console.log(props.postAbertoInfo.comentariosArray? "tem" : "nao")
+
+   let postsInfo = props.postAbertoInfo.comentariosArray
+   console.log(postsInfo)
 
     return (
+
         <div id="telaPostAberto">
 
-        <div className="voltarFeed">
-            <FaArrowLeft className="seta" onClick={() =>{resetTelaPrincipal()}}/>
-            <p>Voltar para o feed</p>
-        </div>
+            <div className="voltarFeed">
+                <FaArrowLeft className="seta" onClick={() =>{resetTelaPrincipal()}}/>
+                <p>Voltar para o feed</p>
+            </div>
 
-        
+            {props.postAbertoInfo? <div className="post postConfigPadrao postAberto">
 
-        <div className="post postConfigPadrao postAberto">
+<span className='alinhamento'>
+    <BsPersonCircle className='userFoto'></BsPersonCircle>
 
-            <span className='alinhamento'>
-                <BsPersonCircle className='userFoto'></BsPersonCircle>
+    <header className="conteudo">
 
-                <header className="conteudo">
+        <span className='linha1'>
 
-                    <span className='linha1'>
+        <h3 className='userName'>{props.postAbertoInfo.username}</h3>
 
-                    <h3 className='userName'>user044</h3>
-
-                    <p className='data'>34/23/23</p>
-                    </span>
-                    <p className='texto'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus consequatur, fugit alias debitis commodi incidunt expedita libero asperiores fuga harum cupiditate quisquam reprehenderit omnis sed aspernatur mollitia suscipit sunt ratione?</p>
-
-                </header>
-
-            </span>
-
-
-            <footer>
-                {/* REPOST BTN */}
-                <button className="postRepostado repostBtn">
-
-                    <FaRetweet />4
-
-                </button>
-
-                {/* COMENTARIO BTN */}
-                {/* <button>
-                    <FaRegComment />4
-                </button> */}
-
-                {/* LIKE BTN */}
-                <button className="postCurtido likeBtn">
-
-                    <FaHeart />
-                    
-                    77
-
-                </button>
-
-                    
-
-                
-            </footer>
-        </div>
-
-        <h4>14 Comentários</h4>
-
-
-        <div className="post postConfigPadrao">
-
-        <span className='alinhamento'>
-            <BsPersonCircle className='userFoto'></BsPersonCircle>
-
-            <header className="conteudo">
-
-                <span className='linha1'>
-
-                <h3 className='userName'>user044</h3>
-
-                <p className='data'>34/23/23</p>
-                </span>
-                <p className='texto'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus consequatur, fugit alias debitis commodi incidunt expedita libero asperiores fuga harum cupiditate quisquam reprehenderit omnis sed aspernatur mollitia suscipit sunt ratione?</p>
-
-            </header>
-
+        <p className='data'>{props.postAbertoInfo.data}</p>
         </span>
+        <p className='texto'>{props.postAbertoInfo.texto}</p>
+
+    </header>
+
+</span>
 
 
-        <footer>
-            {/* REPOST BTN */}
-            <button className="postRepostado repostBtn">
+<footer>
+    
+    {/* REPOST BTN */}
+    <button className="postRepostado repostBtn">
 
-                <FaRetweet />4
+        <FaRetweet />
+        {props.postAbertoInfo.reposts}
 
-            </button>
-
-        
-
-            {/* LIKE BTN */}
-            <button className="postCurtido likeBtn">
-
-                <FaHeart />
-                
-                77
-
-            </button>
-
-                
-
-            
-        </footer>
-        </div>
-
-        <div className="post postConfigPadrao">
-
-        <span className='alinhamento'>
-            <BsPersonCircle className='userFoto'></BsPersonCircle>
-
-            <header className="conteudo">
-
-                <span className='linha1'>
-
-                <h3 className='userName'>user044</h3>
-
-                <p className='data'>34/23/23</p>
-                </span>
-                <p className='texto'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus consequatur, fugit alias debitis commodi incidunt expedita libero asperiores fuga harum cupiditate quisquam reprehenderit omnis sed aspernatur mollitia suscipit sunt ratione?</p>
-
-            </header>
-
-        </span>
+    </button>
 
 
-        <footer>
-            {/* REPOST BTN */}
-            <button className="postRepostado repostBtn">
+    {/* LIKE BTN */}
+    <button className="postCurtido likeBtn">
 
-                <FaRetweet />4
+        <FaHeart />
+        {props.postAbertoInfo.likes}
 
-            </button>
+    </button>
 
         
 
-            {/* LIKE BTN */}
-            <button className="postCurtido likeBtn">
-
-                <FaHeart />
-                
-                77
-
-            </button>
-
-                
-
-            
-        </footer>
-        </div>
-
-        <div className="post postConfigPadrao">
-
-        <span className='alinhamento'>
-            <BsPersonCircle className='userFoto'></BsPersonCircle>
-
-            <header className="conteudo">
-
-                <span className='linha1'>
-
-                <h3 className='userName'>user044</h3>
-
-                <p className='data'>34/23/23</p>
-                </span>
-                <p className='texto'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus consequatur, fugit alias debitis commodi incidunt expedita libero asperiores fuga harum cupiditate quisquam reprehenderit omnis sed aspernatur mollitia suscipit sunt ratione?</p>
-
-            </header>
-
-        </span>
-
-
-        <footer>
-            {/* REPOST BTN */}
-            <button className="postRepostado repostBtn">
-
-                <FaRetweet />4
-
-            </button>
+    
+</footer>
+</div>: <div>Post não carregado</div>}
 
         
 
-            {/* LIKE BTN */}
-            <button className="postCurtido likeBtn">
+        
 
-                <FaHeart />
-                
-                77
+        
 
-            </button>
+        <h4>{props.postAbertoInfo? props.postAbertoInfo.comentariosArray.length : "0"} Comentários</h4>
 
-                
+        {props.postAbertoInfo? <Post postsInfo={postsInfo}></Post> : ""}
+        
 
-            
-        </footer>
-        </div>
+
+
+
+
 
         <div className="inputContainer">
 
