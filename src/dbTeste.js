@@ -1,4 +1,4 @@
-let postsInfo = [
+let postsInfoDb = [
     {
         id: "1",
         username: "propsUser",
@@ -6,7 +6,8 @@ let postsInfo = [
         texto: "esse é o primeiro texto personalizado do app",
         reposts: 7,
         comentarios: 3,
-        likes: 45,
+        // likes: 45,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: false,
         curtido: true,
         comentariosArray: [
@@ -15,7 +16,7 @@ let postsInfo = [
                 username: "propsUser",
                 data: "22/01/2024",
                 texto: "comentario numero 1",
-                likes: 5,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: false,
             },
             {
@@ -23,7 +24,7 @@ let postsInfo = [
                 username: "infinity",
                 data: "22/01/2024",
                 texto: "comentario numero 2",
-                likes: 0,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: true,
             }
         ]
@@ -36,7 +37,7 @@ let postsInfo = [
         texto: "esse é o segundo texto personalizado do app",
         reposts: 2,
         comentarios: 9,
-        likes: 14,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: false,
         curtido: false,
         comentariosArray: []
@@ -48,7 +49,7 @@ let postsInfo = [
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos inventore, cum in doloribus eveniet! Autem, adipisci.",
         reposts: 5,
         comentarios: 11,
-        likes: 90,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: false,
         curtido: false,
         comentariosArray: []
@@ -61,7 +62,7 @@ let postsInfo = [
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         reposts: 1,
         comentarios: 17,
-        likes: 126,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: true,
         curtido: true,
         comentariosArray: [
@@ -70,7 +71,7 @@ let postsInfo = [
                 username: "infinity",
                 data: "22/01/2024",
                 texto: "esse só 1",
-                likes: 0,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: true,
             }
         ]
@@ -82,7 +83,7 @@ let postsInfo = [
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos.",
         reposts: 1,
         comentarios: 13,
-        likes: 11,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: false,
         curtido: false,
         comentariosArray: [
@@ -91,7 +92,7 @@ let postsInfo = [
                 username: "propsUser",
                 data: "22/01/2024",
                 texto: "comentario numero 1",
-                likes: 5,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: false,
             },
             {
@@ -99,7 +100,7 @@ let postsInfo = [
                 username: "infinity",
                 data: "22/01/2024",
                 texto: "comentario numero 2",
-                likes: 0,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: true,
             }
         ]
@@ -111,7 +112,7 @@ let postsInfo = [
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos.",
         reposts: 1,
         comentarios: 13,
-        likes: 11,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: false,
         curtido: false,
         comentariosArray: []
@@ -124,7 +125,7 @@ let postsInfo = [
         texto: "Agora tudo aparece no perfil certinho",
         reposts: 9,
         comentarios: 29,
-        likes: 203,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: false,
         curtido: true,
         comentariosArray: []
@@ -136,7 +137,7 @@ let postsInfo = [
         texto: "Carregar os posts por username da menos problema q por id",
         reposts: 2,
         comentarios: 12,
-        likes: 93,
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: true,
         curtido: false,
         comentariosArray: [
@@ -145,7 +146,7 @@ let postsInfo = [
                 username: "propsUser",
                 data: "22/01/2024",
                 texto: "comentario numero 1",
-                likes: 5,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: false,
             },
             {
@@ -153,7 +154,7 @@ let postsInfo = [
                 username: "infinity",
                 data: "22/01/2024",
                 texto: "comentario numero 2",
-                likes: 0,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: true,
             },
             {
@@ -161,7 +162,7 @@ let postsInfo = [
                 username: "infinity",
                 data: "20/01/2024",
                 texto: "esse tem até 3",
-                likes: 5,
+                likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
                 curtido: false,
             }
         ]
@@ -229,4 +230,4 @@ let userInfoDb = [
 
 let donoPerfil = userInfoDb[0]
 
-export { postsInfo, userInfoDb, donoPerfil };
+export { postsInfoDb, userInfoDb, donoPerfil };

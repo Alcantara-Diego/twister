@@ -8,7 +8,7 @@ import { FaHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 
-import { postsInfo } from './dbTeste';
+import { postsInfoDb, donoPerfil } from './dbTeste';
 import { mostrarPerfil } from './functions/users';
 import { useState } from 'react';
 
@@ -22,30 +22,83 @@ function Post(props){
         
         
 
-        let index = postsInfo.findIndex(post => post.id == id)
+        // Se o comentario for um subcomentario de outro post...
+        if(props.comentarioPai){
 
-        switch (btn) {
-            case "like":
-                // Aumentar ou diminuir o número de likes baseado se o usuário já curtiou ou não
-                postsInfo[index].curtido? postsInfo[index].likes-- : postsInfo[index].likes++
+            // Achar o index do post dentro dos subcomentarios do post principal
+            let index = props.comentarioPai.comentariosArray.findIndex(post => post.id == id)
+            
 
-                // Curtir o post se não tava curtido e vice-versa
-                postsInfo[index].curtido = !postsInfo[index].curtido
-                
-                break;
 
-            case "repost":
-                // Aumentar ou diminuir o número de repost baseado se o usuário já repostou ou não
-                postsInfo[index].repostado? postsInfo[index].reposts-- : postsInfo[index].reposts++
+            // invés de chamar o props tem que chamar a DB direto para salvar a troca
+            let usuarioAtual = donoPerfil.username
 
-                // Repostar se não tava repostado e vice-versa
-                postsInfo[index].repostado = !postsInfo[index].repostado
+            let acharUsuarioNosLikes = props.comentarioPai.comentariosArray[index].likes.indexOf(usuarioAtual)
 
-                break
-        
-            default:
-                break;
+                    if(acharUsuarioNosLikes == -1){
+                        props.comentarioPai.comentariosArray[index].likes.push(usuarioAtual)
+
+
+                    }else{
+                        props.comentarioPai.comentariosArray[index].likes.splice(acharUsuarioNosLikes, 1)
+
+                        
+
+                    }
+
+                    console.log(postsInfoDb[index].likes)
+
+                    
+
+
+            
+            
+
+
         }
+        else{
+
+            let index = postsInfoDb.findIndex(post => post.id == id)
+
+            switch (btn) {
+                case "like":
+
+                    let usuarioAtual = donoPerfil.username
+
+                    let acharUsuarioNosLikes = postsInfoDb[index].likes.indexOf(usuarioAtual)
+
+                    if(acharUsuarioNosLikes == -1){
+                        postsInfoDb[index].likes.push(usuarioAtual)
+
+                    }else{
+                        postsInfoDb[index].likes.splice(acharUsuarioNosLikes, 1)
+                    }
+                    
+
+                    console.log(postsInfoDb[index].likes)
+                    // Aumentar ou diminuir o número de likes baseado se o usuário já curtiou ou não
+                    // postsInfoDb[index].curtido? postsInfoDb[index].likes-- : postsInfoDb[index].likes++
+
+                    // Curtir o post se não tava curtido e vice-versa
+                    // postsInfoDb[index].curtido = !postsInfoDb[index].curtido
+                    
+                    break;
+
+                case "repost":
+                    // Aumentar ou diminuir o número de repost baseado se o usuário já repostou ou não
+                    postsInfoDb[index].repostado? postsInfoDb[index].reposts-- : postsInfoDb[index].reposts++
+
+                    // Repostar se não tava repostado e vice-versa
+                    postsInfoDb[index].repostado = !postsInfoDb[index].repostado
+
+                    break
+            
+                default:
+                    break;
+            }
+
+        }
+        
 
         
         // Atualizar o componente
@@ -99,7 +152,7 @@ function Post(props){
                 : null}
 
 
-                {info.comentariosArray? 
+                {/* {info.comentariosArray? 
                     <button className={info.curtido? "postCurtido likeBtn" : "likeBtn"} id={`likeBtn${info.id}`} onClick={() => alterarLikeRepost(info.id, "like")}>
 
                         {info.curtido ? <FaHeart /> : <FaRegHeart />}
@@ -108,7 +161,15 @@ function Post(props){
                                 
                     </button>    
             
-                : null}
+                : "null"} */}
+
+<button className={info.curtido? "postCurtido likeBtn" : "likeBtn"} id={`likeBtn${info.id}`} onClick={() => alterarLikeRepost(info.id, "like")}>
+
+{info.curtido ? <FaHeart /> : <FaRegHeart />}
+{info.likes.length}
+
+        
+</button> 
 
                
 

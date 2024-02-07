@@ -1,5 +1,5 @@
 import { toggleTelaPrincipal } from './telas';
-import { postsInfo } from '../dbTeste';
+import { postsInfoDb } from '../dbTeste';
 
 function mostrarPerfil(userObj){
 
@@ -31,7 +31,7 @@ function carregarUserPosts(nome){
 
     if(nome){
 
-        postsInfo.map((post)=>{
+        postsInfoDb.map((post)=>{
     
             if (post.username == nome) {
                 posts.push(post)

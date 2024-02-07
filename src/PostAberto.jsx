@@ -15,6 +15,7 @@ function PostAberto(props){
    console.log(props.postAbertoInfo.comentariosArray? "tem" : "nao")
 
    let postsInfo = props.postAbertoInfo.comentariosArray
+   let comentarioPai = props.postAbertoInfo
    console.log(postsInfo)
 
     return (
@@ -79,7 +80,7 @@ function PostAberto(props){
 
         <h4>{props.postAbertoInfo? props.postAbertoInfo.comentariosArray.length : "0"} Comentários</h4>
 
-        {props.postAbertoInfo? <Post postsInfo={postsInfo}></Post> : ""}
+        {props.postAbertoInfo? <Post postsInfo={postsInfo} comentarioPai={comentarioPai}></Post> : ""}
         
 
 

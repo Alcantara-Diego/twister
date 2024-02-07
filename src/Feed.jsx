@@ -6,7 +6,7 @@ import PerfilInfo from  './PerfilInfo'
 import PostAberto from './PostAberto';
 
 import { userInfoDb } from './dbTeste';
-import { postsInfo, donoPerfil } from './dbTeste';
+import { postsInfoDb, donoPerfil } from './dbTeste';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -44,7 +44,7 @@ function Feed(props){
     const abrirPost = (postId) =>{
 
         console.log(postId)
-        const postDetalhes = postsInfo.find(post => post.id == postId)
+        const postDetalhes = postsInfoDb.find(post => post.id == postId)
 
         toggleTelaPrincipal("postAberto")
         setPostAbertoInfo(postDetalhes)
@@ -99,7 +99,7 @@ function Feed(props){
                 <NovoPost publicarPost={publicarPost}></NovoPost>
                 
 
-                <Post postsInfo={postsInfo} 
+                <Post postsInfo={postsInfoDb} 
                 abrirPost={abrirPost} carregarUsuario={carregarUsuario}></Post>
             </span>
 
