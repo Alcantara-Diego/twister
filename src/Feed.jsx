@@ -7,6 +7,7 @@ import PostAberto from './PostAberto';
 
 import { userInfoDb } from './dbTeste';
 import { postsInfoDb, donoPerfil } from './dbTeste';
+import salvarData from './functions/extras';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -52,44 +53,59 @@ function Feed(props){
         
     }
 
-    const publicarPost = (data) =>{
+    const publicarPost = (tipo, paiId) =>{
+        let postId = uuidv4();
+        let data = salvarData()
 
-        console.log(data)
-        let txt = document.getElementById("criarTexto")
+        if(tipo == "post"){
 
-        // Impedir o usuário de postar se não tiver escrito nada
-        if(txt.value.length > 1){
+            console.log(data)
+            let txt = document.getElementById("criarTexto")
 
-            let postId = uuidv4();
-            console.log(postId)
+            // Impedir o usuário de postar se não tiver escrito nada
+            if(txt.value.length > 1){
 
-            let postObj = {
-                id: postId,
+                
+                console.log(postId)
+
+                let postObj = {
+                    username: donoPerfil.username,
+                    texto: txt.value,
+                    data: data,
+                    reposts: 0,
+                    likes: [],
+                    repostado: false,
+                    comentariosArray: [],
+                    id: postId
+                }
+
+                // Adicionar o id no banco de dados do usuário para ser possível apagar o post futuramente
+                donoPerfil.idPostsCriados.push(postId);
+                // Encaminhar o post pra db
+                postsInfoDb.push(postObj);
+                txt.value="";
+        }
+
+        } else if(tipo == "comentario"){
+            let txt = document.getElementById("addSubComentario");
+
+            let comentarioObj = {
+                
                 username: donoPerfil.username,
                 data: data,
                 texto: txt.value,
-                reposts: 0,
-                comentarios: 0,
-                likes: 0,
-                repostado: false,
-                curtido: false
+                likes: [],
+                id: postId
             }
+            postAbertoInfo.comentariosArray.push(comentarioObj);
 
-            // Adicionar o id no banco de dados do usuário para ser possível apagar o post futuramente
-            donoPerfil.idPostsCriados.push(postId);
-            // Encaminhar o post pra db
-            postsInfo.push(postObj);
-            // Apagar o texto inserido no campo de publicação
-            txt.value="";
-
-            setAttFeed(!attFeed)
-            
-
-
-
+            txt.value = "";
+            console.log(txt)
+            console.log(postsInfoDb)
         }
-        
 
+
+        setAttFeed(!attFeed)
     }
 
     
@@ -105,7 +121,7 @@ function Feed(props){
 
             <PerfilInfo usuario={usuarioCarregado} carregarUsuario={carregarUsuario} userPosts={userPosts}></PerfilInfo>
 
-            <PostAberto postAbertoInfo={postAbertoInfo}></PostAberto>
+            <PostAberto postAbertoInfo={postAbertoInfo} publicarPost={publicarPost}></PostAberto>
 
 
 

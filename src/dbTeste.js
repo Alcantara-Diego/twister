@@ -6,10 +6,8 @@ let postsInfoDb = [
         texto: "esse é o primeiro texto personalizado do app",
         reposts: 7,
         comentarios: 3,
-        // likes: 45,
         likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
         repostado: false,
-        curtido: true,
         comentariosArray: [
             {
                 id: "1.1",

@@ -7,16 +7,19 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
+import { donoPerfil, postsInfoDb } from "./dbTeste";
+
+
+import { v4 as uuidv4 } from 'uuid';
 
 
 
 function PostAberto(props){
 
-   console.log(props.postAbertoInfo.comentariosArray? "tem" : "nao")
+    
 
    let postsInfo = props.postAbertoInfo.comentariosArray
    let comentarioPai = props.postAbertoInfo
-   console.log(postsInfo)
 
     return (
 
@@ -62,7 +65,7 @@ function PostAberto(props){
     <button className="postCurtido likeBtn">
 
         <FaHeart />
-        {props.postAbertoInfo.likes}
+        {props.postAbertoInfo.likes.length}
 
     </button>
 
@@ -90,12 +93,9 @@ function PostAberto(props){
 
         <div className="inputContainer">
 
-            <input type="text" placeholder="Comentar"/>
-            {/* <button>
-                <IoSendOutline />
-            </button> */}
+            <input type="text" placeholder="Comentar" name="addSubComentario" id="addSubComentario"/>
 
-            <button className="bordaGradient">Publicar</button>
+            <button className="bordaGradient" onClick={()=>{props.publicarPost("comentario")}}>Publicar</button>
 
         </div>
 

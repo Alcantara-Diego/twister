@@ -30,7 +30,7 @@ function Post(props){
             
 
 
-            // invés de chamar o props tem que chamar a DB direto para salvar a troca
+            // invés de chamar o props tem que chamar a DB direto para salvar a troca(Funçao pode ser alterada devido a isso)
             let usuarioAtual = donoPerfil.username
 
             let acharUsuarioNosLikes = props.comentarioPai.comentariosArray[index].likes.indexOf(usuarioAtual)
@@ -62,26 +62,17 @@ function Post(props){
 
             switch (btn) {
                 case "like":
-
                     let usuarioAtual = donoPerfil.username
 
                     let acharUsuarioNosLikes = postsInfoDb[index].likes.indexOf(usuarioAtual)
 
                     if(acharUsuarioNosLikes == -1){
                         postsInfoDb[index].likes.push(usuarioAtual)
-
                     }else{
                         postsInfoDb[index].likes.splice(acharUsuarioNosLikes, 1)
                     }
-                    
 
                     console.log(postsInfoDb[index].likes)
-                    // Aumentar ou diminuir o número de likes baseado se o usuário já curtiou ou não
-                    // postsInfoDb[index].curtido? postsInfoDb[index].likes-- : postsInfoDb[index].likes++
-
-                    // Curtir o post se não tava curtido e vice-versa
-                    // postsInfoDb[index].curtido = !postsInfoDb[index].curtido
-                    
                     break;
 
                 case "repost":
@@ -152,20 +143,9 @@ function Post(props){
                 : null}
 
 
-                {/* {info.comentariosArray? 
-                    <button className={info.curtido? "postCurtido likeBtn" : "likeBtn"} id={`likeBtn${info.id}`} onClick={() => alterarLikeRepost(info.id, "like")}>
+<button className={info.likes.includes(donoPerfil.username) ? "postCurtido likeBtn" : "likeBtn"} id={`likeBtn${info.id}`} onClick={() => alterarLikeRepost(info.id, "like")}>
 
-                        {info.curtido ? <FaHeart /> : <FaRegHeart />}
-                        {info.likes}
-
-                                
-                    </button>    
-            
-                : "null"} */}
-
-<button className={info.curtido? "postCurtido likeBtn" : "likeBtn"} id={`likeBtn${info.id}`} onClick={() => alterarLikeRepost(info.id, "like")}>
-
-{info.curtido ? <FaHeart /> : <FaRegHeart />}
+{info.likes.includes(donoPerfil.username) ? <FaHeart /> : <FaRegHeart />}
 {info.likes.length}
 
         
