@@ -1,9 +1,9 @@
 import { toggleTelaPrincipal } from './telas';
-import { postsInfoDb } from '../dbTeste';
+import { postsInfoDb, userInfoDb } from '../dbTeste';
 
 function mostrarPerfil(userObj){
 
-    console.log(userObj);
+    console.log(userObj)
     let nome = document.getElementById("usernamePerfilDisplay");
     let recado = document.getElementById("recadoPerfilDisplay");
     let seguindo = document.getElementById("seguindoPerfilDisplay");
@@ -23,6 +23,12 @@ function mostrarPerfil(userObj){
 
 }
 
+const carregarUsuario = (username) => {
+    const usuarioInfo = userInfoDb.find(user => user.username === username);
+
+    console.log(usuarioInfo)
+    return usuarioInfo
+}
 
 function carregarUserPosts(nome){
 
@@ -47,4 +53,4 @@ function carregarUserPosts(nome){
 
 }
 
-export {mostrarPerfil, carregarUserPosts}
+export {mostrarPerfil, carregarUsuario, carregarUserPosts}

@@ -1,10 +1,7 @@
 import "./style/perfilInfo.scss"
+import Post from './Post';
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-
-import { carregarUserPosts, mostrarPerfil } from './functions/users';
-import Post from './Post';
 
 
 function PerfilInfo(props){ 
@@ -43,7 +40,7 @@ function PerfilInfo(props){
             <div className="perfilPosts">
                 <h3>Posts</h3>
 
-                {props.userPosts.length>0? <Post postsInfo={props.userPosts}></Post> : <div>Usuário ainda não publicou nenhum post</div>}
+                {props.userPosts.length>0? <Post postsInfo={props.userPosts} abrirPost={props.abrirPost}></Post> : <div>Usuário ainda não publicou nenhum post</div>}
 
 
             </div>

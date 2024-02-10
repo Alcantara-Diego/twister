@@ -4,7 +4,6 @@ function resetTelaPrincipal(){
     const telaPerfilInfo = document.getElementById("telaPerfilInfo");
     let telaPostAberto = document.getElementById("telaPostAberto")
 
-    console.log(telaPosts)
 
     telaPerfilInfo.style.display="none";
     telaPosts.style.display="block";
@@ -12,7 +11,6 @@ function resetTelaPrincipal(){
 }
 
 function toggleTelaPrincipal(trigger){
-    console.log(trigger)
 
     let telaPosts = document.getElementById("telaPosts");
     let telaPerfilInfo = document.getElementById("telaPerfilInfo");

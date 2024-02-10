@@ -8,13 +8,19 @@ import { useState } from 'react'
 function App() {
 
   const [carregarDonoDoPerfil, setCarregarDonoDoPerfil] = useState(null);
+
+  const [updateApp, setUpdateApp] = useState(false)
+
+  function atualizarApp(){
+    setUpdateApp(!updateApp)
+  }
   
   return (
     <div className="container">
       <Nav></Nav>
       <div className="conteudo">
-        <Sidebar setCarregarDonoDoPerfil={setCarregarDonoDoPerfil}></Sidebar>
-        <Feed carregarDonoDoPerfil={carregarDonoDoPerfil}></Feed>
+        <Sidebar setCarregarDonoDoPerfil={setCarregarDonoDoPerfil} atualizarApp={atualizarApp}></Sidebar>
+        <Feed carregarDonoDoPerfil={carregarDonoDoPerfil} setCarregarDonoDoPerfil={setCarregarDonoDoPerfil}></Feed>
         
       </div>
     </div>

@@ -110,7 +110,7 @@ let postsInfoDb = [
         texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ullam ut ex quasi nulla aliquid quo culpa, magnam sapiente soluta atque minima quos.",
         reposts: 1,
         comentarios: 13,
-        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
+        likes: ["propsUser", "infinity","segundo323"],
         repostado: false,
         curtido: false,
         comentariosArray: []
@@ -123,10 +123,19 @@ let postsInfoDb = [
         texto: "Agora tudo aparece no perfil certinho",
         reposts: 9,
         comentarios: 29,
-        likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
+        likes: ["propsUser", "infinity", "Diego_Alc","segundo323"],
         repostado: false,
         curtido: true,
-        comentariosArray: []
+        comentariosArray: [
+            {
+                id: "7.1",
+                username: "Você",
+                data: "22/01/2024",
+                texto: "comentario numero 1",
+                likes: ["infinity", "Diego_Alc","segundo323", "User033"],
+                curtido: false,
+            },
+        ]
     },
     {
         id: "8",
@@ -157,7 +166,7 @@ let postsInfoDb = [
             },
             {
                 id: "8.3",
-                username: "infinity",
+                username: "Diego_Alc",
                 data: "20/01/2024",
                 texto: "esse tem até 3",
                 likes: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],

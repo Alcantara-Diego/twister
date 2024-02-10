@@ -13,6 +13,11 @@ import { mostrarPerfil } from './functions/users';
 
 function Sidebar (props) {
 
+    function carregarHome(){
+        resetTelaPrincipal();
+        props.atualizarApp()
+    }
+
     function atualizarPerfil(){
 
         // mostrar perfil atualiza as informações com o perfil do usuário e retorna os posts que o usuário criou
@@ -28,7 +33,7 @@ function Sidebar (props) {
                 <div className="sidebarGrupo">
                     <p>Categorias</p>
 
-                    <li onClick={resetTelaPrincipal}>
+                    <li onClick={carregarHome}>
                         Home <IoHomeSharp />
                     </li>
 
@@ -61,7 +66,7 @@ function Sidebar (props) {
             </div>
 
             <ul className="sidebarMobile">
-                <li onClick={resetTelaPrincipal}>
+                <li onClick={carregarHome}>
                 <IoHomeSharp />
 
                 </li>

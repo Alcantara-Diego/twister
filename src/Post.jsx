@@ -9,7 +9,7 @@ import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 
 import { postsInfoDb, donoPerfil } from './dbTeste';
-import { mostrarPerfil } from './functions/users';
+import { carregarUsuario, mostrarPerfil } from './functions/users';
 import { useState } from 'react';
 
 
@@ -98,8 +98,6 @@ function Post(props){
     }
 
 
-
-
     return (
         <span>
             {props.postsInfo.slice().reverse().map((info) => (
@@ -115,7 +113,7 @@ function Post(props){
                         <span className='linha1'>
 
 
-                        <h3 className='userName'>{info.username}</h3>
+                        <h3 className='userName' onClick={ props.abrirPerfil? () => {props.prepararPerfil(info)} : null}>{info.username}</h3>
 
 
                         <p className='data'>{info.data}</p>

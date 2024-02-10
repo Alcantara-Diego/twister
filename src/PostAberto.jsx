@@ -1,17 +1,13 @@
 import "./style/postAberto.scss"
-import { resetTelaPrincipal } from "./functions/telas";
 import Post from "./Post";
+import { resetTelaPrincipal } from "./functions/telas";
+
 import { FaArrowLeft } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
-import { donoPerfil, postsInfoDb } from "./dbTeste";
-
-
-import { v4 as uuidv4 } from 'uuid';
-
 
 
 function PostAberto(props){
@@ -83,7 +79,7 @@ function PostAberto(props){
 
         <h4>{props.postAbertoInfo? props.postAbertoInfo.comentariosArray.length : "0"} Comentários</h4>
 
-        {props.postAbertoInfo? <Post postsInfo={postsInfo} comentarioPai={comentarioPai}></Post> : ""}
+        {props.postAbertoInfo? <Post postsInfo={postsInfo} comentarioPai={comentarioPai} abrirPerfil={true} prepararPerfil={props.prepararPerfil}></Post> : ""}
         
 
 

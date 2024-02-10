@@ -5,14 +5,13 @@ import NovoPost from './NovoPost'
 import PerfilInfo from  './PerfilInfo'
 import PostAberto from './PostAberto';
 
-import { userInfoDb } from './dbTeste';
-import { postsInfoDb, donoPerfil } from './dbTeste';
+import { userInfoDb, postsInfoDb, donoPerfil } from './dbTeste';
+
 import salvarData from './functions/extras';
+import { mostrarPerfil, carregarUsuario } from './functions/users';
+import { toggleTelaPrincipal } from './functions/telas';
 import { v4 as uuidv4 } from 'uuid';
 
-
-import { mostrarPerfil } from './functions/users';
-import { toggleTelaPrincipal } from './functions/telas';
 
 function Feed(props){
 
@@ -32,19 +31,14 @@ function Feed(props){
     }, [props.carregarDonoDoPerfil])
 
 
-    const carregarUsuario = (username) => {
-        const usuarioInfo = userInfoDb.find(user => user.username === username);
+    function prepararPerfil(obj){
+        let user = carregarUsuario(obj.username)
 
-        let posts = mostrarPerfil(usuarioInfo)
-    
-        // info do usuario puxado
-        setUserPosts(posts)
-        setUsuarioCarregado(usuarioInfo);
+        let posts = mostrarPerfil(user)
+        props.setCarregarDonoDoPerfil(posts)
     }
-
     const abrirPost = (postId) =>{
 
-        console.log(postId)
         const postDetalhes = postsInfoDb.find(post => post.id == postId)
 
         toggleTelaPrincipal("postAberto")
@@ -53,13 +47,12 @@ function Feed(props){
         
     }
 
-    const publicarPost = (tipo, paiId) =>{
+    const publicarPost = (tipo) =>{
         let postId = uuidv4();
         let data = salvarData()
 
         if(tipo == "post"){
 
-            console.log(data)
             let txt = document.getElementById("criarTexto")
 
             // Impedir o usuário de postar se não tiver escrito nada
@@ -116,12 +109,12 @@ function Feed(props){
                 
 
                 <Post postsInfo={postsInfoDb} 
-                abrirPost={abrirPost} carregarUsuario={carregarUsuario}></Post>
+                abrirPost={abrirPost}></Post>
             </span>
 
-            <PerfilInfo usuario={usuarioCarregado} carregarUsuario={carregarUsuario} userPosts={userPosts}></PerfilInfo>
+            <PerfilInfo usuario={usuarioCarregado} userPosts={userPosts} abrirPost={abrirPost} ></PerfilInfo>
 
-            <PostAberto postAbertoInfo={postAbertoInfo} publicarPost={publicarPost}></PostAberto>
+            <PostAberto postAbertoInfo={postAbertoInfo} publicarPost={publicarPost} prepararPerfil={prepararPerfil}></PostAberto>
 
 
 
@@ -131,3 +124,4 @@ function Feed(props){
 }
 
 export default Feed;
+
