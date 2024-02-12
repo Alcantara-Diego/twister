@@ -1,9 +1,14 @@
-# Twster Social Media
+# Twister Social Media
+
+Rede social de criação de posts e interação entre usuários usando react
+(Ainda em desenvolvimento)
+
+Link para testar o projeto estará disponível assim que a maioria das funções estejam funcionando perfeitamente.
 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Tela principal](readmeAssets/desktopHome.png)
+![Tela principal](readmeAssets/mobileHome.png)
+![Tela principal](readmeAssets/mobilePerfil.png)
+![Tela principal](readmeAssets/mobileHome.png)
+![Tela principal](readmeAssets/desktopPost.png)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
