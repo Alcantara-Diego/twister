@@ -10,19 +10,23 @@ import { resetTelaPrincipal, toggleTelaPrincipal } from './functions/telas';
 import { donoPerfil } from './dbTeste';
 import { mostrarPerfil } from './functions/users';
 
+import { useNavigate } from 'react-router-dom'
 
-function Sidebar (props) {
+function Sidebar(props) {
+
+    const navigate = useNavigate();
 
     function carregarHome(){
-        resetTelaPrincipal();
-        props.atualizarApp()
+
+        navigate('/');
+        // props.atualizarApp();
+
     }
 
     function atualizarPerfil(){
 
-        // mostrar perfil atualiza as informações com o perfil do usuário e retorna os posts que o usuário criou
-        const posts = mostrarPerfil(donoPerfil)
-        props.setCarregarDonoDoPerfil(posts)
+        navigate("perfil");
+        // props.atualizarApp();
 
     }
     return (

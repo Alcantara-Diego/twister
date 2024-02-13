@@ -53,4 +53,25 @@ function carregarUserPosts(nome){
 
 }
 
-export {mostrarPerfil, carregarUsuario, carregarUserPosts}
+
+function carregarPostPorId(id){
+
+    let comentario = null;
+
+    if(id){
+
+        postsInfoDb.filter((post)=>{
+    
+            if (post.id == id) {
+                comentario = post;
+            }    
+        })
+
+        return comentario;
+
+
+    }
+
+}
+
+export {mostrarPerfil, carregarUsuario, carregarUserPosts, carregarPostPorId}

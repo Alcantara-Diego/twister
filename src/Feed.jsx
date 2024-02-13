@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './style/feed.scss'
 import Post from './Post';
 import NovoPost from './NovoPost'
-import PerfilInfo from  './PerfilInfo'
+import PerfilInfo from  './Perfil'
 import PostAberto from './PostAberto';
 
 import { userInfoDb, postsInfoDb, donoPerfil } from './dbTeste';
@@ -15,34 +15,18 @@ import { v4 as uuidv4 } from 'uuid';
 
 function Feed(props){
 
-
-    const [attFeed, setAttFeed] = useState(false)
-    // Informações do usuário apresentado no perfilInfo.jsx
-    const [usuarioCarregado, setUsuarioCarregado] = useState(null);
-    const [userPosts, setUserPosts] = useState([])
-
-    const [postAbertoInfo, setPostAbertoInfo] = useState('');
-
-
-
-    // gerar os posts do dono do perfil em perfilInfo.jsx se clicar no botão de perfil na sidebar
-    useEffect(() =>{
-        props.carregarDonoDoPerfil? setUserPosts(props.carregarDonoDoPerfil) : null
-    }, [props.carregarDonoDoPerfil])
-
-
     function prepararPerfil(obj){
         let user = carregarUsuario(obj.username)
 
         let posts = mostrarPerfil(user)
-        props.setCarregarDonoDoPerfil(posts)
     }
     const abrirPost = (postId) =>{
 
         const postDetalhes = postsInfoDb.find(post => post.id == postId)
+        props.alterarURL(`/post/${postDetalhes.id}`);
 
-        toggleTelaPrincipal("postAberto")
-        setPostAbertoInfo(postDetalhes)
+        // toggleTelaPrincipal("postAberto")
+        // setPostAbertoInfo(postDetalhes)
 
         
     }
@@ -111,13 +95,6 @@ function Feed(props){
                 <Post postsInfo={postsInfoDb} 
                 abrirPost={abrirPost}></Post>
             </span>
-
-            <PerfilInfo usuario={usuarioCarregado} userPosts={userPosts} abrirPost={abrirPost} ></PerfilInfo>
-
-            <PostAberto postAbertoInfo={postAbertoInfo} publicarPost={publicarPost} prepararPerfil={prepararPerfil}></PostAberto>
-
-
-
             
         </main>
     )

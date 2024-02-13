@@ -97,6 +97,8 @@ function Post(props){
         
     }
 
+    console.log(props.postsInfo)
+
 
     return (
         <span>
@@ -113,7 +115,7 @@ function Post(props){
                         <span className='linha1'>
 
 
-                        <h3 className='userName' onClick={ props.abrirPerfil? () => {props.prepararPerfil(info)} : null}>{info.username}</h3>
+                        <h3 className='userName'>{info.username}</h3>
 
 
                         <p className='data'>{info.data}</p>
