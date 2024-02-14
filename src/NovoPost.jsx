@@ -6,7 +6,7 @@ import salvarData from "./functions/extras";
 function NovoPost(props){
 
     const gerarPost =() => {       
-        props.publicarPost("post");
+        props.prepararPost();
     }
 
 

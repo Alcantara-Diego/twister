@@ -1,6 +1,6 @@
 import "./style/postAberto.scss"
 import Post from "./Post";
-import { carregarPostPorId } from './functions/users'
+import { publicarPost } from './functions/users'
 
 
 import { FaArrowLeft } from "react-icons/fa";
@@ -17,6 +17,7 @@ function PostAberto(props){
 
     const [comentarios, setComentarios] = useState(null)
     const [comentarioPai, setComentarioPai] = useState(null)
+    const [attFeed, setAttFeed] = useState(false)
     // Puxar objeto toda vez que carregar o id
     useEffect(() =>{
         
@@ -37,7 +38,12 @@ function PostAberto(props){
         console.log(comentarios)
     }, [comentarios])
 
-   
+   function prepararPost(id){
+    publicarPost("comentario", id);
+    setAttFeed(!attFeed);
+
+
+   }
 
     return (
 
@@ -118,7 +124,7 @@ function PostAberto(props){
 
             <input type="text" placeholder="Comentar" name="addSubComentario" id="addSubComentario"/>
 
-            <button className="bordaGradient" onClick={()=>{props.publicarPost("comentario")}}>Publicar</button>
+            <button className="bordaGradient" onClick={()=>{prepararPost(props.postAbertoInfo.id)}}>Publicar</button>
 
         </div>
 
