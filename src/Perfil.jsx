@@ -2,20 +2,37 @@ import "./style/perfil.scss"
 import Post from './Post';
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 
 
-function Perfil(props){ 
+function Perfil(props){
 
+    let modelo = {
+        username: "username",
+        seguidores: 0,
+        seguindo: 0,
+        sigo: true,
+        recado: "Recado",
+        cadastro: "01/01/2024",
+        idPostsCriados: []
+    }
+
+    const [dados, setDados] = useState(modelo)
+
+    useEffect(() =>{
+        props.usuarioInfo!="vazio"? setDados(props.usuarioInfo) : setDados(modelo); 
+
+    }, [props.usuarioInfo])
 
 
     return (
         <div id="telaPerfilInfo">
             <header className="perfilInfoPrincipal">
                 <BsPersonCircle className="foto"></BsPersonCircle>
-                <h1 id="usernamePerfilDisplay">Nome de usuário</h1>
+                <h1 id="usernamePerfilDisplay">{dados.username}</h1>
                 
 
-                <p id="recadoPerfilDisplay">Dono de tudo, se eu não gostar eu mudo</p>
+                <p id="recadoPerfilDisplay">{dados.recado}</p>
 
                 <button className="bordaGradient">Seguir
                 </button>
@@ -25,15 +42,15 @@ function Perfil(props){
             <ul className="dados">
                 <div className="seguidores">
                     <li>
-                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem">30</span></p>
+                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem">{dados.seguidores}</span></p>
                     </li>
                     <li>
-                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem">15</span></p>
+                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem">{dados.seguindo}</span></p>
                     </li>
                 </div>
 
                 <li>
-                    <p>Conta criada em <span className="dadosContagem" id="cadastroPerfilDisplay">20/01/2024</span></p>
+                    <p>Conta criada em <span className="dadosContagem" id="cadastroPerfilDisplay">{dados.cadastro}</span></p>
                 </li>
             </ul>
 

@@ -179,7 +179,7 @@ let postsInfoDb = [
 
 let userInfoDb = [
     {
-        username: "Você",
+        username: "Voce",
         seguidores: 94,
         seguindo: 11,
         sigo: true,

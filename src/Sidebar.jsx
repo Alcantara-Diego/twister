@@ -6,27 +6,18 @@ import { IoIosAddCircle } from "react-icons/io";
 import { IoMdNotifications } from "react-icons/io";
 import { BsPersonCircle } from "react-icons/bs";
 
-import { resetTelaPrincipal, toggleTelaPrincipal } from './functions/telas';
 import { donoPerfil } from './dbTeste';
-import { mostrarPerfil } from './functions/users';
-
 import { useNavigate } from 'react-router-dom'
 
 function Sidebar(props) {
 
-    const navigate = useNavigate();
-
     function carregarHome(){
-
-        navigate('/');
-        // props.atualizarApp();
-
+        props.alterarURL("/");
     }
 
     function atualizarPerfil(){
 
-        navigate("perfil");
-        // props.atualizarApp();
+        props.alterarURL(`usuario/${donoPerfil.username}`)
 
     }
     return (

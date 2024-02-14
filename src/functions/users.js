@@ -25,10 +25,9 @@ function mostrarPerfil(userObj){
 
 }
 
-const carregarUsuario = (username) => {
+const carregarUsuarioPorUsername = (username) => {
     const usuarioInfo = userInfoDb.find(user => user.username === username);
 
-    console.log(usuarioInfo)
     return usuarioInfo
 }
 
@@ -134,4 +133,4 @@ const publicarPost = (tipo, ParenteId) =>{
 
 }
 
-export {mostrarPerfil, carregarUsuario, carregarUserPosts, carregarPostPorId, publicarPost}
+export {mostrarPerfil, carregarUsuarioPorUsername, carregarUserPosts, carregarPostPorId, publicarPost}

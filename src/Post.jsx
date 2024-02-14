@@ -9,7 +9,7 @@ import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 
 import { postsInfoDb, donoPerfil } from './dbTeste';
-import { carregarUsuario, mostrarPerfil } from './functions/users';
+
 import { useState } from 'react';
 
 
