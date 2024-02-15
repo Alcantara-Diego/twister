@@ -17,12 +17,24 @@ function Perfil(props){
         idPostsCriados: []
     }
 
-    const [dados, setDados] = useState(modelo)
+    const [dados, setDados] = useState(modelo);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() =>{
-        props.usuarioInfo!="vazio"? setDados(props.usuarioInfo) : setDados(modelo); 
+        if(props.usuarioInfo!="vazio"){
+            
+            setDados(props.usuarioInfo);
+            setPosts(props.usuarioPosts)
+            
 
-    }, [props.usuarioInfo])
+        } else{
+            console.log(modelo)
+            setDados(modelo);
+        } 
+
+        
+
+    }, [props.usuarioInfo, props.usuarioPosts]);
 
 
     return (
@@ -57,7 +69,10 @@ function Perfil(props){
             <div className="perfilPosts">
                 <h3>Posts</h3>
 
-                {/* {props.userPosts.length>0? <Post postsInfo={props.userPosts} abrirPost={props.abrirPost}></Post> : <div>Usuário ainda não publicou nenhum post</div>} */}
+                {posts.length>0? <Post postsInfo={posts} ></Post> : <div>Usuário ainda não publicou nenhum post</div>}
+
+
+                {/* abrirPost={props.abrirPost} */}
 
 
             </div>

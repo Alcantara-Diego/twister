@@ -97,7 +97,7 @@ function Post(props){
         
     }
 
-    console.log(props.postsInfo)
+    console.log("------POST RENDERIZADO------")
 
 
     return (

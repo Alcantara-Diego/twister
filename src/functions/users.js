@@ -28,10 +28,14 @@ function mostrarPerfil(userObj){
 const carregarUsuarioPorUsername = (username) => {
     const usuarioInfo = userInfoDb.find(user => user.username === username);
 
-    return usuarioInfo
+    if(usuarioInfo){
+        return usuarioInfo
+    }else{
+        return "vazio"
+    }
 }
 
-function carregarUserPosts(nome){
+function carregarPostsPorUsername(nome){
 
 
     let posts = []
@@ -78,7 +82,7 @@ function carregarPostPorId(id){
 
 
 const publicarPost = (tipo, ParenteId) =>{
-    console.log('punlicandooooo')
+   
     let postId = uuidv4();
     let data = salvarData()
 
@@ -133,4 +137,4 @@ const publicarPost = (tipo, ParenteId) =>{
 
 }
 
-export {mostrarPerfil, carregarUsuarioPorUsername, carregarUserPosts, carregarPostPorId, publicarPost}
+export {mostrarPerfil, carregarUsuarioPorUsername, carregarPostsPorUsername, carregarPostPorId, publicarPost}

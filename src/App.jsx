@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar"
 import Feed from './Feed'
 import PostAberto from './PostAberto'
 import Perfil from  './Perfil'
-import { carregarPostPorId, carregarUsuarioPorUsername } from './functions/users'
+import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
 
 
 function App() {
@@ -14,13 +14,17 @@ function App() {
   const navigate = useNavigate();
 
   const [updateApp, setUpdateApp] = useState(false);
+  // Info que será passada para o component de PostAberto.JSX
   const [postAbertoInfo, setPostAbertoInfo] = useState("vazio");
+  // Info que será passada para o component de Perfil.JSX
   const [usuarioInfo, setUsuarioInfo] = useState("vazio");
+  const [usuarioPosts, setUsuarioPosts] = useState([]);
 
   function atualizarApp(){
     setUpdateApp(!updateApp)
   }
 
+  // Alterar URL dentro de outros componentes e atualizar o app para processar dados de acordo com a URL atualizada
   function alterarURL(url){
     navigate(url);
     setUpdateApp(!updateApp);
@@ -28,6 +32,7 @@ function App() {
   }
     
 
+  // Identificar a requisição pela URL e saber o ID do post ou nome do usuário para puxar informações do banco de dados
     useEffect(() => {
       let url = window.location.pathname;
 
@@ -38,18 +43,22 @@ function App() {
 
       } else if(url.includes("usuario")){
         let usuario = tratarURL(url, "usuario");
-        setUsuarioInfo(usuario);
+      
+        setUsuarioInfo(usuario[0]);
+
+        setUsuarioPosts(usuario[1]);
       }
 
   
   }, [updateApp]);
 
   // Checar os paramentros passados(Será removido após testes)
-  useEffect(() =>{
-    console.log(postAbertoInfo)
-    console.log(usuarioInfo)
+  // useEffect(() =>{
+  //   console.log(usuarioPosts)
+  //   console.log(usuarioInfo)
+  
 
-  }, [postAbertoInfo, usuarioInfo])
+  // }, [usuarioPosts, usuarioInfo])
 
 
 
@@ -92,11 +101,17 @@ function App() {
           console.log(tipo, username);
 
         
-          let usuario = carregarUsuarioPorUsername(username);
+          let usuario = []
+          usuario[0] = carregarUsuarioPorUsername(username);
+
+          usuario.push(carregarPostsPorUsername(username));
+          
+
+
           if (usuario) {
             return usuario            
           } else{
-            return "vazio"
+            return ["vazio", []]
           }
 
           
@@ -111,6 +126,7 @@ function App() {
     }
   }
   
+  // próxima etapa é abrir o post pelo perfil do usuário que ta dando erro
   return (
     <div className="container">
       <Nav></Nav>
@@ -120,13 +136,15 @@ function App() {
         <Routes>
           <Route path='/' element={<Feed alterarURL={alterarURL}/>} />
 
-          <Route path='/usuario/:username' element={<Perfil usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}/>} />
+          <Route path='/usuario/:username' 
+          element={<Perfil 
+          usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}
+          usuarioPosts={usuarioPosts}
+          />} />
 
           <Route path='/post/:id' element={
           <PostAberto  
           postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo} alterarURL={alterarURL}/>}/>
-
-          
 
           
         </Routes>
