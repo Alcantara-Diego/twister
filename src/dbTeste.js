@@ -235,6 +235,6 @@ let userInfoDb = [
 
 ]
 
-let donoPerfil = userInfoDb[0]
+let donoPerfil = userInfoDb[1]
 
 export { postsInfoDb, userInfoDb, donoPerfil };

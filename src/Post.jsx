@@ -107,7 +107,7 @@ function Post(props){
 
                 <div className="post postConfigPadrao" key={info.id}>
 
-                <span className='alinhamento'  onClick={info.comentariosArray? () => {props.abrirPost(info.id)}: null}>
+                <span className='alinhamento'  onClick={props.autorizarAbrirPost =="permitir"? () => {props.abrirPost(info.id)}: null}>
                     <BsPersonCircle className='userFoto'></BsPersonCircle>
 
                     <header className="conteudo">
@@ -115,7 +115,7 @@ function Post(props){
                         <span className='linha1'>
 
 
-                        <h3 className='userName'>{info.username}</h3>
+                        <h3 className='userName' onClick={props.mostrarPerfilPeloUsername == "permitir"? ()=>{props.alterarURL(`usuario/${info.username}`)} : null}>{info.username}</h3>
 
 
                         <p className='data'>{info.data}</p>

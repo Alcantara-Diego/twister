@@ -54,51 +54,16 @@ function PostAberto(props){
                 <p>Voltar para o feed</p>
             </div>
 
-            {props.postAbertoInfo? <div className="post postConfigPadrao postAberto">
 
-                <span className='alinhamento'>
-                    <BsPersonCircle className='userFoto'></BsPersonCircle>
-
-                    <header className="conteudo">
-
-                        <span className='linha1'>
-
-                        <h3 className='userName'>{props.postAbertoInfo.username}</h3>
-
-                        <p className='data'>{props.postAbertoInfo.data}</p>
-                        </span>
-                        <p className='texto'>{props.postAbertoInfo.texto}</p>
-
-                    </header>
-
-                </span>
-
-
-                <footer>
-                    
-                    {/* REPOST BTN */}
-                    <button className="postRepostado repostBtn">
-
-                        <FaRetweet />
-                        {props.postAbertoInfo.reposts}
-
-                    </button>
-
-
-                    {/* LIKE BTN */}
-                    <button className="postCurtido likeBtn">
-
-                        <FaHeart />
-                        {props.postAbertoInfo.likes.length}
-
-                    </button>
-
-                        
-
-                    
-                </footer>
-                </div>
-: <div>Post não carregado</div>}
+            {props.postAbertoInfo !== undefined && comentarioPai!== null? (
+                <Post
+                    postsInfo={[comentarioPai]}
+                    mostrarPerfilPeloUsername="permitir"
+                    autorizarAbrirPost="negar"
+                    alterarURL={props.alterarURL}
+                />
+                ) : 
+                ( <div>O post selecionado não foi encontrado</div> )}
 
         
 
@@ -106,12 +71,14 @@ function PostAberto(props){
 
         
 
-        <h4>{props.postAbertoInfo? props.postAbertoInfo.comentariosArray.length : "0"} Comentários</h4>
+        <h4 className="postAbertoComentariosTItulo">{props.postAbertoInfo? props.postAbertoInfo.comentariosArray.length : "0"} Comentários</h4>
 
         {comentarios? console.log(comentarios) : null}
         {comentarios? 
         <Post postsInfo={comentarios} 
         comentarioPai={comentarioPai}
+        mostrarPerfilPeloUsername="permitir"
+        alterarURL={props.alterarURL}
         abrirPerfil={true}></Post> : ""}
         
 

@@ -12,12 +12,7 @@ function Feed(props){
     const [attFeed, setAttFeed] = useState(false);
 
    
-    const abrirPost = (postId) =>{
-
-        const postDetalhes = postsInfoDb.find(post => post.id == postId)
-        props.alterarURL(`/post/${postDetalhes.id}`);
-        
-    }
+  
 
   
     function prepararPost(){
@@ -34,7 +29,9 @@ function Feed(props){
                 
 
                 <Post postsInfo={postsInfoDb} 
-                abrirPost={abrirPost}></Post>
+                abrirPost={props.abrirPost}
+                mostrarPerfilPeloUsername="negar"
+                autorizarAbrirPost="permitir"></Post>
             </span>
             
         </main>

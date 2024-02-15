@@ -65,12 +65,14 @@
   
     display: block;
     padding: 0px;
-    // display: none;
     background-color: rgb(37, 37, 37);
     color: white;
 
-    .postAberto{
-        border-bottom: 1px solid white;
-    }
+ 
+}
+
+.postAbertoComentariosTItulo{
+    border-top: 1px solid white;
+    padding-top: 10px;
 }
 

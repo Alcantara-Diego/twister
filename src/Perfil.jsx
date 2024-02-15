@@ -28,7 +28,7 @@ function Perfil(props){
             
 
         } else{
-            console.log(modelo)
+            
             setDados(modelo);
         } 
 
@@ -69,11 +69,12 @@ function Perfil(props){
             <div className="perfilPosts">
                 <h3>Posts</h3>
 
-                {posts.length>0? <Post postsInfo={posts} ></Post> : <div>Usuário ainda não publicou nenhum post</div>}
-
-
-                {/* abrirPost={props.abrirPost} */}
-
+                {posts.length>0? <Post 
+                postsInfo={posts} 
+                abrirPost={props.abrirPost}
+                mostrarPerfilPeloUsername="negar"
+                autorizarAbrirPost="permitir"
+                alterarURL={props.alterarURL}></Post> : <div>Usuário ainda não publicou nenhum post</div>}
 
             </div>
 

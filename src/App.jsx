@@ -7,7 +7,7 @@ import Feed from './Feed'
 import PostAberto from './PostAberto'
 import Perfil from  './Perfil'
 import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
-
+import { postsInfoDb } from './dbTeste'
 
 function App() {
 
@@ -68,8 +68,6 @@ function App() {
     let salvarId;
     let match;
 
-    console.log("tratando url")
-
     switch (tipo) {
 
       case "post":
@@ -80,7 +78,6 @@ function App() {
 
         if (match) {
           const postId = match[1];
-          console.log(tipo, postId);
 
           return carregarPostPorId(postId)
           
@@ -98,7 +95,6 @@ function App() {
 
         if (match) {
           const username = match[1];
-          console.log(tipo, username);
 
         
           let usuario = []
@@ -125,8 +121,20 @@ function App() {
         break;
     }
   }
+
+
+  function abrirPost(postId){
+
+    const postDetalhes = postsInfoDb.find(post => post.id == postId)
+    alterarURL(`/post/${postDetalhes.id}`);
+    
+}
   
-  // próxima etapa é abrir o post pelo perfil do usuário que ta dando erro
+// Planejamento futuro:
+// tirar botão de publicar quando nn acha o post ou criar página de não existe
+// Remover repost
+// Remover seguir e seguidores
+// Adicionar opção de alterar o próprio recado
   return (
     <div className="container">
       <Nav></Nav>
@@ -134,17 +142,23 @@ function App() {
         <Sidebar atualizarApp={atualizarApp} alterarURL={alterarURL}></Sidebar>
 
         <Routes>
-          <Route path='/' element={<Feed alterarURL={alterarURL}/>} />
+          <Route path='/' element={<Feed 
+          alterarURL={alterarURL}
+          abrirPost={abrirPost}/>} />
 
           <Route path='/usuario/:username' 
           element={<Perfil 
           usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}
           usuarioPosts={usuarioPosts}
+          abrirPost={abrirPost}
+          alterarURL={alterarURL}
           />} />
 
           <Route path='/post/:id' element={
           <PostAberto  
-          postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo} alterarURL={alterarURL}/>}/>
+          postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo} 
+          mostrarPerfilPeloUsername="permitir"
+          alterarURL={alterarURL}/>}/>
 
           
         </Routes>
