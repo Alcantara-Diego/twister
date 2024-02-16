@@ -133,8 +133,7 @@ function App() {
 // Planejamento futuro:
 // tirar botão de publicar quando nn acha o post ou criar página de não existe
 // Remover repost
-// Remover seguir e seguidores
-// Adicionar opção de alterar o próprio recado
+// Adicionar opção de ver seguidores e seguindo
   return (
     <div className="container">
       <Nav></Nav>
