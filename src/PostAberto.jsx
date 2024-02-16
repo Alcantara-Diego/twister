@@ -1,9 +1,8 @@
 import "./style/postAberto.scss"
 import Post from "./Post";
 import { publicarPost } from './functions/users'
+import VoltarTela from "./VoltarTela";
 
-
-import { FaArrowLeft } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
@@ -49,11 +48,10 @@ function PostAberto(props){
 
         <div id="telaPostAberto">
 
-            <div className="voltarFeed">
-                <FaArrowLeft className="seta" onClick={() =>{props.alterarURL("/")}}/>
-                <p>Voltar para o feed</p>
-            </div>
-
+            <VoltarTela 
+            alterarURL={props.alterarURL}
+            funcao={"home"}
+            setaId={"retornarHome"}></VoltarTela>
 
             {props.postAbertoInfo !== undefined && comentarioPai!== null? (
                 <Post

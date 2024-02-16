@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar"
 import Feed from './Feed'
 import PostAberto from './PostAberto'
 import Perfil from  './Perfil'
+import ListaEditavel from './ListaEditavel'
 import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
 import { postsInfoDb } from './dbTeste'
 
@@ -14,11 +15,13 @@ function App() {
   const navigate = useNavigate();
 
   const [updateApp, setUpdateApp] = useState(false);
-  // Info que será passada para o component de PostAberto.JSX
+  // Info que será passada para o componente de PostAberto.JSX
   const [postAbertoInfo, setPostAbertoInfo] = useState("vazio");
-  // Info que será passada para o component de Perfil.JSX
+  // Info que será passada para o componente de Perfil.JSX
   const [usuarioInfo, setUsuarioInfo] = useState("vazio");
   const [usuarioPosts, setUsuarioPosts] = useState([]);
+
+  const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
 
   function atualizarApp(){
     setUpdateApp(!updateApp)
@@ -133,34 +136,43 @@ function App() {
 // Planejamento futuro:
 // tirar botão de publicar quando nn acha o post ou criar página de não existe
 // Remover repost
-// Adicionar opção de ver seguidores e seguindo
   return (
     <div className="container">
       <Nav></Nav>
       <div className="conteudo">
         <Sidebar atualizarApp={atualizarApp} alterarURL={alterarURL}></Sidebar>
 
-        <Routes>
-          <Route path='/' element={<Feed 
+        <div>
+
+          <ListaEditavel 
           alterarURL={alterarURL}
-          abrirPost={abrirPost}/>} />
-
-          <Route path='/usuario/:username' 
-          element={<Perfil 
-          usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}
-          usuarioPosts={usuarioPosts}
-          abrirPost={abrirPost}
-          alterarURL={alterarURL}
-          />} />
-
-          <Route path='/post/:id' element={
-          <PostAberto  
-          postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo} 
-          mostrarPerfilPeloUsername="permitir"
-          alterarURL={alterarURL}/>}/>
-
+          conteudo={listaEditavelInfo}
           
-        </Routes>
+          ></ListaEditavel>
+
+          <Routes>
+            <Route path='/' element={<Feed
+            alterarURL={alterarURL}
+            abrirPost={abrirPost}/>} />
+
+            <Route path='/usuario/:username'
+            element={<Perfil
+            usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}
+            usuarioPosts={usuarioPosts}
+            abrirPost={abrirPost}
+            alterarURL={alterarURL}
+            setListaEditavelInfo={setListaEditavelInfo}
+            />} />
+            <Route path='/post/:id' element={
+            <PostAberto
+            postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
+            mostrarPerfilPeloUsername="permitir"
+            alterarURL={alterarURL}/>}/>
+          
+          </Routes>
+        </div>
+
+        
         
       </div>
     </div>

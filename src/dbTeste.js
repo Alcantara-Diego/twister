@@ -129,7 +129,7 @@ let postsInfoDb = [
         comentariosArray: [
             {
                 id: "7.1",
-                username: "Voce",
+                username: "exemploAccount",
                 data: "22/01/2024",
                 texto: "comentario numero 1",
                 likes: ["infinity", "Diego_Alc","segundo323", "User033"],
@@ -179,9 +179,9 @@ let postsInfoDb = [
 
 let userInfoDb = [
     {
-        username: "Voce",
-        seguidores: 94,
-        seguindo: 11,
+        username: "exemploAccount",
+        seguidores: ["propsUser", "infinity", "Diego_Alc","segundo323", "User033"],
+        seguindo: ["Diego_Alc","segundo323", "User033"],
         sigo: true,
         recado: "Personalizado",
         cadastro: "01/02/2024",
@@ -189,8 +189,8 @@ let userInfoDb = [
     },
     {
         username: "Diego_Alc",
-        seguidores: 50,
-        seguindo: 2,
+        seguidores: ["propsUser", "infinity","segundo323", "User033", "exemploAccount"],
+        seguindo: ["propsUser", "infinity","segundo323", "User033", "exemploAccount"],
         sigo: true,
         recado: "Primeiro recado",
         cadastro: "01/01/2024",
@@ -198,8 +198,8 @@ let userInfoDb = [
     },
     {
         username: "propsUser",
-        seguidores: 20,
-        seguindo: 5,
+        seguidores: ["infinity"],
+        seguindo: ["infinity", "Diego_Alc", "User033", "exemploAccount"],
         sigo: false,
         recado: "Recado de teste",
         cadastro: "09/01/2024",
@@ -207,8 +207,8 @@ let userInfoDb = [
     },
     {
         username: "infinity",
-        seguidores: 20,
-        seguindo: 5,
+        seguidores: ["propsUser", "Diego_Alc","segundo323", "User033", "exemploAccount"],
+        seguindo: ["propsUser", "Diego_Alc","segundo323", "User033", "exemploAccount"],
         sigo: true,
         recado: "infinity stones",
         cadastro: "10/01/2024",
@@ -216,8 +216,8 @@ let userInfoDb = [
     },
     {
         username: "User033",
-        seguidores: 20,
-        seguindo: 5,
+        seguidores: ["propsUser", "infinity", "segundo323","exemploAccount"],
+        seguindo: ["propsUser", "infinity", "exemploAccount"],
         sigo: false,
         recado: "mensagem do user",
         cadastro: "04/01/2024",
@@ -225,8 +225,8 @@ let userInfoDb = [
     },
     {
         username: "segundo323",
-        seguidores: 20,
-        seguindo: 5,
+        seguidores: ["propsUser", "User033", "exemploAccount"],
+        seguindo: ["propsUser"],
         sigo: false,
         recado: "Recado do segundo",
         cadastro: "17/01/2024",

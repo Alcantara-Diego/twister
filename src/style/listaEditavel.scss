@@ -1,0 +1,67 @@
+#listaEditavel{
+    position: absolute;
+    height: inherit;
+    
+ 
+    height: 94vh;
+    width: 75%;
+    display: none;
+    background-color: #1e1e1e;
+    color: white;
+    z-index: 10;
+    // border-top: 4px solid orange;
+    // border-bottom: 4px solid orange;
+
+    ul{
+        padding: 20px;
+    }
+
+    .itemLista{
+        display: flex;
+        align-items: center;
+
+        justify-content: space-between;
+
+        margin-bottom: 10px;
+        padding: 16px 7px;
+        // font-size: 1.1rem;
+        background-color: rgb(37, 37, 37);
+
+        .usernameDiv{
+            display: flex;
+            align-items: center;
+
+            .userFoto{
+                height: 30px;
+                width: 40px;
+                margin-right: 5px;  
+            }
+
+            h4{
+                font-size: 1.2rem;
+            }
+            p{
+                color: var(--corSecundaria);
+            }
+        }
+
+        
+
+        button{
+            padding: 5px;
+            color: white;
+            font-weight: bold;
+            background: none;
+        }
+    }
+}
+
+
+@media (max-width: 700px){
+    #listaEditavel{
+        height: 88vh;
+        width: 100%;
+    }
+
+
+}

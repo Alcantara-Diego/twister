@@ -1,5 +1,6 @@
 import "./style/perfil.scss"
 import Post from './Post';
+import { carregarUsuarioPorUsername } from "./functions/users";
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useEffect, useState } from "react";
@@ -9,8 +10,8 @@ function Perfil(props){
 
     let modelo = {
         username: "username",
-        seguidores: 0,
-        seguindo: 0,
+        seguidores: ["dcf"],
+        seguindo: ["dfv"],
         sigo: true,
         recado: "Twister social media",
         cadastro: "01/01/2024",
@@ -46,10 +47,30 @@ function Perfil(props){
     function salvarRecado(){
         donoPerfil.recado = recadoSalvo;
         setEditandoRecado(!editandoRecado);
-
-
     }
 
+
+    function exibirLista(conteudo){
+        console.table(conteudo)
+
+        let users = []
+        conteudo.forEach(username => {
+            let user = carregarUsuarioPorUsername(username);
+
+            users.push(user)
+
+
+            
+        });
+
+
+        console.log(users)
+        props.setListaEditavelInfo(users);
+        document.getElementById("listaEditavel").style.display="block";
+        
+      
+       
+    }
     return (
         <div id="telaPerfilInfo">
             <header className="perfilInfoPrincipal">
@@ -80,10 +101,15 @@ function Perfil(props){
             <ul className="dados">
                 <div className="seguidores">
                     <li>
-                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem">{dados.seguidores}</span></p>
+                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem" onClick={() =>{
+                            exibirLista(dados.seguidores)
+                        }}>{dados && dados.seguidores.length}</span></p>
                     </li>
                     <li>
-                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem">{dados.seguindo}</span></p>
+                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem" 
+                        onClick={() =>{
+                            exibirLista(dados.seguindo)
+                        }}>{dados && dados.seguindo.length }</span></p>
                     </li>
                 </div>
 

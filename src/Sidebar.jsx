@@ -13,11 +13,13 @@ function Sidebar(props) {
 
     function carregarHome(){
         props.alterarURL("/");
+        document.getElementById("listaEditavel").style.display="none";
     }
 
     function atualizarPerfil(){
 
-        props.alterarURL(`usuario/${donoPerfil.username}`)
+        props.alterarURL(`usuario/${donoPerfil.username}`);
+        document.getElementById("listaEditavel").style.display="none";
 
     }
     return (
