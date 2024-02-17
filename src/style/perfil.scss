@@ -44,6 +44,7 @@
         width: min-content;
         text-align: start;
         color: var(--corSecundaria);
+        
 
 
         .seguidores{
@@ -79,6 +80,9 @@
     }
 }
 
+.btn{
+    cursor: pointer;
+}
 #recadoPerfilInput{
     padding: 10px;
     color: white;

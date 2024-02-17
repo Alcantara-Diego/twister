@@ -9,6 +9,12 @@ import { BsPersonCircle } from "react-icons/bs";
 function ListaEditavel(props){
 
 
+    function carregarPerfil(username){
+        document.getElementById("listaEditavel").style.display="none";
+
+        props.alterarURL(`usuario/${username}`);
+
+    }
     
     return (
         <div id="listaEditavel">
@@ -30,7 +36,7 @@ function ListaEditavel(props){
                                 <p>{item.recado}</p>
                             </span>
                         </div>
-                        <button className="bordaGradient">Ver Perfil</button>
+                        <button className="bordaGradient" onClick={()=>{carregarPerfil(item.username)}}>Ver Perfil</button>
                     </div>
                 )) : ""}
             </ul>

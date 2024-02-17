@@ -100,16 +100,17 @@ function Perfil(props){
 
             <ul className="dados">
                 <div className="seguidores">
-                    <li>
-                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem" onClick={() =>{
-                            exibirLista(dados.seguidores)
-                        }}>{dados && dados.seguidores.length}</span></p>
+                    <li className="btn" 
+                    onClick={() =>{
+                    exibirLista(dados.seguidores)
+                }}>
+                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem">{dados && dados.seguidores.length}</span></p>
                     </li>
-                    <li>
-                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem" 
-                        onClick={() =>{
-                            exibirLista(dados.seguindo)
-                        }}>{dados && dados.seguindo.length }</span></p>
+                    <li className="btn"
+                    onClick={() =>{
+                        exibirLista(dados.seguindo)
+                        }}>
+                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem">{dados && dados.seguindo.length }</span></p>
                     </li>
                 </div>
 
