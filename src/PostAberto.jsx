@@ -3,6 +3,8 @@ import Post from "./Post";
 import { publicarPost } from './functions/users'
 import VoltarTela from "./VoltarTela";
 
+import { donoPerfil } from "./dbTeste";
+
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
@@ -16,7 +18,7 @@ function PostAberto(props){
 
     const [comentarios, setComentarios] = useState(null)
     const [comentarioPai, setComentarioPai] = useState(null)
-    const [attFeed, setAttFeed] = useState(false)
+    const [renderPostAberto, setRenderPostAberto] = useState(false)
     // Puxar objeto toda vez que carregar o id
     useEffect(() =>{
         
@@ -33,14 +35,21 @@ function PostAberto(props){
     }, [props.postAbertoInfo])
 
 
-    useEffect(()=>{
-        console.log(comentarios)
-    }, [comentarios])
+    // useEffect(()=>{
+    //     console.log(comentarios)
+    // }, [comentarios])
 
    function prepararPost(id){
     publicarPost("comentario", id);
-    setAttFeed(!attFeed);
+    setRenderPostAberto(!renderPostAberto);
 
+
+   }
+
+   function atualizarPostAberto(param){
+
+    console.log(param)
+    setRenderPostAberto(!renderPostAberto);
 
    }
 
@@ -56,8 +65,11 @@ function PostAberto(props){
             {props.postAbertoInfo !== undefined && comentarioPai!== null? (
                 <Post
                     postsInfo={[comentarioPai]}
+                    origem="postAberto"
                     mostrarPerfilPeloUsername="permitir"
                     autorizarAbrirPost="negar"
+                    setRenderPostAberto={setRenderPostAberto}
+                    renderPostAberto={renderPostAberto}
                     alterarURL={props.alterarURL}
                 />
                 ) : 
@@ -71,11 +83,12 @@ function PostAberto(props){
 
         <h4 className="postAbertoComentariosTItulo">{props.postAbertoInfo? props.postAbertoInfo.comentariosArray.length : "0"} Comentários</h4>
 
-        {comentarios? console.log(comentarios) : null}
         {comentarios? 
         <Post postsInfo={comentarios} 
         comentarioPai={comentarioPai}
         mostrarPerfilPeloUsername="permitir"
+        origem="postAberto"
+        atualizarPostAberto={atualizarPostAberto}
         alterarURL={props.alterarURL}
         abrirPerfil={true}></Post> : ""}
         

@@ -5,10 +5,8 @@ import { FaArrowLeft } from "react-icons/fa";
 
 function VoltarTela(props){
 
-    const [setaFuncao, setSetaFuncao] = useState("")
 
     useEffect(()=>{
-        console.log(props.funcao)
         if(props.funcao){
 
             let seta = document.getElementById(props.setaId);
@@ -17,7 +15,7 @@ function VoltarTela(props){
                 switch (props.funcao) {
 
                     case "home":
-                        console.log("case home")
+                       
                         seta.addEventListener("click", () =>{
 
                             props.alterarURL("/")
@@ -26,7 +24,7 @@ function VoltarTela(props){
                         break;
     
                     case "ocultarLista":
-                        console.log("case lista")
+                        
                         seta.addEventListener("click", ()=>{
 
                             document.getElementById("listaEditavel").style.display="none"

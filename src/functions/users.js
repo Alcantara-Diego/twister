@@ -1,29 +1,8 @@
-import { toggleTelaPrincipal } from './telas';
 import { postsInfoDb, userInfoDb } from '../dbTeste';
 import salvarData from './extras';
 import { v4 as uuidv4 } from 'uuid';
 import { donoPerfil } from '../dbTeste';
-function mostrarPerfil(userObj){
 
-    console.log(userObj)
-    let nome = document.getElementById("usernamePerfilDisplay");
-    let recado = document.getElementById("recadoPerfilDisplay");
-    let seguindo = document.getElementById("seguindoPerfilDisplay");
-    let seguidores = document.getElementById("seguidoresPerfilDisplay");
-    let cadastro = document.getElementById("cadastroPerfilDisplay");
-
-    nome.innerText=userObj.username
-    recado.innerText=userObj.recado
-    seguindo.innerText=userObj.seguindo
-    seguidores.innerText=userObj.seguidores
-    cadastro.innerText=userObj.cadastro
-    
-    let posts = carregarUserPosts(userObj.username)
-    toggleTelaPrincipal("perfil")
-
-    return posts
-
-}
 
 const carregarUsuarioPorUsername = (username) => {
     const usuarioInfo = userInfoDb.find(user => user.username === username);
@@ -137,4 +116,4 @@ const publicarPost = (tipo, ParenteId) =>{
 
 }
 
-export {mostrarPerfil, carregarUsuarioPorUsername, carregarPostsPorUsername, carregarPostPorId, publicarPost}
+export {carregarUsuarioPorUsername, carregarPostsPorUsername, carregarPostPorId, publicarPost}

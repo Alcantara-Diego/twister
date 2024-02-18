@@ -4,6 +4,14 @@
     color: blue!important;
 }
 
+.deletarPostBtn{
+    width: 50px;
+    padding: 3px;
+    background: none;
+    color: red;
+    border: 1px solid red;
+
+}
 
 .post{
     display: flex;
@@ -11,6 +19,13 @@
     justify-content: space-between;
     &:hover{
         background-color: #2e2e2e;
+    }
+
+    .conteudo{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 85%;
     }
 
     .alinhamento{
@@ -56,5 +71,7 @@
             margin-bottom: 5px;
             cursor: pointer;
         }
+
+        
     }
 }

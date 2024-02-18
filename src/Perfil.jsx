@@ -2,7 +2,6 @@ import "./style/perfil.scss"
 import Post from './Post';
 import { carregarUsuarioPorUsername } from "./functions/users";
 import { BsPersonCircle } from "react-icons/bs";
-import { FaRegTrashCan } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { donoPerfil } from "./dbTeste";
 
@@ -127,7 +126,8 @@ function Perfil(props){
                 abrirPost={props.abrirPost}
                 mostrarPerfilPeloUsername="negar"
                 autorizarAbrirPost="permitir"
-                alterarURL={props.alterarURL}></Post> : <div>Usuário ainda não publicou nenhum post</div>}
+                alterarURL={props.alterarURL}
+                ></Post> : <div>Usuário ainda não publicou nenhum post</div>}
 
             </div>
 

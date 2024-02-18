@@ -7,6 +7,7 @@ import Feed from './Feed'
 import PostAberto from './PostAberto'
 import Perfil from  './Perfil'
 import ListaEditavel from './ListaEditavel'
+import Alerta from './Alerta'
 import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
 import { postsInfoDb } from './dbTeste'
 
@@ -136,19 +137,26 @@ function App() {
 // Planejamento futuro:
 // tirar botão de publicar quando nn acha o post ou criar página de não existe
 // Remover repost
+
   return (
     <div className="container">
       <Nav></Nav>
+
       <div className="conteudo">
-        <Sidebar atualizarApp={atualizarApp} alterarURL={alterarURL}></Sidebar>
+        <Sidebar 
+        atualizarApp={atualizarApp} 
+        alterarURL={alterarURL}>
+
+        </Sidebar>
 
         <div>
 
           <ListaEditavel 
           alterarURL={alterarURL}
           conteudo={listaEditavelInfo}
-          
           ></ListaEditavel>
+
+          <Alerta></Alerta>
 
           <Routes>
             <Route path='/' element={<Feed
@@ -163,6 +171,7 @@ function App() {
             alterarURL={alterarURL}
             setListaEditavelInfo={setListaEditavelInfo}
             />} />
+
             <Route path='/post/:id' element={
             <PostAberto
             postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
