@@ -124,59 +124,57 @@ function App() {
     alterarURL(`/post/${postDetalhes.id}`);
     
 }
-  
-// Planejamento futuro:
-// tirar botão de publicar quando nn acha o post ou criar página de não existe
+
 
   return (
     <div className="container">
       <Nav></Nav>
 
-      <div className="conteudo">
-        <Sidebar 
-        atualizarApp={atualizarApp} 
-        alterarURL={alterarURL}>
+        <div className="conteudo">
+          <Sidebar
+          atualizarApp={atualizarApp}
+          alterarURL={alterarURL}>
 
-        </Sidebar>
-
-        <div>
-
-          <ListaEditavel 
-          alterarURL={alterarURL}
-          conteudo={listaEditavelInfo}
-          ></ListaEditavel>
-
-          <Alerta></Alerta>
-
-          <Routes>
-            <Route path='/' element={<Feed
+          </Sidebar>
+          <div>
+            <ListaEditavel
             alterarURL={alterarURL}
-            abrirPost={abrirPost}/>} />
+            conteudo={listaEditavelInfo}
+            ></ListaEditavel>
+            <Alerta></Alerta>
+            
+            <Routes>
 
-            <Route path='/usuario/:username'
-            element={<Perfil
-            usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}
-            usuarioPosts={usuarioPosts}
-            abrirPost={abrirPost}
-            alterarURL={alterarURL}
-            setListaEditavelInfo={setListaEditavelInfo}
-            />} />
+              <Route path='/' element={<Feed
+              alterarURL={alterarURL}
+              abrirPost={abrirPost}/>} />
 
-            <Route path='/post/:id' element={
-            <PostAberto
-            postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
-            mostrarPerfilPeloUsername="permitir"
-            alterarURL={alterarURL}/>}/>
+              <Route path='/usuario/:username'
+              element={<Perfil
+              usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}
+              usuarioPosts={usuarioPosts}
+              abrirPost={abrirPost}
+              alterarURL={alterarURL}
+              setListaEditavelInfo={setListaEditavelInfo}
+              />} />
 
-            {/* <Route path="*"></Route> */}
-          
-          </Routes>
+              <Route path='/post/:id' element={
+              <PostAberto
+              postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
+              mostrarPerfilPeloUsername="permitir"
+              alterarURL={alterarURL}/>}/>
+      
+            </Routes>
+          </div>
+      
+      
         </div>
-
-        
-        
-      </div>
+      
     </div>
+     
+ 
+
+    
   )
 }
 

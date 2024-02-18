@@ -2,7 +2,6 @@ import { BsPersonCircle } from "react-icons/bs";
 import { BiSolidPencil } from "react-icons/bi";
 
 
-import salvarData from "./functions/extras";
 function NovoPost(props){
 
     const gerarPost =() => {       

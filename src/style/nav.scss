@@ -32,6 +32,18 @@ nav{
         cursor: pointer;
         font-weight: 600;
     }
+
+    .navLogadoInfo{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img{
+            margin: 0px 10px;
+            width: 22px;
+            border-radius: 50%;
+        }
+    }
 }
 
 @media (max-width: 550px){
