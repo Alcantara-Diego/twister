@@ -56,15 +56,6 @@ function App() {
   
   }, [updateApp]);
 
-  // Checar os paramentros passados(Será removido após testes)
-  // useEffect(() =>{
-  //   console.log(usuarioPosts)
-  //   console.log(usuarioInfo)
-  
-
-  // }, [usuarioPosts, usuarioInfo])
-
-
 
   // Carregar info do post ou usuario baseado no id da URL
   function tratarURL(url, tipo){
@@ -136,7 +127,6 @@ function App() {
   
 // Planejamento futuro:
 // tirar botão de publicar quando nn acha o post ou criar página de não existe
-// Remover repost
 
   return (
     <div className="container">
@@ -177,6 +167,8 @@ function App() {
             postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
             mostrarPerfilPeloUsername="permitir"
             alterarURL={alterarURL}/>}/>
+
+            {/* <Route path="*"></Route> */}
           
           </Routes>
         </div>

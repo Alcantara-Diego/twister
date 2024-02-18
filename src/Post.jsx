@@ -185,12 +185,12 @@ function Post(props){
 
                 <footer>
 
-        
+{/*         
                     {info.comentariosArray? 
                             <button className={info.repostado? "postRepostado repostBtn" : "repostBtn"} onClick={() => alterarLikeRepost(info.id, "repost")}>
                             <FaRetweet />{info.reposts}
                             </button>       
-                    : null}
+                    : null} */}
 
                     {info.comentariosArray? 
                         <button>

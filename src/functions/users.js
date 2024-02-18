@@ -79,15 +79,12 @@ const publicarPost = (tipo, ParenteId) =>{
                 username: donoPerfil.username,
                 texto: txt.value,
                 data: data,
-                reposts: 0,
                 likes: [],
-                repostado: false,
                 comentariosArray: [],
                 id: postId
             }
 
-            // Adicionar o id no banco de dados do usuário para ser possível apagar o post futuramente
-            donoPerfil.idPostsCriados.push(postId);
+   
             // Encaminhar o post pra db
             postsInfoDb.push(postObj);
             txt.value="";
