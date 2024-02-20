@@ -1,7 +1,7 @@
 import './style/nav.scss'
 import { useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
-
+import { buscarPosts, buscarUsuarios } from './pastaFirebase/database';
 import { GiTwister } from "react-icons/gi";
 import { IoPersonSharp } from "react-icons/io5";
 import { useEffect } from 'react';
@@ -17,10 +17,11 @@ function Nav() {
     useEffect(() =>{
 
         if(logado){
-            console.log(userAuth.displayName);
-            setNomeLogado(userAuth.displayName);
-            console.log(userAuth.photoURL);
-            setFoto(userAuth.photoURL)
+            buscarUsuarios()
+            // console.log(userAuth.displayName);
+            // setNomeLogado(userAuth.displayName);
+            // console.log(userAuth.photoURL);
+            // setFoto(userAuth.photoURL)
 
         } else{
             setNomeLogado("login")
@@ -43,7 +44,7 @@ function Nav() {
                 {nomeLogado}
 
                 {foto? (
-                <img src={foto} height="100%"></img>) : 
+                <img src={foto}></img>) : 
 
                 (<IoPersonSharp /> )}
             

@@ -1,9 +1,12 @@
+import { useEffect, useState, createContext } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useEffect } from "react";
-import { useState, createContext } from "react";
-import { app } from '../pastaFirebase/firebaseConfig';
-const provider = new GoogleAuthProvider()
+import { app } from '../pastaFirebase/firebasePrincipal';
+import { buscarUsuarios, buscarUsuarioPorUsername } from "../pastaFirebase/database";
 
+
+
+
+const provider = new GoogleAuthProvider()
 
 export const AuthGoogleContext = createContext({});
 
@@ -25,6 +28,22 @@ export const AuthGoogleProvider = ({ children }) => {
 
         loadStoreAuth()
     }, []);
+
+
+    useEffect(() =>{
+  
+      const verificarUsuario = async () => {
+
+        const usertt = "teste0101010"
+        let f = await buscarUsuarioPorUsername(usertt)
+        console.log(f)
+
+      }
+
+      verificarUsuario();
+      
+
+    }, [])
 
 
     const signInGoogle = () =>{

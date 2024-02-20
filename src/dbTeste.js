@@ -164,6 +164,7 @@ let postsInfoDb = [
 let userInfoDb = [
     {
         username: "exemploAccount",
+        email: "exemploAccount",
         seguidores: [],
         seguindo: [],
         recado: "Personalizado",
@@ -171,6 +172,7 @@ let userInfoDb = [
     },
     {
         username: "Diego_Alc",
+        email: "Diego_Alc",
         seguidores: [],
         seguindo: [],
         recado: "Primeiro recado",
@@ -178,6 +180,7 @@ let userInfoDb = [
     },
     {
         username: "propsUser",
+        email: "propsUser",
         seguidores: [],
         seguindo: [],
         recado: "Recado de teste",
@@ -185,6 +188,7 @@ let userInfoDb = [
     },
     {
         username: "infinity",
+        email: "infinity",
         seguidores: [],
         seguindo: [],
         recado: "infinity stones",
@@ -192,6 +196,7 @@ let userInfoDb = [
     },
     {
         username: "User033",
+        email: "User033",
         seguidores: [],
         seguindo: [],
         recado: "mensagem do user",
@@ -199,6 +204,7 @@ let userInfoDb = [
     },
     {
         username: "segundo323",
+        email: "segundo323",
         seguidores: [],
         seguindo: [],
         recado: "Recado do segundo",

@@ -131,16 +131,19 @@ function App() {
       <Nav></Nav>
 
         <div className="conteudo">
+
           <Sidebar
           atualizarApp={atualizarApp}
           alterarURL={alterarURL}>
-
           </Sidebar>
+          
           <div>
+
             <ListaEditavel
             alterarURL={alterarURL}
             conteudo={listaEditavelInfo}
             ></ListaEditavel>
+
             <Alerta></Alerta>
             
             <Routes>
