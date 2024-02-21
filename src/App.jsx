@@ -1,18 +1,22 @@
 import './style/main.scss'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Routes, Route, useNavigate} from 'react-router-dom'
 import Nav from "./Nav"
 import Sidebar from "./Sidebar"
 import Feed from './Feed'
 import PostAberto from './PostAberto'
 import Perfil from  './Perfil'
+import Cadastro from './Cadastro'
 import ListaEditavel from './ListaEditavel'
 import Alerta from './Alerta'
+import { PrivateRoute } from './RotasPrivadas'
+import { AuthGoogleContext } from './contexts/AuthGoogle'
 import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
 import { postsInfoDb } from './dbTeste'
 
 function App() {
 
+  const { logado, userAuth } = useContext(AuthGoogleContext);
   const navigate = useNavigate();
 
   const [updateApp, setUpdateApp] = useState(false);
@@ -126,6 +130,13 @@ function App() {
 }
 
 
+
+useEffect(()=>{
+  console.log(userAuth)
+}, [userAuth])
+
+
+
   return (
     <div className="container">
       <Nav></Nav>
@@ -166,6 +177,18 @@ function App() {
               postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
               mostrarPerfilPeloUsername="permitir"
               alterarURL={alterarURL}/>}/>
+
+              {/* <Route path='/cadastro' element={<Cadastro></Cadastro>}/> */}
+
+              <Route path='/cadastro' element={
+                <PrivateRoute>
+                  <Cadastro></Cadastro>
+                </PrivateRoute>
+              }/>
+
+              
+
+             
       
             </Routes>
           </div>

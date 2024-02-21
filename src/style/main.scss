@@ -15,6 +15,22 @@
     padding: 0;
 }
 
+.logo{
+    font-family: sans-serif;
+    font-weight: 700;
+    cursor: default;
+
+    .icone{
+        color: red!important;
+    }
+    .titulo {
+        background: var(--gradientForte);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+}
+
+
 body{
 
     font-family: sans-serif;

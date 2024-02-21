@@ -30,20 +30,20 @@ export const AuthGoogleProvider = ({ children }) => {
     }, []);
 
 
-    useEffect(() =>{
+    // useEffect(() =>{
   
-      const verificarUsuario = async () => {
+    //   const verificarUsuario = async () => {
 
-        const usertt = "teste0101010"
-        let f = await buscarUsuarioPorUsername(usertt)
-        console.log(f)
+    //     const usertt = "teste010101"
+    //     let f = await buscarUsuarioPorUsername(usertt)
+    //     console.log(f)
 
-      }
+    //   }
 
-      verificarUsuario();
+    //   verificarUsuario();
       
 
-    }, [])
+    // }, [])
 
 
     const signInGoogle = () =>{
@@ -56,7 +56,7 @@ export const AuthGoogleProvider = ({ children }) => {
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
-            console.log(user)
+            // console.log(user)
             setUserAuth(user);
             sessionStorage.setItem("@AuthFirebase:token", token);
             sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user));

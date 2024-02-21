@@ -1,0 +1,108 @@
+.centralizar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.cadastroDiv{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background-color: #1e1e1e;
+    color: white;
+    z-index: 1000;
+
+    .instrucoes{
+        text-align: center;
+        margin: 20px 0px;
+
+        ul{
+            margin-top: 10px;
+            color: gray;
+            padding: 10px 0px;
+            width: fit-content;
+            text-align: center;
+            font-style: italic;
+
+            li{
+                text-align: center;
+                width: fit-content;
+            }
+        }
+
+       
+    }
+
+    .inputDiv{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        // margin-top: 0px;
+
+        span{
+            font-size: 1.1rem;
+            color: #6d6d6d;
+            padding: 10px 0px 10px 10px;
+            background-color: #313131;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+
+        }
+
+        input{
+            font-size: 1.5rem;
+            padding: 10px 10px 10px 1px;
+            color: white;
+            background-color: #313131;
+            border: none;
+
+        }
+        input:focus{
+            outline-color: rgb(56, 56, 56);
+        }
+        button{
+
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border: none;
+            background-color: rgb(12, 180, 12);
+        }
+    }
+
+    .feedback{
+        margin-top: 10px;
+        font-style: italic;
+        color: #d23a3a;
+
+        
+    }
+
+    
+}
+
+.logo{
+    padding: 30px;
+    text-align: center;
+    font-size: 4rem;
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.324);
+    
+
+}
+
+.cadastroConteudo{
+    height: 80vh;
+    width: 90vh;
+    align-items: center;
+    justify-content: flex-start;
+    // border: 1px solid green;
+    text-align: center;
+    
+}

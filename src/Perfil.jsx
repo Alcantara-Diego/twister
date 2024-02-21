@@ -75,7 +75,6 @@ function Perfil(props){
     function toggleSeguirSeguindo(seguindo, username){
 
 
-        // console.log(donoPerfil.seguindo.includes(username))
 
         let usuario = carregarUsuarioPorUsername(username)
 
