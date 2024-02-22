@@ -18,10 +18,10 @@ async function buscarUsuarios(){
 }
 
 // terminar de puxar usuario
-async function buscarUsuarioPorUsername(username){
+async function buscarUsuarioPorIdentificador(tipo, valor){
     try {
 
-        const busca = query(collection(db, "usuarios"), where("username", "==", username));
+        const busca = query(collection(db, "usuarios"), where(tipo, "==", valor));
 
         const resultado = await getDocs(busca);
 
@@ -36,7 +36,7 @@ async function buscarUsuarioPorUsername(username){
         }
 
     } catch (error) {
-        console.error("Erro ao buscar usuário por username:", error);
+        console.error(`Erro ao buscar usuário por ${tipo} com identificador ${valor}`, error);
     }
 }
 
@@ -60,4 +60,4 @@ async function buscarPosts(){
 
 // console.log(db)
 
-export {buscarPosts, buscarUsuarios, buscarUsuarioPorUsername}
+export {buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador}

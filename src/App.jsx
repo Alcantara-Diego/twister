@@ -16,7 +16,7 @@ import { postsInfoDb } from './dbTeste'
 
 function App() {
 
-  const { logado, userAuth } = useContext(AuthGoogleContext);
+  const { logado, userAuth, primeiroAcesso } = useContext(AuthGoogleContext);
   const navigate = useNavigate();
 
   const [updateApp, setUpdateApp] = useState(false);
@@ -25,8 +25,9 @@ function App() {
   // Info que será passada para o componente de Perfil.JSX
   const [usuarioInfo, setUsuarioInfo] = useState("vazio");
   const [usuarioPosts, setUsuarioPosts] = useState([]);
-
   const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
+
+
 
   function atualizarApp(){
     setUpdateApp(!updateApp)
@@ -131,9 +132,7 @@ function App() {
 
 
 
-useEffect(()=>{
-  console.log(userAuth)
-}, [userAuth])
+
 
 
 
@@ -181,13 +180,10 @@ useEffect(()=>{
               {/* <Route path='/cadastro' element={<Cadastro></Cadastro>}/> */}
 
               <Route path='/cadastro' element={
-                <PrivateRoute>
+                <PrivateRoute primeiroAcesso={primeiroAcesso}>
                   <Cadastro></Cadastro>
                 </PrivateRoute>
               }/>
-
-              
-
              
       
             </Routes>

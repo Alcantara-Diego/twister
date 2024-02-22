@@ -1,18 +1,9 @@
-import { useContext } from "react";
-import { Navigate } from "react-router-dom"
-import { AuthGoogleContext } from "./contexts/AuthGoogle";
-AuthGoogleContext
-export function PrivateRoute({children}){
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-    const { logado, userAuth } = useContext(AuthGoogleContext);
+export function PrivateRoute({ primeiroAcesso, children }) {
+ 
+  
 
-    console.log(userAuth)
-
-    
-
-    return userAuth? children : <Navigate to="/"/>
-
-
-      
-
+  return primeiroAcesso ? children : null;
 }

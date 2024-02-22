@@ -2,8 +2,9 @@ import './style/cadastro.scss'
 import './style/nav.scss'
 import { useEffect, useState, useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
-import {buscarUsuarioPorUsername} from './pastaFirebase/database'
 import { GiTwister } from "react-icons/gi";
+import { buscarUsuarioPorIdentificador } from './pastaFirebase/database';
+import salvarData from './functions/extras';
 
 function Cadastro(){
 
@@ -28,11 +29,11 @@ function Cadastro(){
             // Após filtrar os caracteres permitidos, verificar se o username já está em uso na db
             setFeedback("")
             console.log("entrando na db")
-            const buscaNaDb = await buscarUsuarioPorUsername(inputValor);
+            const buscaNaDb = await buscarUsuarioPorIdentificador("username", inputValor);
 
             console.log(buscaNaDb)
 
-            buscaNaDb === null? criarNovoUsuario() : setFeedback(`Username ${inputValor} já está em uso por outro usuário.`)
+            buscaNaDb === null? criarNovoUsuario(inputValor) : setFeedback(`Username ${inputValor} já está em uso por outro usuário.`)
 
         }
 
@@ -74,10 +75,28 @@ function Cadastro(){
     }
    
 
-    function criarNovoUsuario(){
-        console.log("novoo")
+    function criarNovoUsuario(username){
 
-        console.log(userAuth)
+        let data = salvarData();
+
+
+        // console.log(userAuth)
+        let novoUsuario = {
+
+            username: username,
+            displayName: userAuth.displayName,
+            email: userAuth.email,
+            fotoURL: userAuth.photoURL,
+            cadastro: data,
+            recado: "Twister social media",
+            seguidores: [],
+            seguindo: [],
+            googleInfo: userAuth
+
+
+        }
+        console.log(novoUsuario)
+
     }
 
 

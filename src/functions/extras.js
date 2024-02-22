@@ -10,7 +10,7 @@ const salvarData = () =>{
     const minutos = formatarData(novaData.getMinutes());
     const segundos = formatarData(novaData.getSeconds());
 
-    const dataAtual = `${dia}/${mes}/${ano} - ${horas}:${minutos}:${segundos}`
+    const dataAtual = {data :`${dia}/${mes}/${ano}`, hora: `${horas}:${minutos}:${segundos}`}
 
     return dataAtual;
 }

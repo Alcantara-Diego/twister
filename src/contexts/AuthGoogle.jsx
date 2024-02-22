@@ -1,50 +1,63 @@
 import { useEffect, useState, createContext } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from '../pastaFirebase/firebasePrincipal';
-import { buscarUsuarios, buscarUsuarioPorUsername } from "../pastaFirebase/database";
+import { buscarUsuarios, buscarUsuarioPorIdentificador } from "../pastaFirebase/database";
+import { useNavigate } from "react-router-dom";
 
 
-
-
-const provider = new GoogleAuthProvider()
-
+const provider = new GoogleAuthProvider();
 export const AuthGoogleContext = createContext({});
+
 
 export const AuthGoogleProvider = ({ children }) => {
     const auth = getAuth(app);
+    const navigate = useNavigate();
 
     const [userAuth, setUserAuth] = useState(null);
     const [updateAll, setUpdateAll] = useState(false);
 
-    useEffect(()=>{
-        const loadStoreAuth = () => {
-            const sessionToken = sessionStorage.getItem("@AuthFirebase:token");
-            const sessionUser = sessionStorage.getItem("@AuthFirebase:user");
+    const [primeiroAcesso, setPrimeiroAcesso] = useState(false);
 
-            if(sessionToken && sessionUser) {
-                setUserAuth(JSON.parse(sessionUser));
-            }
+    useEffect(()=>{
+      if (userAuth == null) {
+        setPrimeiroAcesso(false)
+        
+      } else{
+        const verificarUsuario = async () => {
+
+          console.log(userAuth)
+
+         
+          let usuarioEncontrado = await buscarUsuarioPorIdentificador("email", userAuth.email)
+          console.log(usuarioEncontrado)
+
+          if(usuarioEncontrado == null){
+
+            setPrimeiroAcesso(true)
+            navigate("/cadastro");
+          }
+
         }
 
-        loadStoreAuth()
-    }, []);
+        verificarUsuario();
+      }
+    }, [userAuth])
+
+    // useEffect(()=>{
+    //     const loadStoreAuth = () => {
+    //         const sessionToken = sessionStorage.getItem("@AuthFirebase:token");
+    //         const sessionUser = sessionStorage.getItem("@AuthFirebase:user");
+
+    //         if(sessionToken && sessionUser) {
+    //             setUserAuth(JSON.parse(sessionUser));
+    //         }
+    //     }
+
+    //     loadStoreAuth()
+    // }, []);
 
 
-    // useEffect(() =>{
-  
-    //   const verificarUsuario = async () => {
-
-    //     const usertt = "teste010101"
-    //     let f = await buscarUsuarioPorUsername(usertt)
-    //     console.log(f)
-
-    //   }
-
-    //   verificarUsuario();
-      
-
-    // }, [])
-
+   
 
     const signInGoogle = () =>{
         
@@ -84,7 +97,7 @@ export const AuthGoogleProvider = ({ children }) => {
   
 
   return (
-    <AuthGoogleContext.Provider value={{ signInGoogle, logado: !!userAuth, userAuth }}>
+    <AuthGoogleContext.Provider value={{ signInGoogle, logado: !!userAuth, userAuth, userAuth: userAuth, primeiroAcesso: primeiroAcesso }}>
         { children }
     </AuthGoogleContext.Provider>
 
