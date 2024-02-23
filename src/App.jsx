@@ -16,15 +16,17 @@ import { postsInfoDb } from './dbTeste'
 
 function App() {
 
-  const { logado, userAuth, primeiroAcesso } = useContext(AuthGoogleContext);
   const navigate = useNavigate();
+  const { userAuth, primeiroAcesso } = useContext(AuthGoogleContext);
 
   const [updateApp, setUpdateApp] = useState(false);
   // Info que será passada para o componente de PostAberto.JSX
   const [postAbertoInfo, setPostAbertoInfo] = useState("vazio");
   // Info que será passada para o componente de Perfil.JSX
   const [usuarioInfo, setUsuarioInfo] = useState("vazio");
+    // Info que será passada para o componente de Post.JSX
   const [usuarioPosts, setUsuarioPosts] = useState([]);
+    // Info que será passada para o componente de ListaEditavel.JSX
   const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
 
 
@@ -176,8 +178,6 @@ function App() {
               postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
               mostrarPerfilPeloUsername="permitir"
               alterarURL={alterarURL}/>}/>
-
-              {/* <Route path='/cadastro' element={<Cadastro></Cadastro>}/> */}
 
               <Route path='/cadastro' element={
                 <PrivateRoute primeiroAcesso={primeiroAcesso}>

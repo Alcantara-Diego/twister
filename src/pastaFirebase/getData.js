@@ -3,6 +3,27 @@ import {collection, getDocs, query, where } from "firebase/firestore";
 
 
 
+async function buscarEmailCadastrado(email){
+
+    try{
+        const busca = query(collection(db, "emailsCadastrados"), where("email", "==", email));
+
+        const resultado = await getDocs(busca);
+
+        if (resultado.docs.length > 0) {
+
+            return resultado.docs[0].data();
+        } else {
+
+            return null;
+        }
+
+
+    } catch(error){
+
+        console.log(error)
+    }
+}
 
 async function buscarUsuarios(){
     try {
@@ -17,7 +38,7 @@ async function buscarUsuarios(){
     }
 }
 
-// terminar de puxar usuario
+
 async function buscarUsuarioPorIdentificador(tipo, valor){
     try {
 
@@ -58,6 +79,6 @@ async function buscarPosts(){
 }
 
 
-// console.log(db)
 
-export {buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador}
+
+export {buscarEmailCadastrado, buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador}

@@ -1,8 +1,9 @@
 import { useEffect, useState, createContext } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from '../pastaFirebase/firebasePrincipal';
-import { buscarUsuarios, buscarUsuarioPorIdentificador } from "../pastaFirebase/database";
+import { buscarUsuarios, buscarUsuarioPorIdentificador, buscarEmailCadastrado } from "../pastaFirebase/getData";
 import { useNavigate } from "react-router-dom";
+import { addEmail } from "../pastaFirebase/addData";
 
 
 const provider = new GoogleAuthProvider();
@@ -25,7 +26,9 @@ export const AuthGoogleProvider = ({ children }) => {
       } else{
         const verificarUsuario = async () => {
 
-          console.log(userAuth)
+          // Registrar o email na db caso seja o primeiro acesso
+          let emailCadastrado = await buscarEmailCadastrado(userAuth.email);
+          emailCadastrado == null ? await addEmail(userAuth.email, userAuth.displayName, userAuth) : null
 
          
           let usuarioEncontrado = await buscarUsuarioPorIdentificador("email", userAuth.email)
@@ -35,6 +38,8 @@ export const AuthGoogleProvider = ({ children }) => {
 
             setPrimeiroAcesso(true)
             navigate("/cadastro");
+          } else{
+            navigate("/");
           }
 
         }
@@ -69,7 +74,6 @@ export const AuthGoogleProvider = ({ children }) => {
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
-            // console.log(user)
             setUserAuth(user);
             sessionStorage.setItem("@AuthFirebase:token", token);
             sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user));
@@ -97,7 +101,7 @@ export const AuthGoogleProvider = ({ children }) => {
   
 
   return (
-    <AuthGoogleContext.Provider value={{ signInGoogle, logado: !!userAuth, userAuth, userAuth: userAuth, primeiroAcesso: primeiroAcesso }}>
+    <AuthGoogleContext.Provider value={{ signInGoogle, userAuth: userAuth, primeiroAcesso: primeiroAcesso }}>
         { children }
     </AuthGoogleContext.Provider>
 

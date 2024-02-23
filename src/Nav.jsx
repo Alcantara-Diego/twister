@@ -1,7 +1,7 @@
 import './style/nav.scss'
 import { useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
-import { buscarPosts, buscarUsuarios } from './pastaFirebase/database';
+import { buscarPosts, buscarUsuarios } from './pastaFirebase/getData';
 import { GiTwister } from "react-icons/gi";
 import { IoPersonSharp } from "react-icons/io5";
 import { useEffect } from 'react';

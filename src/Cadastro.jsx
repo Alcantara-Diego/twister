@@ -3,12 +3,13 @@ import './style/nav.scss'
 import { useEffect, useState, useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
 import { GiTwister } from "react-icons/gi";
-import { buscarUsuarioPorIdentificador } from './pastaFirebase/database';
+import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData';
 import salvarData from './functions/extras';
+import { addUsuario } from './pastaFirebase/addData';
 
 function Cadastro(){
 
-    const { logado, userAuth } = useContext(AuthGoogleContext);
+    const { userAuth } = useContext(AuthGoogleContext);
 
     const [inputValor, setInputValor] = useState("");
     const [feedback, setFeedback] = useState("");
@@ -75,12 +76,11 @@ function Cadastro(){
     }
    
 
-    function criarNovoUsuario(username){
+    async function criarNovoUsuario(username){
 
         let data = salvarData();
 
 
-        // console.log(userAuth)
         let novoUsuario = {
 
             username: username,
@@ -90,12 +90,13 @@ function Cadastro(){
             cadastro: data,
             recado: "Twister social media",
             seguidores: [],
-            seguindo: [],
-            googleInfo: userAuth
+            seguindo: []
 
 
         }
-        console.log(novoUsuario)
+
+        let user = await addUsuario(novoUsuario);
+        console.log(user)
 
     }
 
