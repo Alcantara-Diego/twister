@@ -4,7 +4,7 @@ import Post from './Post';
 import NovoPost from './NovoPost'
 
 import { postsInfoDb } from './dbTeste';
-import { publicarPost } from './functions/users';
+// import { publicarPost } from './functions/users';
 
 
 function Feed(props){
@@ -16,7 +16,7 @@ function Feed(props){
 
   
     function prepararPost(){
-        publicarPost("post")
+        // publicarPost("post")
         setAttFeed(!attFeed);
 
     }

@@ -2,17 +2,61 @@ import { BsPersonCircle } from "react-icons/bs";
 import { BiSolidPencil } from "react-icons/bi";
 import { useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
+import { addPost } from "./pastaFirebase/addData";
+import salvarData from "./functions/extras";
+import { uuidv4 } from "@firebase/util";
 
 function NovoPost(props){
+
+    const { usuarioLogado } = useContext(AuthGoogleContext);
 
     const gerarPost =() => {       
         props.prepararPost();
     }
 
-    const { usuarioLogado } = useContext(AuthGoogleContext);
+    async function validarPost(){
+
+        
+        if(!usuarioLogado){
+            console.log("deslogado")
+            
+        } else{
+
+            let localId = uuidv4();
+            let data = salvarData();
 
 
+            let txt = document.getElementById("criarTexto");
 
+
+            // Impedir o usuário de postar se não tiver escrito pouco
+            if (txt.value.length < 5) {
+                console.log("pouca escrita");
+
+            } else {
+
+                let postObj = {
+                    displayName: usuarioLogado.displayName,
+                    username: usuarioLogado.username,
+                    texto: txt.value,
+                    data: data,
+                    likes: [],
+                    comentariosArray: [],
+                    fotoURL: usuarioLogado.fotoURL,
+                    localId: localId
+                  
+                }
+
+
+                // Encaminhar o post pra db
+                const requisicao = await addPost("post", postObj);
+
+                console.log(requisicao);
+                txt.value="";
+            }
+ 
+        }
+    }
     
     return (
         <div className="criarPost postConfigPadrao bordaGradient">
@@ -32,7 +76,7 @@ function NovoPost(props){
         
         </header>
             <footer>
-                <button className='publicarPostBtn ' onClick={() =>{gerarPost()}}>Publicar <BiSolidPencil /></button>
+                <button className='publicarPostBtn ' onClick={() =>{validarPost()}}>Publicar <BiSolidPencil /></button>
             </footer>
         </div>
 

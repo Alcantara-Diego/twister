@@ -70,7 +70,7 @@ const publicarPost = (tipo, ParenteId) =>{
         let txt = document.getElementById("criarTexto")
 
         // Impedir o usuário de postar se não tiver escrito nada
-        if(txt.value.length > 1){
+        if(txt.value.length > 2){
 
             
             console.log(postId)
