@@ -9,9 +9,8 @@ function NovoPost(props){
         props.prepararPost();
     }
 
-    const { signInGoogle, logado, userAuth } = useContext(AuthGoogleContext);
+    const { usuarioLogado } = useContext(AuthGoogleContext);
 
-    console.log()
 
 
     
@@ -19,8 +18,8 @@ function NovoPost(props){
         <div className="criarPost postConfigPadrao bordaGradient">
         <header>
 
-                {logado && userAuth.photoURL? (
-                    <img className="googleFoto" src={userAuth.photoURL} alt="perfil"></img>
+                {usuarioLogado? (
+                    <img className="googleFoto fotoDePerfil" src={usuarioLogado.fotoURL} alt="perfil"></img>
 
                 ) : (
                     <BsPersonCircle className='userFoto'></BsPersonCircle>

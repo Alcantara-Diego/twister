@@ -13,6 +13,7 @@ import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
 import { postsInfoDb } from './dbTeste'
+import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
 
 function App() {
 
@@ -45,27 +46,39 @@ function App() {
 
   // Identificar a requisição pela URL e saber o ID do post ou nome do usuário para puxar informações do banco de dados
     useEffect(() => {
-      let url = window.location.pathname;
 
-      if(url.includes("post")){
-        let post = tratarURL(url, "post");
-        setPostAbertoInfo(post)
+      async function atualizarDados(){
+
+        let url = window.location.pathname;
+
+        if(url.includes("post")){
+          let post = tratarURL(url, "post");
+          setPostAbertoInfo(post)
 
 
-      } else if(url.includes("usuario")){
-        let usuario = tratarURL(url, "usuario");
-      
-        setUsuarioInfo(usuario[0]);
+        } else if(url.includes("usuario")){
+          let usuario = await tratarURL(url, "usuario");
 
-        setUsuarioPosts(usuario[1]);
+          console.log(usuario)
+        
+          setUsuarioInfo(usuario[0]);
+
+          setUsuarioPosts(usuario[1]);
+        }
+
       }
+
+      atualizarDados();
+
+
+      
 
   
   }, [updateApp]);
 
 
   // Carregar info do post ou usuario baseado no id da URL
-  function tratarURL(url, tipo){
+  async function tratarURL(url, tipo){
 
     let salvarId;
     let match;
@@ -100,13 +113,13 @@ function App() {
 
         
           let usuario = []
-          usuario[0] = carregarUsuarioPorUsername(username);
 
-          usuario.push(carregarPostsPorUsername(username));
-          
+          usuario[0] = await buscarUsuarioPorIdentificador("username", username)
+          // Post falso para ser corrigido depois
+          usuario.push(carregarPostsPorUsername("infinity"));
 
 
-          if (usuario) {
+          if (usuario[0] != null) {
             return usuario            
           } else{
             return ["vazio", []]
@@ -166,7 +179,7 @@ function App() {
 
               <Route path='/usuario/:username'
               element={<Perfil
-              usuarioInfo={usuarioInfo =="vazio"? "" : usuarioInfo}
+              usuarioInfo={usuarioInfo =="vazio"? "vazio" : usuarioInfo}
               usuarioPosts={usuarioPosts}
               abrirPost={abrirPost}
               alterarURL={alterarURL}

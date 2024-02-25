@@ -14,6 +14,7 @@ export const AuthGoogleProvider = ({ children }) => {
     const auth = getAuth(app);
     const navigate = useNavigate();
 
+    const [usuarioLogado, setUsuarioLogado] = useState(null);
     const [userAuth, setUserAuth] = useState(null);
     const [updateAll, setUpdateAll] = useState(false);
 
@@ -39,6 +40,7 @@ export const AuthGoogleProvider = ({ children }) => {
             setPrimeiroAcesso(true)
             navigate("/cadastro");
           } else{
+            setUsuarioLogado(usuarioEncontrado);
             navigate("/");
           }
 
@@ -101,7 +103,7 @@ export const AuthGoogleProvider = ({ children }) => {
   
 
   return (
-    <AuthGoogleContext.Provider value={{ signInGoogle, userAuth: userAuth, primeiroAcesso: primeiroAcesso }}>
+    <AuthGoogleContext.Provider value={{ signInGoogle, userAuth: userAuth, primeiroAcesso: primeiroAcesso, usuarioLogado: usuarioLogado }}>
         { children }
     </AuthGoogleContext.Provider>
 

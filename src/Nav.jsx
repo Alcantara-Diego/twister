@@ -12,16 +12,14 @@ function Nav() {
     const [nomeLogado, setNomeLogado] = useState("login");
     const [foto, setFoto] = useState(false);
 
-    const { signInGoogle, logado, userAuth } = useContext(AuthGoogleContext);
+    const { signInGoogle, usuarioLogado } = useContext(AuthGoogleContext);
 
     useEffect(() =>{
 
-        if(logado){
-            buscarUsuarios()
-            // console.log(userAuth.displayName);
-            // setNomeLogado(userAuth.displayName);
-            // console.log(userAuth.photoURL);
-            // setFoto(userAuth.photoURL)
+        if(usuarioLogado){
+        
+            setNomeLogado(usuarioLogado.displayName);
+            setFoto(usuarioLogado.fotoURL)
 
         } else{
             setNomeLogado("login")
@@ -31,7 +29,7 @@ function Nav() {
             
      
 
-    }, [userAuth]);
+    }, [usuarioLogado]);
 
     return (
         <nav className='bordaGradient'>
@@ -44,7 +42,7 @@ function Nav() {
                 {nomeLogado}
 
                 {foto? (
-                <img src={foto}></img>) : 
+                <img className='fotoDePerfil' src={foto}></img>) : 
 
                 (<IoPersonSharp /> )}
             

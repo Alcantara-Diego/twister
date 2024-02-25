@@ -6,6 +6,7 @@ import { GiTwister } from "react-icons/gi";
 import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData';
 import salvarData from './functions/extras';
 import { addUsuario } from './pastaFirebase/addData';
+import { Navigate } from 'react-router-dom';
 
 function Cadastro(){
 
@@ -80,10 +81,9 @@ function Cadastro(){
 
         let data = salvarData();
 
-
         let novoUsuario = {
 
-            username: username,
+            username: `@${username}`,
             displayName: userAuth.displayName,
             email: userAuth.email,
             fotoURL: userAuth.photoURL,
@@ -96,7 +96,8 @@ function Cadastro(){
         }
 
         let user = await addUsuario(novoUsuario);
-        console.log(user)
+        console.log(user);
+        Navigate("/");
 
     }
 

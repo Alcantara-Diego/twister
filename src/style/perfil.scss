@@ -7,15 +7,47 @@
     color: white;
 
     .perfilInfoPrincipal{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .fotoNomeRecadoContainer{
+            display: flex;
+            flex-direction: column;
+
+            .dataInfo{
+                margin-top: 20px;
+                font-weight: bold;
+            }
+
+        }
         .foto{
             font-size: 3rem;
             color: white;
         }
+        
+        .fotoDePerfil{
+            width: 130px;
+            height: 130px;
+            border-width: 3px;
+        }        
         h1{
-            font-size: 2rem;
+            margin-top: 5px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            // background: var(--gradientForte);
+            // -webkit-background-clip: text;
+            // color: transparent;
+        }
+        .usernameInfo{
+            font-size: 1.3rem;
+            color: var(--corSecundaria);
         }
 
         button{
+            margin-top: 10px;
             border-radius: 15px!important;
             padding: 10px 35px;
             font-weight: bold;
@@ -23,27 +55,29 @@
             background: none;
         }
 
-        #meuRecado{
+        .recadoInfo{
             color: white;
-            margin: 15px 0;
+            margin-top: 20px;
+            // font-weight: bold;
+            font-size: 1.1rem;
         }
 
 
         text-align: start;
         margin-bottom: 2vh;
-        background: var(--gradientForte);
-            -webkit-background-clip: text;
-            color: transparent;
+        
         
         
     }
 
     .dados{
+        padding: 20px 0px;
         font-size: 1.2rem;
         list-style: none;
         width: min-content;
         text-align: start;
         color: var(--corSecundaria);
+        // border: 1px solid blue;
         
 
 
@@ -51,6 +85,7 @@
             display: inline-flex;
             text-align: center;
             margin-bottom: 30px;
+          
             :nth-child(1){
 
                 

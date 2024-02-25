@@ -1,9 +1,15 @@
 import "./style/perfil.scss"
 import Post from './Post';
 import { carregarUsuarioPorUsername } from "./functions/users";
-import { BsPersonCircle } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { donoPerfil, userInfoDb } from "./dbTeste";
+import { AuthGoogleContext } from "./contexts/AuthGoogle";
+import { BsPersonCircle } from "react-icons/bs";
+import { BsPencilFill } from "react-icons/bs";
+import { FaCheck } from "react-icons/fa";
+import { BsCalendar2CheckFill } from "react-icons/bs";
+import { buscarUsuarioPorIdentificador } from "./pastaFirebase/getData";
+import { updateUsuario } from "./pastaFirebase/updateData";
 
 function Perfil(props){
 
@@ -14,10 +20,11 @@ function Perfil(props){
         seguindo: ["dfv"],
         sigo: true,
         recado: "Twister social media",
-        cadastro: "01/01/2024",
+        cadastro: {data: "01/01/2024"},
         idPostsCriados: []
     }
 
+    const { usuarioLogado } = useContext(AuthGoogleContext);
     const [dados, setDados] = useState(modelo);
     const [posts, setPosts] = useState([]);
 
@@ -45,8 +52,9 @@ function Perfil(props){
         setEditandoRecado(!editandoRecado);
     }
 
-    function salvarRecado(){
+    async function salvarRecado(){
         donoPerfil.recado = recadoSalvo;
+        updateUsuario(usuarioLogado.username, "recado", recadoSalvo)
         setEditandoRecado(!editandoRecado);
     }
 
@@ -102,44 +110,96 @@ function Perfil(props){
     return (
         <div id="telaPerfilInfo">
             <header className="perfilInfoPrincipal">
-                <BsPersonCircle className="foto"></BsPersonCircle>
-                <h1 id="usernamePerfilDisplay">{dados.username}</h1>
-                
+                <div className="fotoNomeRecadoContainer">
+                    {/* <BsPersonCircle className="foto"></BsPersonCircle> */}
+                    <div className="fotoContainer"><img className="fotoDePerfil" src={dados.fotoURL} alt="" /></div>
+                    <h1>{dados.displayName}</h1>
+                    <h3 className="usernameInfo">{dados.username}</h3>
 
-                
+                    <div>
+                        <p className="secundario dataInfo">
+                            <BsCalendar2CheckFill /> - 
+                            Conta criada em {dados.cadastro.data}</p>
+                    </div>
+                    
+                    
+                    {editandoRecado? <input type="text" name="" id="recadoPerfilInput" value={recadoSalvo} onChange={(e) => setRecadoSalvo(e.target.value)} autoFocus/> : <p className="recadoInfo">{dados.recado}</p>}
+                    
+                    {/* Se o usuário for dono do perfil.... */}
+                    {usuarioLogado && dados.username === usuarioLogado.username?(
+                    editandoRecado?(
+                        // Se ele estiver editando o próprio recado, mostrar botão de salvar mudanças
+                        <button className="bordaGradient" onClick={salvarRecado}>Salvar <FaCheck />
 
-                {editandoRecado? <input type="text" name="" id="recadoPerfilInput" value={recadoSalvo} onChange={(e) => setRecadoSalvo(e.target.value)} autoFocus/> : <p id="recadoPerfilDisplay">{dados.recado}</p>}
-                
 
-                {/* Se o usuário for dono do perfil.... */}
-                {dados.username === donoPerfil.username?(
+                        </button>)
+                        :
+                        // Mostrar botão de editar recado caso ele seja o dono e não esteja editando atualmente
+                        (<button className="bordaGradient" onClick={autorizarEditarRecado}>Editar <BsPencilFill />
 
-                editandoRecado?(
-                    // Se ele estiver editando o próprio recado, mostrar botão de salvar mudanças
-                    <button className="bordaGradient" onClick={salvarRecado}>Salvar
+                    </button>))
+                    :
+                    // Se ele não for o dono do perfil, checa se ele segue o perfil apresentado
+                    (donoPerfil.seguindo.includes(dados.username)?(
+                    // Se seguir, mostra botão para parar de seguir
+                    <button className="bordaGradient"
+                    onClick={() => toggleSeguirSeguindo(true,  dados.username)}>Seguindo
                     </button>)
                     :
-                    // Mostrar botão de editar recado caso ele seja o dono e não esteja editando atualmente
-                    (<button className="bordaGradient" onClick={autorizarEditarRecado}>Editar
-                </button>))
-                :
-                // Se ele não for o dono do perfil, checa se ele segue o perfil apresentado
-                (donoPerfil.seguindo.includes(dados.username)?(
-                // Se seguir, mostra botão para parar de seguir
-                <button className="bordaGradient" 
-                onClick={() => toggleSeguirSeguindo(true,  dados.username)}>Seguindo
-                </button>) 
-                : 
-                // Se não segue, botão para começar a seguir
-                (<button className="bordaGradient" 
-                onClick={() => toggleSeguirSeguindo(false, dados.username)}>Seguir
-                </button>))}
+                    // Se não segue, botão para começar a seguir
+                    (<button className="bordaGradient"
+                    onClick={() => toggleSeguirSeguindo(false, dados.username)}>Seguir
+                    </button>))}
+                </div>
+
+                <ul className="dados">
+                <div className="seguidores">
+
+
+                    <li className="btn" 
+                    onClick={() =>{
+                    exibirLista(dados.seguidores)
+                }}>
+                        <div>
+
+                        <span className="dadosContagem">
+                            {dados && dados.seguidores.length }
+                        </span>
+
+                        <p>Seguidores</p>
+
+                        </div>
+                    </li>
+                    <li className="btn"
+                    onClick={
+                        () =>{exibirLista(dados.seguindo)}}>
+                        <div>
+
+                            <span className="dadosContagem">
+                                {dados && dados.seguindo.length }
+                            </span>
+
+                            <p>Seguindo</p>
+
+                        </div>
+
+                        
+
+                    </li>
+                </div>
+
+            </ul>
                 
             </header>
             
 
-            <ul className="dados">
+            {/* <ul className="dados">
                 <div className="seguidores">
+                    <li className="btn" >
+                        <p>Posts <span id="seguidoresPerfilDisplay" className="dadosContagem">0</span></p>
+                    </li>
+
+
                     <li className="btn" 
                     onClick={() =>{
                     exibirLista(dados.seguidores)
@@ -155,9 +215,9 @@ function Perfil(props){
                 </div>
 
                 <li>
-                    <p>Conta criada em <span className="dadosContagem" id="cadastroPerfilDisplay">{dados.cadastro}</span></p>
+                    <p>Conta criada em <span className="dadosContagem" id="cadastroPerfilDisplay">{dados.cadastro.data}</span></p>
                 </li>
-            </ul>
+            </ul> */}
 
             <div className="perfilPosts">
                 <h3>Posts</h3>

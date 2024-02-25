@@ -1,4 +1,9 @@
 import './style/sidebar.scss'
+import { useContext } from 'react';
+import { donoPerfil } from './dbTeste';
+import { useNavigate } from 'react-router-dom'
+import { AuthGoogleContext } from './contexts/AuthGoogle';
+
 import { FaSearch } from "react-icons/fa";
 import { IoHomeSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa6";
@@ -6,10 +11,11 @@ import { IoIosAddCircle } from "react-icons/io";
 import { IoMdNotifications } from "react-icons/io";
 import { BsPersonCircle } from "react-icons/bs";
 
-import { donoPerfil } from './dbTeste';
-import { useNavigate } from 'react-router-dom'
+
 
 function Sidebar(props) {
+
+    const { usuarioLogado } = useContext(AuthGoogleContext);
 
     function carregarHome(){
         props.alterarURL("/");
@@ -18,7 +24,13 @@ function Sidebar(props) {
 
     function atualizarPerfil(){
 
-        props.alterarURL(`usuario/${donoPerfil.username}`);
+
+        if(usuarioLogado){
+            props.alterarURL(`usuario/${usuarioLogado.username}`);
+        } else{
+            console.log("need login")
+        }
+        
         document.getElementById("listaEditavel").style.display="none";
 
     }
