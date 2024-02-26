@@ -21,6 +21,11 @@
         background-color: #2e2e2e;
     }
 
+    .fotoDePerfil{
+        width: 40px;
+        margin-right: 10px;
+    }
+
     .conteudo{
         display: flex;
         flex-direction: column;
@@ -42,6 +47,8 @@
     .linha1{
         display: flex;
         flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-start;
 
         .userName{
             margin-right: 10px;

@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './style/feed.scss'
 import Post from './Post';
 import NovoPost from './NovoPost'
 
 import { postsInfoDb } from './dbTeste';
-// import { publicarPost } from './functions/users';
+import { AuthGoogleContext } from './contexts/AuthGoogle';
 
 
 function Feed(props){
 
     const [attFeed, setAttFeed] = useState(false);
 
-   
+    const { postsDisponiveis, usuarioLogado } = useContext(AuthGoogleContext);
+
   
 
   
@@ -28,8 +29,9 @@ function Feed(props){
                 <NovoPost prepararPost={prepararPost}></NovoPost>
                 
 
-                <Post postsInfo={postsInfoDb} 
+                <Post postsInfo={postsInfoDb}
                 abrirPost={props.abrirPost}
+                alterarURL={props.alterarURL}
                 mostrarPerfilPeloUsername="negar"
                 autorizarAbrirPost="permitir"></Post>
             </span>

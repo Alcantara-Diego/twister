@@ -3,7 +3,7 @@ import { BiSolidPencil } from "react-icons/bi";
 import { useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
 import { addPost } from "./pastaFirebase/addData";
-import salvarData from "./functions/extras";
+import {salvarData} from "./functions/extras";
 import { uuidv4 } from "@firebase/util";
 
 function NovoPost(props){
@@ -43,6 +43,7 @@ function NovoPost(props){
                     likes: [],
                     comentariosArray: [],
                     fotoURL: usuarioLogado.fotoURL,
+                    apagado: false,
                     localId: localId
                   
                 }

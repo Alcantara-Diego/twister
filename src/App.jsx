@@ -18,7 +18,7 @@ import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
 function App() {
 
   const navigate = useNavigate();
-  const { userAuth, primeiroAcesso } = useContext(AuthGoogleContext);
+  const { primeiroAcesso } = useContext(AuthGoogleContext);
 
   const [updateApp, setUpdateApp] = useState(false);
   // Info que será passada para o componente de PostAberto.JSX

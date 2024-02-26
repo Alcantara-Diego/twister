@@ -17,4 +17,26 @@ const salvarData = () =>{
 
 const formatarData = (numero) => (numero < 10 ? `0${numero}` : numero);
 
-export default salvarData;
+
+// Executar uma determinada funcao depois de zerar o tempo
+function temporizador(tempo, func){
+
+    let segundos = 0;
+
+    const timer = setInterval(() => {
+
+        segundos++;
+
+        if (segundos > tempo) {
+            clearInterval(timer); 
+            console.log(`Acionando funcao após ${tempo} segundos`);
+
+            func();
+        }
+        
+    }, 1000);
+}
+
+
+
+export  {salvarData, temporizador};

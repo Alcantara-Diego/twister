@@ -6,6 +6,7 @@ import {collection, getDocs, query, where } from "firebase/firestore";
 async function buscarEmailCadastrado(email){
 
     try{
+        console.log("----------------LEITURA FEITA NA DB")
         const busca = query(collection(db, "emailsCadastrados"), where("email", "==", email));
 
         const resultado = await getDocs(busca);
@@ -27,6 +28,7 @@ async function buscarEmailCadastrado(email){
 
 async function buscarUsuarios(){
     try {
+        console.log("----------------LEITURA FEITA NA DB")
         const usuariosDb = await getDocs(collection(db, "usuarios"));
     usuariosDb.forEach((doc) => {
         console.table(doc.data());
@@ -42,12 +44,12 @@ async function buscarUsuarios(){
 async function buscarUsuarioPorIdentificador(tipo, valor){
     try {
 
+        console.log("----------------LEITURA FEITA NA DB")
         const busca = query(collection(db, "usuarios"), where(tipo, "==", valor));
 
         const resultado = await getDocs(busca);
 
 
-        console.log("Mi")
         if (resultado.docs.length > 0) {
 
             return resultado.docs[0].data();
@@ -65,15 +67,29 @@ async function buscarUsuarioPorIdentificador(tipo, valor){
 
 async function buscarPosts(){
     try {
-        const usuariosDb = await getDocs(collection(db, "posts"));
-    usuariosDb.forEach((doc) => {
-      
-        console.table(doc.data());
-      
-        })
+        console.log("----------------LEITURA FEITA NA DB")
+        const colecao = collection(db, "posts");
+
+        const filtrandoPosts = query(colecao, where("apagado", "==", false));
+
+        const resultado = await getDocs(filtrandoPosts);
+
+        let postsDisponiveis = [];
+
+        resultado.forEach(postInfo => {
+
+            const post = postInfo.data()
+            postsDisponiveis.push(post);
+
+            
+        });
+
+
+        return postsDisponiveis
         
     } catch (error) {
         console.log(error)
+        return null
         
     }
 }

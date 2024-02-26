@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
 import { GiTwister } from "react-icons/gi";
 import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData';
-import salvarData from './functions/extras';
+import {salvarData} from './functions/extras';
 import { addUsuario } from './pastaFirebase/addData';
 import { Navigate } from 'react-router-dom';
 

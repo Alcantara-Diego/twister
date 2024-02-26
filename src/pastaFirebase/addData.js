@@ -1,6 +1,6 @@
 import {db} from './firebasePrincipal'
 import {collection, addDoc, query, where } from "firebase/firestore";
-import salvarData from '../functions/extras';
+import {salvarData} from '../functions/extras';
 import { AuthGoogleContext } from '../contexts/AuthGoogle';
 import { useContext } from 'react';
 

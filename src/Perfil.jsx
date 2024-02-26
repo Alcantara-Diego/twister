@@ -53,7 +53,9 @@ function Perfil(props){
     }
 
     async function salvarRecado(){
-        donoPerfil.recado = recadoSalvo;
+        
+        dados.recado=recadoSalvo;
+
         updateUsuario(usuarioLogado.username, "recado", recadoSalvo)
         setEditandoRecado(!editandoRecado);
     }
@@ -123,7 +125,7 @@ function Perfil(props){
                     </div>
                     
                     
-                    {editandoRecado? <input type="text" name="" id="recadoPerfilInput" value={recadoSalvo} onChange={(e) => setRecadoSalvo(e.target.value)} autoFocus/> : <p className="recadoInfo">{dados.recado}</p>}
+                    {editandoRecado? <input type="text" name="recadoPerfilInput" id="recadoPerfilInput" value={recadoSalvo} onChange={(e) => setRecadoSalvo(e.target.value)} autoFocus/> : <p className="recadoInfo">{dados.recado}</p>}
                     
                     {/* Se o usuário for dono do perfil.... */}
                     {usuarioLogado && dados.username === usuarioLogado.username?(

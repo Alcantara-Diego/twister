@@ -1,5 +1,5 @@
 import { postsInfoDb, userInfoDb } from '../dbTeste';
-import salvarData from './extras';
+import {salvarData} from './extras';
 import { v4 as uuidv4 } from 'uuid';
 import { donoPerfil } from '../dbTeste';
 
