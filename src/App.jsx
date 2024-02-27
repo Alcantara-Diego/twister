@@ -13,7 +13,7 @@ import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
 import { postsInfoDb } from './dbTeste'
-import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
+import { buscarPostPorId, buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
 
 function App() {
 
@@ -30,6 +30,10 @@ function App() {
     // Info que será passada para o componente de ListaEditavel.JSX
   const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
 
+  // useEffect(() =>{
+  //   console.log(postAbertoInfo)
+
+  // }, [postAbertoInfo])
 
 
   function atualizarApp(){
@@ -52,7 +56,7 @@ function App() {
         let url = window.location.pathname;
 
         if(url.includes("post")){
-          let post = tratarURL(url, "post");
+          let post = await tratarURL(url, "post");
           setPostAbertoInfo(post)
 
 
@@ -94,7 +98,9 @@ function App() {
         if (match) {
           const postId = match[1];
 
-          return carregarPostPorId(postId)
+          let post = await buscarPostPorId(postId);
+          return post
+
           
         } else {
           console.log("Erro na URL");
@@ -188,7 +194,7 @@ function App() {
 
               <Route path='/post/:id' element={
               <PostAberto
-              postAbertoInfo={postAbertoInfo == "vazio"? "" : postAbertoInfo}
+              postAbertoInfo={postAbertoInfo == "vazio"? null : postAbertoInfo}
               mostrarPerfilPeloUsername="permitir"
               alterarURL={alterarURL}/>}/>
 

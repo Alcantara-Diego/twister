@@ -55,7 +55,7 @@ async function buscarUsuarioPorIdentificador(tipo, valor){
             return resultado.docs[0].data();
         } else {
 
-            return null;
+            throw new Error("Não foi encontrado o documento com o tipo e valor passado")
         }
 
     } catch (error) {
@@ -95,6 +95,32 @@ async function buscarPosts(){
 }
 
 
+async function buscarPostPorId(id){
+    try {
+
+        console.log("----------------LEITURA FEITA NA DB")
+        const colecao = collection(db, "posts");
+
+        const q = query(colecao, where("localId", "==", id));
+
+        const resultado = await getDocs(q);
+
+        if (resultado.docs.length > 0) {
+
+            return resultado.docs[0].data();
+        } else {
+
+            throw new Error("Não foi encontrado o documento com o ID passado");
+
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return "erro"
+        
+    }
+
+}
 
 
-export {buscarEmailCadastrado, buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador}
+export {buscarEmailCadastrado, buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador, buscarPostPorId}

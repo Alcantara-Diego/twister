@@ -1,6 +1,5 @@
 import "./style/postAberto.scss"
 import Post from "./Post";
-import { publicarPost } from './functions/users'
 import VoltarTela from "./VoltarTela";
 
 import { donoPerfil } from "./dbTeste";
@@ -23,9 +22,10 @@ function PostAberto(props){
     useEffect(() =>{
         
         console.log(props.postAbertoInfo)
-
-        if(props.postAbertoInfo){
-            setComentarios(props.postAbertoInfo.comentariosArray)
+        
+        if(props.postAbertoInfo !== null){
+            console.log(props.postAbertoInfo.comentarios)
+            setComentarios(props.postAbertoInfo.comentarios)
             setComentarioPai(props.postAbertoInfo)
             
         }
@@ -40,7 +40,8 @@ function PostAberto(props){
     // }, [comentarios])
 
    function prepararPost(id){
-    publicarPost("comentario", id);
+
+    console.log(id)
     setRenderPostAberto(!renderPostAberto);
 
 
@@ -62,9 +63,9 @@ function PostAberto(props){
             funcao={"home"}
             setaId={"retornarHome"}></VoltarTela>
 
-            {props.postAbertoInfo !== undefined && comentarioPai!== null? (
+            {props.postAbertoInfo? (
                 <Post
-                    postsInfo={[comentarioPai]}
+                    postsInfo={[props.postAbertoInfo]}
                     origem="postAberto"
                     mostrarPerfilPeloUsername="permitir"
                     autorizarAbrirPost="negar"
@@ -81,7 +82,7 @@ function PostAberto(props){
 
         
 
-        <h4 className="postAbertoComentariosTItulo">{props.postAbertoInfo? props.postAbertoInfo.comentariosArray.length : "0"} Comentários</h4>
+        <h4 className="postAbertoComentariosTItulo">{props.postAbertoInfo? props.postAbertoInfo.comentarios.length : "0"} Comentários</h4>
 
         {comentarios? 
         <Post postsInfo={comentarios} 
@@ -102,7 +103,7 @@ function PostAberto(props){
 
             <input type="text" placeholder="Comentar" name="addSubComentario" id="addSubComentario"/>
 
-            <button className="bordaGradient" onClick={()=>{prepararPost(props.postAbertoInfo.id)}}>Publicar</button>
+            <button className="bordaGradient" onClick={()=>{prepararPost(props.postAbertoInfo.localId)}}>Publicar</button>
 
         </div>
 

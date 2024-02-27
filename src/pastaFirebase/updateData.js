@@ -82,9 +82,6 @@ async function updateLikesDoPost(id, username){
         
     } catch (error) {
         console.log(error)
-        throw new Error("Failed to update likes");
-
-        
         
     }
 }
