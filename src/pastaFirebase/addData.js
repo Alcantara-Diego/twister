@@ -1,5 +1,5 @@
 import {db} from './firebasePrincipal'
-import {collection, addDoc, query, where } from "firebase/firestore";
+import {collection, addDoc, query, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore";
 import {salvarData} from '../functions/extras';
 import { AuthGoogleContext } from '../contexts/AuthGoogle';
 import { useContext } from 'react';
@@ -22,12 +22,12 @@ async function addEmail(email, nome, allInfo){
         const adicionandoEmail = await addDoc(colecao, info);
         console.log(adicionandoEmail);
 
-        return "success"
+        return "successo"
         
     } catch (error) {
         
         console.log(error)
-        return "error"
+        return "erro"
         
     }
 }
@@ -47,12 +47,12 @@ async function addUsuario(usuario){
         const adicionandoUsuario = await addDoc(colecao, usuario);
         console.log(adicionandoUsuario);
 
-        return "success"
+        return "successo"
         
     } catch (error) {
         
         console.log(error)
-        return "error"
+        return "erro"
         
     }
 }
@@ -64,22 +64,18 @@ async function addUsuario(usuario){
 async function addPost(tipo, objeto, ParenteId){
 
     if(tipo == "post"){
-       
-
         try {
-
             const colecao = collection(db, "posts");
 
             const adicionandoPost = await addDoc(colecao, objeto);
 
             console.log(objeto);
-            return "success"
+            return "successo"
             
             
         } catch (error) {
             console.log(error)
-
-            return "error"
+            return "erro"
             
         }
 
@@ -89,25 +85,34 @@ async function addPost(tipo, objeto, ParenteId){
        
 
     } else if(tipo == "comentario"){
-        let txt = document.getElementById("addSubComentario");
+        try {
+            const colecao = collection(db, "posts");
 
-        let comentarioObj = {
+            const q = query(colecao, where("localId", "==", ParenteId));
+    
+            const resultado = await getDocs(q);
+    
+            if (!resultado.empty) {
+                const postDoc = resultado.docs[0];
+                const postRef = postDoc.ref;
+
+                await updateDoc(postRef, {
+                    comentarios: arrayUnion(objeto)
+                });
+
+                console.log("Comentário adicionado no post de id: ", ParenteId);
+                return "sucesso"
+                
+            } else{
+                throw new Error("O post não foi encontrado para adicionar o comentario");
+            }
             
-            username: donoPerfil.username,
-            data: data,
-            texto: txt.value,
-            likes: [],
-            id: postId
-        }
-
-        txt.value = "";
-        
-        let parente = carregarPostPorId(ParenteId)
-        console.log(parente.comentariosArray);
-        parente.comentariosArray.push(comentarioObj)
-        
+        } catch (error) {
+            console.log(error)
+            return "erro"
+            
+        }       
     }
-
 
 }
 

@@ -24,7 +24,7 @@ function Post(props){
 
     const { usuarioLogado } = useContext(AuthGoogleContext);
 
-    const [geradorDePosts, setGeradorDePosts] = useState(null);
+   
     // Usado para impedir que o usuário force várias leituras na Db através dos likes
     const [contagemDeLikes, setContagemDeLikes] = useState(0);
     const [monitorarLikes, setMonitorarLikes] = useState(false);
@@ -32,9 +32,10 @@ function Post(props){
     // Identificar a origem dos posts para identificar como apresenta-los
    useEffect(()=>{
   
-    if(props.origem=="postAberto" && props.postsInfo.length > 1){
+    if(props.origem=="postAberto" && props.listarComentarios !== "permitir" && props.postsInfo.length > 1){
+        console.log(props.postsInfo);
         // Deve ser carregado apenas um post e seus subcomentarios na tela PostAberto.jsx
-        throw new Error("Mais de um post está sendo carregado no PostAberto.jsx");
+        throw new Error("Mais de um post principal está sendo carregado no PostAberto.jsx");
   
     }
    }, []);
@@ -58,28 +59,31 @@ function Post(props){
 
 
     async function alterarLikes(id){
-
+        // Apagar os posts salvos na session para recarregarem atualizados
         sessionStorage.removeItem("Firebase:posts");
 
         // Se o comentario for um subcomentario de outro post...
         if(props.comentarioPai && usuarioLogado){
-            // Ligar monitoramento de likes para evitar spam do botao
+            // Ligar monitoramento de likes para evitar spam do botao e leituras desnecessárias no banco de dados
             !monitorarLikes && setMonitorarLikes(true);
 
+
+            console.log(props.comentarioPai)
             // Achar o index do post dentro dos subcomentarios do post principal
-            let index = props.comentarioPai.comentariosArray.findIndex(post => post.id == id)
+            let index = props.comentarioPai.comentarios.findIndex(post => post.localId == id)
             
             // invés de chamar o props tem que chamar a DB direto para salvar a troca(Funçao pode ser alterada devido a isso)
-            let usuarioAtual = donoPerfil.username
+            let usuarioAtual = usuarioLogado.username
+            console.log(usuarioAtual)
 
-            let acharUsuarioNosLikes = props.comentarioPai.comentariosArray[index].likes.indexOf(usuarioAtual)
+            let acharUsuarioNosLikes = props.comentarioPai.comentarios[index].likes.indexOf(usuarioAtual)
 
                     if(acharUsuarioNosLikes == -1){
-                        props.comentarioPai.comentariosArray[index].likes.push(usuarioAtual)
+                        props.comentarioPai.comentarios[index].likes.push(usuarioAtual)
 
 
                     }else{
-                        props.comentarioPai.comentariosArray[index].likes.splice(acharUsuarioNosLikes, 1)
+                        props.comentarioPai.comentarios[index].likes.splice(acharUsuarioNosLikes, 1)
                     }
 
                     console.log(postsInfoDb[index].likes)
@@ -90,12 +94,12 @@ function Post(props){
             !monitorarLikes && setMonitorarLikes(true);
 
             // Encontrar o post pelo ID
-            let index = geradorDePosts.findIndex(post => post.localId == id)
+            let index = props.postsInfo.findIndex(post => post.localId == id)
 
             // Verificar se o usuário está na lista de likes do post
-            let acharUsuarioNosLikes = geradorDePosts[index].likes.indexOf(usuarioLogado.username);
+            let acharUsuarioNosLikes = props.postsInfo[index].likes.indexOf(usuarioLogado.username);
             // Adiciona o usuário nos likes se ele não está, e remove se já está
-            acharUsuarioNosLikes == -1? geradorDePosts[index].likes.push(usuarioLogado.username) : geradorDePosts[index].likes.splice(acharUsuarioNosLikes, 1);
+            acharUsuarioNosLikes == -1? props.postsInfo[index].likes.push(usuarioLogado.username) : props.postsInfo[index].likes.splice(acharUsuarioNosLikes, 1);
 
             setContagemDeLikes(contagemDeLikes+1);
 
@@ -106,7 +110,7 @@ function Post(props){
             } else{
                 
                 // Array com os likes atualizados
-                const likesAtualizados = geradorDePosts[index].likes
+                const likesAtualizados = props.postsInfo[index].likes
                 console.log(likesAtualizados);
                 let resultado = await updateLikesDoPost(id, usuarioLogado.username);
 
@@ -167,9 +171,13 @@ function Post(props){
 
     // Identificar onde o usuário clicou para evitar que o post abra ao tentar executar outra função
     const validarAberturaDoPost = (event, id) =>{
+
+        if(props.origem !== "feed"){return}
+
+        
         const tagClicada = event.target.tagName;
 
-        console.log(tagClicada)
+        // console.log(tagClicada)
 
         // elementos responsáveis por outras funções
         const elementosBloqueados = ["IMG", "SVG", "BUTTON", "PATH"];
@@ -182,10 +190,7 @@ function Post(props){
     }
 
 
-    // useEffect(() =>{
-    //     console.log(props.postsInfo);
-
-    // }, [props.postsInfo]);
+   
 
     return (
     // Se mudar estrutura do post, deve verificar se não afetará a função validarAberturaDoPost devido as tags
@@ -226,7 +231,8 @@ function Post(props){
                       
                         {/* Checar se o post foi aberto e o usuário é dono do post/comentario para poder liberar o botão de apagar */}
                         {props.origem=="postAberto" && ( 
-                         info.username == donoPerfil.username ||props.comentarioPai && props.comentarioPai.username === donoPerfil.username)?( 
+                         info?.username == usuarioLogado?.username ||
+                         props.comentarioPai && props.comentarioPai.username === usuarioLogado?.username)?( 
 
                         
                         // Se for o comentario de um post, a função passa o id do post principal como parâmetro junto do id do comentario para poder achar-lo e questionar se pretende apaga-lo
@@ -235,8 +241,10 @@ function Post(props){
 
                         : 
                         // Se for o post em sí, o parâmetro de comentário pai não é necessário
-                        ( 
-                        <button className='deletarPostBtn' onClick={()=>{prepararAlerta(info.localId)}}><FaRegTrashCan></FaRegTrashCan></button>))
+                        // ( 
+                        // <button className='deletarPostBtn' onClick={()=>{prepararAlerta(info.localId)}}><FaRegTrashCan></FaRegTrashCan></button>))
+
+                        null)
                         
                         
                         : null}

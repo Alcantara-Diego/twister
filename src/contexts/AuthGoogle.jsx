@@ -20,7 +20,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
 
     const [primeiroAcesso, setPrimeiroAcesso] = useState(false);
-    const [updateAll, setUpdateAll] = useState(false);
+    const [recarregarPostsDaDb, setRecarregarPostsDaDb] = useState(false);
 
 
     // Carregar os posts no feed
@@ -53,7 +53,7 @@ export const AuthGoogleProvider = ({ children }) => {
       }
 
       prepararPosts() ; 
-    }, [userAuth])
+    }, [userAuth, recarregarPostsDaDb])
 
   
     
@@ -130,7 +130,7 @@ export const AuthGoogleProvider = ({ children }) => {
             // sessionStorage.setItem("@AuthFirebase:token", token);
             // sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user));
 
-            setUpdateAll(!updateAll)
+            setRecarregarPostsDaDb(!recarregarPostsDaDb)
             // IdP data available using getAdditionalUserInfo(result)
             // ...
           }).catch((error) => {
@@ -150,7 +150,7 @@ export const AuthGoogleProvider = ({ children }) => {
   
 
   return (
-    <AuthGoogleContext.Provider value={{ signInGoogle, userAuth: userAuth, primeiroAcesso: primeiroAcesso, usuarioLogado: usuarioLogado, postsDisponiveis: postsDisponiveis }}>
+    <AuthGoogleContext.Provider value={{ signInGoogle, userAuth: userAuth, primeiroAcesso: primeiroAcesso, usuarioLogado: usuarioLogado, postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,recarregarPostsDaDb: recarregarPostsDaDb }}>
         { children }
     </AuthGoogleContext.Provider>
 
