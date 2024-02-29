@@ -150,7 +150,9 @@ export const AuthGoogleProvider = ({ children }) => {
   
 
   return (
-    <AuthGoogleContext.Provider value={{ signInGoogle, userAuth: userAuth, primeiroAcesso: primeiroAcesso, usuarioLogado: usuarioLogado, postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,recarregarPostsDaDb: recarregarPostsDaDb }}>
+    <AuthGoogleContext.Provider value={{ signInGoogle, 
+    userAuth: userAuth, 
+    primeiroAcesso: primeiroAcesso, usuarioLogado: usuarioLogado, postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,recarregarPostsDaDb: recarregarPostsDaDb }}>
         { children }
     </AuthGoogleContext.Provider>
 

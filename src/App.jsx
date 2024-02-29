@@ -1,24 +1,25 @@
 import './style/main.scss'
 import { useState, useEffect, useContext } from 'react'
-import { Routes, Route, useNavigate} from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation} from 'react-router-dom'
 import Nav from "./Nav"
 import Sidebar from "./Sidebar"
 import Feed from './Feed'
 import PostAberto from './PostAberto'
 import Perfil from  './Perfil'
+import Login from './login'
 import Cadastro from './Cadastro'
 import ListaEditavel from './ListaEditavel'
 import Alerta from './Alerta'
+
 import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
-import { carregarPostPorId, carregarPostsPorUsername, carregarUsuarioPorUsername } from './functions/users'
-import { postsInfoDb } from './dbTeste'
-import { buscarPostPorId, buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
+
+import { buscarPostPorId, buscarPostsPorIdentificador, buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
 
 function App() {
 
   const navigate = useNavigate();
-  const { primeiroAcesso } = useContext(AuthGoogleContext);
+  const { usuarioLogado, primeiroAcesso } = useContext(AuthGoogleContext);
 
   const [updateApp, setUpdateApp] = useState(false);
   // Info que será passada para o componente de PostAberto.JSX
@@ -29,11 +30,6 @@ function App() {
   const [usuarioPosts, setUsuarioPosts] = useState([]);
     // Info que será passada para o componente de ListaEditavel.JSX
   const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
-
-  // useEffect(() =>{
-  //   console.log(postAbertoInfo)
-
-  // }, [postAbertoInfo])
 
 
   function atualizarApp(){
@@ -121,8 +117,10 @@ function App() {
           let usuario = []
 
           usuario[0] = await buscarUsuarioPorIdentificador("username", username)
-          // Post falso para ser corrigido depois
-          usuario.push(carregarPostsPorUsername("infinity"));
+          
+          let posts = await buscarPostsPorIdentificador("username", username);
+          console.log(posts);
+          Array.isArray(posts) && usuario.push(posts)
 
 
           if (usuario[0] != null) {
@@ -143,13 +141,20 @@ function App() {
     }
   }
 
+const url = useLocation();
 
-  function abrirPost(postId){
+function abrirPerfil(username){
+  const usuarioNaURL = url.pathname.includes(username)
 
-    const postDetalhes = postsInfoDb.find(post => post.id == postId)
-    alterarURL(`/post/${postDetalhes.id}`);
-    
+  if(usuarioLogado && !usuarioNaURL){
+
+    alterarURL(`usuario/${username}`);
+  
+  } else{
+      console.log("need login");
+  }
 }
+
 
 
 
@@ -180,14 +185,13 @@ function App() {
             <Routes>
 
               <Route path='/' element={<Feed
-              alterarURL={alterarURL}
-              abrirPost={abrirPost}/>} />
+              abrirPerfil={abrirPerfil}
+              alterarURL={alterarURL}/>} />
 
               <Route path='/usuario/:username'
               element={<Perfil
               usuarioInfo={usuarioInfo =="vazio"? "vazio" : usuarioInfo}
               usuarioPosts={usuarioPosts}
-              abrirPost={abrirPost}
               alterarURL={alterarURL}
               setListaEditavelInfo={setListaEditavelInfo}
               />} />
@@ -195,9 +199,15 @@ function App() {
               <Route path='/post/:id' element={
               <PostAberto
               postAbertoInfo={postAbertoInfo == "vazio"? null : postAbertoInfo}
+              abrirPerfil={abrirPerfil}
               mostrarPerfilPeloUsername="permitir"
               alterarURL={alterarURL}/>}/>
 
+              <Route path='/login' element={
+                <PrivateRoute primeiroAcesso={primeiroAcesso}>
+                  <Login></Login>
+                </PrivateRoute>
+              }/>
               <Route path='/cadastro' element={
                 <PrivateRoute primeiroAcesso={primeiroAcesso}>
                   <Cadastro></Cadastro>

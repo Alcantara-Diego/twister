@@ -98,7 +98,7 @@ async function buscarPosts(){
 async function buscarPostPorId(id){
     try {
 
-        console.log("----------------LEITURA FEITA NA DB")
+        console.log("----------------LEITURA FEITA NA DB");
         const colecao = collection(db, "posts");
 
         const q = query(colecao, where("localId", "==", id));
@@ -122,5 +122,41 @@ async function buscarPostPorId(id){
 
 }
 
+async function buscarPostsPorIdentificador(tipo, valor){
+    try {
 
-export {buscarEmailCadastrado, buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador, buscarPostPorId}
+        console.log("----------------LEITURA FEITA NA DB");
+        const colecao = collection(db, "posts");
+
+        const q = query(colecao, where(tipo, "==", valor));
+
+        const resultado = await getDocs(q);
+
+        let posts = [];
+
+        if(!resultado.empty){
+            
+            resultado.forEach(valor =>{
+                const post = valor.data();
+                posts.push(post);
+            })
+
+            console.log(posts);
+
+            return posts
+            
+
+        } else{
+            throw new Error("Requisição de posts não retornou nenhum valor");
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return "erro"
+        
+    }
+    
+
+}
+
+export {buscarEmailCadastrado, buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador, buscarPostPorId, buscarPostsPorIdentificador}

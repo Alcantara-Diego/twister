@@ -18,6 +18,7 @@ function NovoPost(props){
 
         
         if(!usuarioLogado){
+            props.alterarURL("/login")
             console.log("deslogado")
             
         } else{

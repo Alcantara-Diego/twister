@@ -1,7 +1,7 @@
 import './style/sidebar.scss'
 import { useContext } from 'react';
 import { donoPerfil } from './dbTeste';
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { AuthGoogleContext } from './contexts/AuthGoogle';
 
 import { FaSearch } from "react-icons/fa";
@@ -16,6 +16,8 @@ import { BsPersonCircle } from "react-icons/bs";
 function Sidebar(props) {
 
     const { usuarioLogado } = useContext(AuthGoogleContext);
+    const url = useLocation();
+
 
     function carregarHome(){
         props.alterarURL("/");
@@ -24,11 +26,17 @@ function Sidebar(props) {
 
     function atualizarPerfil(){
 
+        const usuarioNaURL = url.pathname.includes(usuarioLogado?.username)
 
+        // Não permitir leitura na db se o perfil já estiver amostra
+        if(usuarioNaURL){return}
+
+        console.log(usuarioLogado)
         if(usuarioLogado){
             props.alterarURL(`usuario/${usuarioLogado.username}`);
         } else{
             console.log("need login")
+            props.alterarURL("/login")
         }
         
         document.getElementById("listaEditavel").style.display="none";

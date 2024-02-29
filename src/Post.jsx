@@ -6,23 +6,20 @@ import { BsPersonCircle } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";
-import { FaRetweet } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-
-import { postsInfoDb, donoPerfil } from './dbTeste';
 
 import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
 import { temporizador } from './functions/extras';
-import { updateLikesDoPost } from './pastaFirebase/updateData';
+import { updateLikesDoComentario, updateLikesDoPost } from './pastaFirebase/updateData';
 
 
 
 function Post(props){
 
-    const { usuarioLogado } = useContext(AuthGoogleContext);
+    const { usuarioLogado, setRecarregarPostsDaDb, recarregarPostsDaDb } = useContext(AuthGoogleContext);
 
    
     // Usado para impedir que o usuário force várias leituras na Db através dos likes
@@ -59,34 +56,50 @@ function Post(props){
 
 
     async function alterarLikes(id){
+        const limiteDeLikes = 25;
         // Apagar os posts salvos na session para recarregarem atualizados
         sessionStorage.removeItem("Firebase:posts");
 
         // Se o comentario for um subcomentario de outro post...
+
+
         if(props.comentarioPai && usuarioLogado){
             // Ligar monitoramento de likes para evitar spam do botao e leituras desnecessárias no banco de dados
             !monitorarLikes && setMonitorarLikes(true);
 
 
-            console.log(props.comentarioPai)
             // Achar o index do post dentro dos subcomentarios do post principal
             let index = props.comentarioPai.comentarios.findIndex(post => post.localId == id)
             
-            // invés de chamar o props tem que chamar a DB direto para salvar a troca(Funçao pode ser alterada devido a isso)
+         
             let usuarioAtual = usuarioLogado.username
-            console.log(usuarioAtual)
 
             let acharUsuarioNosLikes = props.comentarioPai.comentarios[index].likes.indexOf(usuarioAtual)
 
-                    if(acharUsuarioNosLikes == -1){
-                        props.comentarioPai.comentarios[index].likes.push(usuarioAtual)
+            if(acharUsuarioNosLikes != -1){
+                props.comentarioPai.comentarios[index].likes.splice(usuarioAtual, 1)
 
+            }else{
+                props.comentarioPai.comentarios[index].likes.push(usuarioAtual)
+            }
 
-                    }else{
-                        props.comentarioPai.comentarios[index].likes.splice(acharUsuarioNosLikes, 1)
-                    }
+            
+            setContagemDeLikes(contagemDeLikes+1);
 
-                    console.log(postsInfoDb[index].likes)
+            if (contagemDeLikes > limiteDeLikes) {
+                console.log("LIKES BLOQUEADO")
+              
+            } else{
+                // Contabilizar like na Db
+                const resultado = await updateLikesDoComentario(id, props.comentarioPai.localId, usuarioLogado.username);
+
+                resultado=="sucesso"? console.log("likes atualizados") : console.log("Erro ao atualizar os likes do comentário");
+
+                // Atualizar todos os posts disponíveis
+                setRecarregarPostsDaDb(!recarregarPostsDaDb);
+
+            }
+
 
         }
         else if(usuarioLogado){
@@ -104,7 +117,7 @@ function Post(props){
             setContagemDeLikes(contagemDeLikes+1);
 
             // Impedir a leitura do banco de dados se o usuário spammar o botão 
-            if (contagemDeLikes > 20) {
+            if (contagemDeLikes > limiteDeLikes) {
                 console.log("LIKES BLOQUEADO")
               
             } else{
@@ -116,10 +129,14 @@ function Post(props){
 
 
                 resultado !== "sucesso"? console.log(resultado) : console.log("Like contabilizado na db");
+
+                // Atualizar todos os posts disponíveis
+                setRecarregarPostsDaDb(!recarregarPostsDaDb);
             }
 
         } else{
             console.log("Need login")
+            props.alterarURL("/login")
 
         }
     }
@@ -172,21 +189,29 @@ function Post(props){
     // Identificar onde o usuário clicou para evitar que o post abra ao tentar executar outra função
     const validarAberturaDoPost = (event, id) =>{
 
-        if(props.origem !== "feed"){return}
+        if(!usuarioLogado){
+            props.alterarURL("/login")
+            return
+        }
+
+        if(props.origem == "feed" || 
+        props.origem == "perfil"){
+            const tagClicada = event.target.tagName;
+
+            console.log("im")
+    
+            // elementos responsáveis por outras funções
+            const elementosBloqueados = ["IMG", "SVG", "BUTTON", "PATH"];
+    
+            // Se foi clicado em um elemento responsável por outra função, o post não deve abrir
+            if(!elementosBloqueados.includes(tagClicada.toUpperCase())){
+                props.alterarURL(`post/${id}`)
+            }
+
+        } 
 
         
-        const tagClicada = event.target.tagName;
 
-        // console.log(tagClicada)
-
-        // elementos responsáveis por outras funções
-        const elementosBloqueados = ["IMG", "SVG", "BUTTON", "PATH"];
-
-        // Se foi clicado em um elemento responsável por outra função, o post não deve abrir
-        if(!elementosBloqueados.includes(tagClicada.toUpperCase())){
-            console.log("trigger");
-            props.alterarURL(`post/${id}`)
-        }
     }
 
 
@@ -204,10 +229,10 @@ function Post(props){
 
                     {info.fotoURL?(
                     <img src={info.fotoURL} className="fotoDePerfil" alt="foto de perfil"
-                    onClick={() =>{props.origem=="feed"?props.abrirPerfil(info.username) : null}} />) : 
+                    onClick={() =>{props.origem!=="perfil" && !props.comentarioPai?props.abrirPerfil(info.username) : null}} />) : 
 
                     (<BsPersonCircle className='userFoto'
-                    onClick={() =>{props.origem=="feed"?props.abrirPerfil(info.username) : null}}></BsPersonCircle>)}
+                    onClick={() =>{props.origem!=="perfil" && !props.comentarioPai?props.abrirPerfil(info.username) : null}}></BsPersonCircle>)}
 
                     <header className="conteudo">
 
@@ -236,10 +261,10 @@ function Post(props){
 
                         
                         // Se for o comentario de um post, a função passa o id do post principal como parâmetro junto do id do comentario para poder achar-lo e questionar se pretende apaga-lo
-                        props.comentarioPai?(
-                        <button className='deletarPostBtn' onClick={()=>{prepararAlerta(info.localId,  props.comentarioPai.localId)}}><FaRegTrashCan></FaRegTrashCan></button>)
+                        // props.comentarioPai?(
+                        // <button className='deletarPostBtn' onClick={()=>{prepararAlerta(info.localId,  props.comentarioPai.localId)}}><FaRegTrashCan></FaRegTrashCan></button>)
 
-                        : 
+                        // : 
                         // Se for o post em sí, o parâmetro de comentário pai não é necessário
                         // ( 
                         // <button className='deletarPostBtn' onClick={()=>{prepararAlerta(info.localId)}}><FaRegTrashCan></FaRegTrashCan></button>))
@@ -284,84 +309,14 @@ function Post(props){
                 </div>
                 ))
                 ) : null}
-
-
-            {/* {props.postsInfo.slice().reverse().map((info) => (
-
-
-                <div className="post postConfigPadrao" key={info.id}>
-
-                <span className='alinhamento'  onClick={props.autorizarAbrirPost =="permitir"? () => {props.abrirPost(info.id)}: null}>
-                    <BsPersonCircle className='userFoto'></BsPersonCircle>
-
-                    <header className="conteudo">
-
-                        <div className='nomeTextoContainer'>
-                            <span className='linha1'>
-                            <h3 className='userName' onClick={props.mostrarPerfilPeloUsername == "permitir"? ()=>{props.alterarURL(`usuario/${info.username}`)} : null}>{info.username}</h3>
-                            <p className='data'>{info.data}</p>
-                            </span>
-                            <p className='texto'>{info.texto}</p>
-                        </div>
-
-                      
-                        {props.origem=="postAberto" && ( 
-                         info.username == donoPerfil.username ||props.comentarioPai && props.comentarioPai.username === donoPerfil.username)?( 
-
-                        
-                        props.comentarioPai?(
-                        <button className='deletarPostBtn' onClick={()=>{prepararAlerta(info.id,  props.comentarioPai.id)}}><FaRegTrashCan></FaRegTrashCan></button>)
-
-                        : 
-                        ( 
-                        <button className='deletarPostBtn' onClick={()=>{prepararAlerta(info.id)}}><FaRegTrashCan></FaRegTrashCan></button>))
-                        
-                        
-                        : null}
-
-                    </header>
-
-                    
-
-                </span>
-
-                
-
-
-                <footer>
-
-
-                    {info.comentariosArray? 
-                        <button>
-                        <FaRegComment />{info.comentariosArray.length}
-                        </button>
-                : null}
-
-
-                <button className={info.likes.includes(donoPerfil.username) ? "postCurtido likeBtn" : "likeBtn"} id={`likeBtn${info.id}`} onClick={() => alterarLikeRepost(info.id, "like")}>
-
-                {info.likes.includes(donoPerfil.username) ? <FaHeart /> : <FaRegHeart />}
-                {info.likes.length}
-
-        
-</button> 
-
-               
-
-
-        
-                       
-
-                    
-                </footer>
-
-               
-                </div>
-            ))} */}
             
     </span>
     )
 }
+
+
+
+
 
 Post.propTypes = {
     postsInfo: PropTypes.arrayOf(

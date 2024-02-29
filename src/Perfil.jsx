@@ -82,25 +82,26 @@ function Perfil(props){
     }
 
 
-    function toggleSeguirSeguindo(seguindo, username){
+    // Apepnas visual ainda, precisa puxar para db(possibilidade de spam)
+    function toggleSeguirSeguindo(seguindo, usuario){
 
+        console.log(dados)       
 
+        if(usuarioLogado.seguindo.includes(usuario.username)){
+            // Remover os usuários da lista de seguidores e seguindo um do outro
+            usuarioLogado.seguindo = usuarioLogado.seguindo.filter(user => user !== usuario.username);
 
-        let usuario = carregarUsuarioPorUsername(username)
-
-        if(donoPerfil.seguindo.includes(username)){
-            donoPerfil.seguindo = donoPerfil.seguindo.filter(user => user !== username);
-
-            usuario.seguidores = usuario.seguidores.filter(user => user !== donoPerfil.username);
+            usuario.seguidores = usuario.seguidores.filter(user => user !== usuarioLogado.username);
 
         } else {
-            donoPerfil.seguindo.push(username);
+            // Adicionar os usuários da lista de seguidores e seguindo um do outro
+            usuarioLogado.seguindo.push(usuario.username);
 
-            usuario.seguidores.push(donoPerfil.username)
+            usuario.seguidores.push(usuarioLogado.username)
         }
 
 
-        console.log(donoPerfil)
+        console.log(usuarioLogado)
         console.log(usuario)
         setUpdatePerfil(!updatePerfil)
         
@@ -142,15 +143,15 @@ function Perfil(props){
                     </button>))
                     :
                     // Se ele não for o dono do perfil, checa se ele segue o perfil apresentado
-                    (donoPerfil.seguindo.includes(dados.username)?(
+                    (usuarioLogado?.seguindo.includes(dados.username)?(
                     // Se seguir, mostra botão para parar de seguir
                     <button className="bordaGradient"
-                    onClick={() => toggleSeguirSeguindo(true,  dados.username)}>Seguindo
+                    onClick={() => toggleSeguirSeguindo(true, dados)}>Seguindo
                     </button>)
                     :
                     // Se não segue, botão para começar a seguir
                     (<button className="bordaGradient"
-                    onClick={() => toggleSeguirSeguindo(false, dados.username)}>Seguir
+                    onClick={() => toggleSeguirSeguindo(false, dados)}>Seguir
                     </button>))}
                 </div>
 
@@ -195,31 +196,6 @@ function Perfil(props){
             </header>
             
 
-            {/* <ul className="dados">
-                <div className="seguidores">
-                    <li className="btn" >
-                        <p>Posts <span id="seguidoresPerfilDisplay" className="dadosContagem">0</span></p>
-                    </li>
-
-
-                    <li className="btn" 
-                    onClick={() =>{
-                    exibirLista(dados.seguidores)
-                }}>
-                        <p>Seguidores <span id="seguidoresPerfilDisplay" className="dadosContagem">{dados && dados.seguidores.length}</span></p>
-                    </li>
-                    <li className="btn"
-                    onClick={() =>{
-                        exibirLista(dados.seguindo)
-                        }}>
-                        <p>Seguindo <span id="seguindoPerfilDisplay" className="dadosContagem">{dados && dados.seguindo.length }</span></p>
-                    </li>
-                </div>
-
-                <li>
-                    <p>Conta criada em <span className="dadosContagem" id="cadastroPerfilDisplay">{dados.cadastro.data}</span></p>
-                </li>
-            </ul> */}
 
             <div className="perfilPosts">
                 <h3>Posts</h3>
@@ -227,6 +203,7 @@ function Perfil(props){
                 {posts.length>0? <Post 
                 postsInfo={posts} 
                 abrirPost={props.abrirPost}
+                origem="perfil"
                 mostrarPerfilPeloUsername="negar"
                 autorizarAbrirPost="permitir"
                 alterarURL={props.alterarURL}

@@ -31,7 +31,6 @@ function PostAberto(props){
         console.log(props.postAbertoInfo)
         
         if(props.postAbertoInfo !== null){
-            console.log(props.postAbertoInfo.comentarios)
             setComentarios(props.postAbertoInfo.comentarios)
             setComentarioPai(props.postAbertoInfo)
             
@@ -42,16 +41,12 @@ function PostAberto(props){
     }, [props.postAbertoInfo])
 
 
-    // useEffect(()=>{
-    //     console.log(comentarios)
-    // }, [comentarios])
-
+ 
    async function prepararPost(paiId){
     if(!usuarioLogado){
         console.log("need login");
         return 
     }
-
 
     let txt = document.getElementById("addSubComentario");
 
@@ -112,6 +107,7 @@ function PostAberto(props){
                 <Post
                     postsInfo={[props.postAbertoInfo]}
                     origem="postAberto"
+                    abrirPerfil={props.abrirPerfil}
                     mostrarPerfilPeloUsername="permitir"
                     autorizarAbrirPost="negar"
                     setRenderPostAberto={setRenderPostAberto}
@@ -132,12 +128,12 @@ function PostAberto(props){
         {comentarioPai &&comentarios ? 
         <Post postsInfo={comentarios} 
         comentarioPai={comentarioPai}
-        mostrarPerfilPeloUsername="permitir"
         origem="postAberto"
+        mostrarPerfilPeloUsername="permitir"
         listarComentarios="permitir"
         atualizarPostAberto={atualizarPostAberto}
         alterarURL={props.alterarURL}
-        abrirPerfil={true}></Post> : ""}
+        ></Post> : ""}
         
 
 
