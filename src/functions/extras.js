@@ -1,7 +1,7 @@
 const salvarData = () =>{
     const novaData = new Date();
 
-    const ano = formatarData(novaData.getFullYear());
+    let ano = formatarData(novaData.getFullYear());
     // getMonth retorna os meses com janeiro sendo 0 e dezembro 11, é necessário adicionar 1 antes de formatar para aparecer o mês correto
     const corrigirMes = novaData.getMonth() + 1
     const mes = formatarData(corrigirMes);
@@ -10,7 +10,15 @@ const salvarData = () =>{
     const minutos = formatarData(novaData.getMinutes());
     const segundos = formatarData(novaData.getSeconds());
 
-    const dataAtual = {data :`${dia}/${mes}/${ano}`, hora: `${horas}:${minutos}:${segundos}`}
+    // 10 no final da funcao é o sistema decimal
+    const criacao = parseInt(`${ano}${mes}${dia}${horas}${minutos}${segundos}`, 10);
+
+    const dataAtual = {
+        data :`${dia}/${mes}/${ano}`, 
+        hora: `${horas}:${minutos}:${segundos}`,
+        criacao: criacao,
+    
+    }
 
     return dataAtual;
 }

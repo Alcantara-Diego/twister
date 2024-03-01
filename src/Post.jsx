@@ -221,7 +221,10 @@ function Post(props){
     // Se mudar estrutura do post, deve verificar se não afetará a função validarAberturaDoPost devido as tags
         <span>
             {props.postsInfo && props.postsInfo.length > 0 ? (
-                props.postsInfo.map((info) => (
+                props.postsInfo
+                .filter(info => info.data && info.data.data && info.data.hora) // Filter out posts without data, data.data, or data.hora
+                .sort((a, b) => b.data.criacao - a.data.criacao)
+                .map((info) => (
                     <div className="post postConfigPadrao" key={info.localId}
                     onClick={(event) => validarAberturaDoPost(event, info.localId)}>
 
@@ -247,6 +250,10 @@ function Post(props){
                                     </h4>
                                 </div>
                                 <p className='data'>{info.data.data}</p>
+
+                                
+                                
+                             
                             </span>
 
 

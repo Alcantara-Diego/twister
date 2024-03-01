@@ -8,7 +8,7 @@ import { uuidv4 } from "@firebase/util";
 
 function NovoPost(props){
 
-    const { usuarioLogado } = useContext(AuthGoogleContext);
+    const { usuarioLogado, recarregarPostsDaDb, setRecarregarPostsDaDb } = useContext(AuthGoogleContext);
 
     const gerarPost =() => {       
         props.prepararPost();
@@ -42,7 +42,7 @@ function NovoPost(props){
                     texto: txt.value,
                     data: data,
                     likes: [],
-                    comentariosArray: [],
+                    comentarios: [],
                     fotoURL: usuarioLogado.fotoURL,
                     apagado: false,
                     localId: localId
@@ -54,6 +54,12 @@ function NovoPost(props){
                 const requisicao = await addPost("post", postObj);
 
                 console.log(requisicao);
+
+                if( requisicao == "sucesso"){
+                    sessionStorage.removeItem("Firebase:posts");
+                    setRecarregarPostsDaDb(!recarregarPostsDaDb);
+                    props.alterarURL("/")
+                }
                 txt.value="";
             }
  

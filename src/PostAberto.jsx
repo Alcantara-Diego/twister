@@ -123,7 +123,7 @@ function PostAberto(props){
 
         
 
-        <h4 className="postAbertoComentariosTItulo">{props.postAbertoInfo? props.postAbertoInfo.comentarios.length : "0"} Comentários</h4>
+        <h4 className="postAbertoComentariosTItulo">{props.postAbertoInfo? props.postAbertoInfo.comentarios?.length : "0"} Comentários</h4>
 
         {comentarioPai &&comentarios ? 
         <Post postsInfo={comentarios} 

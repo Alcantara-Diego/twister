@@ -124,3 +124,11 @@
     background: none;
     border: 1px solid gray;
 }
+
+@media (max-width: 500px) {
+    #telaPerfilInfo{
+        height: 87vh;
+
+    }
+    
+}
