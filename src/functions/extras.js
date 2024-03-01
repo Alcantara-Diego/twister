@@ -47,4 +47,24 @@ function temporizador(tempo, func){
 
 
 
-export  {salvarData, temporizador};
+window.addEventListener("resize", ajustarNavegacao);
+
+// Evitar que a sidebarmobile não fique visivel devido a url do celular ocupar espaço da tela
+function ajustarNavegacao(){
+    const alturaJanela = window.innerHeight;
+    const larguraJanela = window.innerWidth
+
+    const alturaURL = document.documentElement.clientHeight - alturaJanela;
+
+    // 700 é a largura máxima que a sidebarmobile é exibida 
+    if (larguraJanela < 700) {
+        document.getElementsByClassName("sidebar")[0].style.bottom=alturaURL+"px"
+
+        
+    }
+
+
+    console.log(larguraJanela)
+}
+
+export  {salvarData, temporizador, ajustarNavegacao};

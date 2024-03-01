@@ -15,6 +15,7 @@ import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 
 import { buscarPostPorId, buscarPostsPorIdentificador, buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
+import { ajustarNavegacao } from './functions/extras'
 
 function App() {
 
@@ -31,6 +32,10 @@ function App() {
     // Info que será passada para o componente de ListaEditavel.JSX
   const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
 
+// Evitar que a sidebarmobile não fique visivel devido a url do celular ocupar espaço da tela
+  useEffect(() =>{
+    ajustarNavegacao()
+  }, [])
 
   function atualizarApp(){
     setUpdateApp(!updateApp)

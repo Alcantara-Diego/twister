@@ -82,7 +82,7 @@ function Sidebar(props) {
                 </div>
             </div>
 
-            <ul className="sidebarMobile">
+            <ul className="sidebarMobile" id='sidebarMobile'>
                 <li onClick={carregarHome}>
                 <IoHomeSharp />
 
