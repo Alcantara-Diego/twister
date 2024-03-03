@@ -10,7 +10,7 @@ import Login from './login'
 import Cadastro from './Cadastro'
 import ListaEditavel from './ListaEditavel'
 import Alerta from './Alerta'
-import BoostrapAlerta from './BootstrapAlerta'
+import BoostrapAlerta from './FeedbackMsg'
 import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 
