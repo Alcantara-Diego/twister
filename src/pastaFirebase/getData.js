@@ -41,7 +41,7 @@ async function buscarUsuarios(){
 }
 
 
-async function buscarUsuarioPorIdentificador(tipo, valor){
+async function buscarUsuarioPorIdentificador(tipo, valor, permitirNulo){
     try {
 
         console.log("----------------LEITURA FEITA NA DB")
@@ -53,9 +53,12 @@ async function buscarUsuarioPorIdentificador(tipo, valor){
         if (resultado.docs.length > 0) {
 
             return resultado.docs[0].data();
-        } else {
 
-            throw new Error("Não foi encontrado o documento com o tipo e valor passado")
+        }
+            
+        else {
+            console.log("Não foi encontrado o documento com o tipo e valor passado")
+            return null
         }
 
     } catch (error) {
@@ -145,9 +148,9 @@ async function buscarPostsPorIdentificador(tipo, valor){
 
             return posts
             
-
-        } else{
-            throw new Error("Requisição de posts não retornou nenhum valor");
+        } else {
+            console.log("Requisição de posts não retornou nenhum valor");
+            return null
         }
         
     } catch (error) {

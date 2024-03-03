@@ -37,7 +37,8 @@ function Perfil(props){
     useEffect(() =>{
         if(props.usuarioInfo!="vazio"){  
             setDados(props.usuarioInfo);
-            setPosts(props.usuarioPosts)
+            Array.isArray(props.usuarioPosts) && setPosts(props.usuarioPosts)
+
             
         } else{
             

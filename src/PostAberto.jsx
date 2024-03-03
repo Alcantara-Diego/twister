@@ -1,30 +1,23 @@
 import "./style/postAberto.scss"
 import Post from "./Post";
 import VoltarTela from "./VoltarTela";
-
-import { donoPerfil } from "./dbTeste";
-
-import { BsPersonCircle } from "react-icons/bs";
-import { FaRegHeart } from "react-icons/fa6";
-import { FaHeart } from "react-icons/fa6";
-import { FaRegComment } from "react-icons/fa";
-import { FaRetweet } from "react-icons/fa";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { AuthGoogleContext } from "./contexts/AuthGoogle";
 import { salvarData } from "./functions/extras";
 import { uuidv4 } from "@firebase/util";
 import { addPost } from "./pastaFirebase/addData";
+import { useNavigate } from "react-router-dom";
 
 
 function PostAberto(props){
 
     const { usuarioLogado, recarregarPostsDaDb, setRecarregarPostsDaDb } = useContext(AuthGoogleContext);
+    const navigate = useNavigate()
 
     const [comentarios, setComentarios] = useState(null)
     const [comentarioPai, setComentarioPai] = useState(null)
     const [renderPostAberto, setRenderPostAberto] = useState(false)
-    const [atualizarComponente, setAtualizarComponente] = useState(false);
     // Puxar objeto toda vez que carregar o id
     useEffect(() =>{
         
@@ -45,12 +38,19 @@ function PostAberto(props){
    async function prepararPost(paiId){
     if(!usuarioLogado){
         console.log("need login");
+        navigate("/login")
         return 
     }
 
     let txt = document.getElementById("addSubComentario");
 
-    if(txt.value.length >= 5){
+    if (txt.value.length < 5 || txt.value.length > 100){
+        console.log("pouca ou muita");
+
+    } else {
+         // Limpar os posts salvos na session
+         sessionStorage.clear();
+
         let data = salvarData();
         let id = uuidv4()
 
@@ -71,14 +71,14 @@ function PostAberto(props){
          
         if(resultado=="sucesso"){
             txt.value="";
-            // Limpar os posts salvos na session
-            sessionStorage.clear();
+           
             // Puxar os posts atualizados da db para exibir o novo comentário
             setRecarregarPostsDaDb(!recarregarPostsDaDb);
-            setAtualizarComponente(!atualizarComponente);
+           
+            
 
         } else{
-            console.log("Não foi possível adicionar o comentario")
+            console.log("Não foi possível adicionar o comentario pelo numero de caractere")
         }
     }
 

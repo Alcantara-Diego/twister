@@ -19,8 +19,10 @@ import { ajustarNavegacao } from './functions/extras'
 
 function App() {
 
+  const url = useLocation();
   const navigate = useNavigate();
-  const { usuarioLogado, primeiroAcesso } = useContext(AuthGoogleContext);
+  
+  const { usuarioLogado, primeiroAcesso, postsDisponiveis } = useContext(AuthGoogleContext);
 
   const [updateApp, setUpdateApp] = useState(false);
   // Info que será passada para o componente de PostAberto.JSX
@@ -32,10 +34,31 @@ function App() {
     // Info que será passada para o componente de ListaEditavel.JSX
   const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
 
-// Evitar que a sidebarmobile não fique visivel devido a url do celular ocupar espaço da tela
-  useEffect(() =>{
-    ajustarNavegacao()
-  }, [])
+
+// Mostrar comentarios assim que forem feitos no postAbertoInfo.JSX
+  useEffect(()=>{
+    console.log(postsDisponiveis)
+
+    // Se o usuario está com um post aberto sendo visualizado....
+    if(url.pathname.includes("/post")){
+
+      // Procurar o Id do post visualizado para atualizar o props enviado ao PostAberto.JSX
+      postsDisponiveis?.forEach((post) => {
+        if (url.pathname.includes(post.localId)) {
+
+          // Atualizar os dados do post exibido ao usuario
+          setPostAbertoInfo(post);
+
+          //Evitar leitura de outros posts se o Id já foi encontrado
+          return
+        }
+      });
+
+
+    }
+
+  }, [postsDisponiveis]);
+
 
   function atualizarApp(){
     setUpdateApp(!updateApp)
@@ -146,7 +169,6 @@ function App() {
     }
   }
 
-const url = useLocation();
 
 function abrirPerfil(username){
   const usuarioNaURL = url.pathname.includes(username)

@@ -6,11 +6,13 @@ import { GiTwister } from "react-icons/gi";
 import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData';
 import {salvarData} from './functions/extras';
 import { addUsuario } from './pastaFirebase/addData';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Cadastro(){
 
     const { userAuth } = useContext(AuthGoogleContext);
+    const navigate = useNavigate();
+
 
     const [inputValor, setInputValor] = useState("");
     const [feedback, setFeedback] = useState("");
@@ -22,7 +24,7 @@ function Cadastro(){
         // Fltrar os caracteres e remover não desejados
         let regexValidado = avaliarRegex();
 
-        if(inputValor.length < 8 || inputValor.length > 16){
+        if(!inputValor.length || inputValor.length < 8 || inputValor.length > 16){
 
             setFeedback("Seu username deve conter no mínimo 8 caracteres e no máximo 16");
 
@@ -31,7 +33,7 @@ function Cadastro(){
             // Após filtrar os caracteres permitidos, verificar se o username já está em uso na db
             setFeedback("")
             console.log("entrando na db")
-            const buscaNaDb = await buscarUsuarioPorIdentificador("username", inputValor);
+            const buscaNaDb = await buscarUsuarioPorIdentificador("username", inputValor, true);
 
             console.log(buscaNaDb)
 
@@ -55,7 +57,7 @@ function Cadastro(){
             // Encontrar todos os underscores na string
             const underscoresEncontrados = inputValor.match(regexUnderscore);
 
-            underscoresEncontrados.length > 1 ? setFeedback("Não é permitido mais de um undescore _") : setFeedback("Não é permitido underscore _ no começo, ou final do username");
+            underscoresEncontrados?.length > 1 ? setFeedback("Não é permitido mais de um undescore _") : setFeedback("Não é permitido underscore _ no começo, ou final do username");
 
             return false
         }
@@ -97,7 +99,7 @@ function Cadastro(){
 
         let user = await addUsuario(novoUsuario);
         console.log(user);
-        Navigate("/");
+        navigate("/");
 
     }
 

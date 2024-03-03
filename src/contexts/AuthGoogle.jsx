@@ -25,6 +25,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
     // Carregar os posts no feed
     useEffect(()=>{
+      console.log("contexxxxxxxxt")
       async function prepararPosts(){
         // Verificar se os posts já foram baixados nessa sessão
         const localPosts =JSON.parse(sessionStorage.getItem("Firebase:posts"));
@@ -152,7 +153,9 @@ export const AuthGoogleProvider = ({ children }) => {
   return (
     <AuthGoogleContext.Provider value={{ signInGoogle, 
     userAuth: userAuth, 
-    primeiroAcesso: primeiroAcesso, usuarioLogado: usuarioLogado, postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,recarregarPostsDaDb: recarregarPostsDaDb }}>
+    primeiroAcesso: primeiroAcesso, 
+    usuarioLogado: usuarioLogado, 
+    postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,recarregarPostsDaDb: recarregarPostsDaDb }}>
         { children }
     </AuthGoogleContext.Provider>
 

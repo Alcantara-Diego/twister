@@ -21,6 +21,10 @@
         background-color: #2e2e2e;
     }
 
+    .texto{
+        max-width: 80%;
+        overflow-x: hidden;
+    }
     .fotoDePerfil{
         width: 40px;
         margin-right: 10px;
@@ -49,7 +53,7 @@
         flex-direction: row;
         align-items: baseline;
         justify-content: flex-start;
-
+        
         .userName{
             margin-right: 10px;
         }
@@ -58,6 +62,7 @@
             color: rgb(164, 164, 164);
             font-size: 1rem;
         }
+        
     }
     
 

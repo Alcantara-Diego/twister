@@ -10,18 +10,16 @@ function NovoPost(props){
 
     const { usuarioLogado, recarregarPostsDaDb, setRecarregarPostsDaDb } = useContext(AuthGoogleContext);
 
-    const gerarPost =() => {       
-        props.prepararPost();
-    }
 
     async function validarPost(){
-
-        
+        // Rejeitar post se nao estiver logado
         if(!usuarioLogado){
             props.alterarURL("/login")
             console.log("deslogado")
             
         } else{
+            // Apagar os posts salvos localmente para o authGoogleContext puxar os posts atualizados
+            sessionStorage.removeItem("Firebase:posts");
 
             let localId = uuidv4();
             let data = salvarData();
@@ -31,8 +29,8 @@ function NovoPost(props){
 
 
             // Impedir o usuário de postar se não tiver escrito pouco
-            if (txt.value.length < 5) {
-                console.log("pouca escrita");
+            if (txt.value.length < 5 || txt.value.length > 100) {
+                console.log("pouca ou muita");
 
             } else {
 
@@ -55,12 +53,14 @@ function NovoPost(props){
 
                 console.log(requisicao);
 
-                if( requisicao == "sucesso"){
-                    sessionStorage.removeItem("Firebase:posts");
+                if(requisicao == "sucesso"){
+
+                    txt.value="";
+                    console.log(requisicao)
                     setRecarregarPostsDaDb(!recarregarPostsDaDb);
-                    props.alterarURL("/")
+                    
                 }
-                txt.value="";
+                
             }
  
         }

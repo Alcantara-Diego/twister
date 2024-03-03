@@ -59,14 +59,12 @@
 
 #telaPostAberto{
     position: relative;
-
-
-    height: inherit;
-  
+    height: 91vh;
     display: block;
     padding: 0px;
     background-color: rgb(37, 37, 37);
     color: white;
+    overflow-y: auto;
 
  
 }
@@ -76,3 +74,8 @@
     padding-top: 10px;
 }
 
+@media (max-width: 700px) {
+    #telaPostAberto{
+        height: 87vh;
+    }    
+}

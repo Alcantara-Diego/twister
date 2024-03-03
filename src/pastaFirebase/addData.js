@@ -70,7 +70,7 @@ async function addPost(tipo, objeto, ParenteId){
             const adicionandoPost = await addDoc(colecao, objeto);
 
             console.log(objeto);
-            return "successo"
+            return "sucesso"
             
             
         } catch (error) {
