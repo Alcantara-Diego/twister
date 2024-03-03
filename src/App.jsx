@@ -10,7 +10,7 @@ import Login from './login'
 import Cadastro from './Cadastro'
 import ListaEditavel from './ListaEditavel'
 import Alerta from './Alerta'
-
+import BoostrapAlerta from './BootstrapAlerta'
 import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 
@@ -201,6 +201,7 @@ function abrirPerfil(username){
           </Sidebar>
           
           <div>
+            <BoostrapAlerta></BoostrapAlerta>
 
             <ListaEditavel
             alterarURL={alterarURL}
