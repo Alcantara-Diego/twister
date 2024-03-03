@@ -21,6 +21,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [primeiroAcesso, setPrimeiroAcesso] = useState(false);
     const [recarregarPostsDaDb, setRecarregarPostsDaDb] = useState(false);
+    const [mensagemAlerta, setMensagemAlerta] = useState("mensagem modelo");
 
 
     // Carregar os posts no feed
@@ -155,7 +156,10 @@ export const AuthGoogleProvider = ({ children }) => {
     userAuth: userAuth, 
     primeiroAcesso: primeiroAcesso, 
     usuarioLogado: usuarioLogado, 
-    postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,recarregarPostsDaDb: recarregarPostsDaDb }}>
+    postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,
+    recarregarPostsDaDb: recarregarPostsDaDb,
+    mensagemAlerta: mensagemAlerta,
+    setMensagemAlerta}}>
         { children }
     </AuthGoogleContext.Provider>
 

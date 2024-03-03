@@ -11,9 +11,12 @@ import { useState } from "react";
 
 function NovoPost(props){
 
-    const { usuarioLogado, recarregarPostsDaDb, setRecarregarPostsDaDb } = useContext(AuthGoogleContext);
+    const { 
+        usuarioLogado, 
+        recarregarPostsDaDb, setRecarregarPostsDaDb, 
+        setMensagemAlerta
+    } = useContext(AuthGoogleContext);
 
-    const [mensagemAlerta, setMensagemAlerta] = useState("mensagem modelo");
 
 
     async function validarPost(){
@@ -79,10 +82,30 @@ function NovoPost(props){
         }
     }
     
+
+    function expandirTextArea(foco){
+        const textoArea = document.getElementById("criarTexto");
+
+        if(foco){
+            console.log("oo")
+    
+            textoArea.style.width="100%"
+            textoArea.style.height="100px"
+
+        } else{
+            textoArea.style.width="110px"
+            textoArea.style.height="50px"
+        }
+       
+
+
+
+
+    }
     return (
         <div className="criarPost postConfigPadrao bordaGradient">
 
-        <FeedbackMsg mensagem={mensagemAlerta}></FeedbackMsg>
+        
 
 
         <header>
@@ -96,12 +119,19 @@ function NovoPost(props){
                
                 <div className="conteudo">
                     <h3>Você</h3>
-                    <textarea name="criarTexto" id="criarTexto" cols="min-width" rows="3" placeholder='Crie seu post!'></textarea>
+                    <textarea name="criarTexto" id="criarTexto" cols="min-width" rows="3" placeholder='Crie seu post!'
+                    onFocus={() =>{expandirTextArea(true)}}
+                    onBlur={() =>{expandirTextArea(false)}}></textarea>
                 </div>
         
         </header>
             <footer>
-                <button className='publicarPostBtn ' onClick={() =>{validarPost()}}>Publicar <BiSolidPencil /></button>
+
+                <button className='publicarPostBtn ' onClick={() =>{validarPost()}}>
+                    Publicar 
+                    <BiSolidPencil />
+                </button>
+
             </footer>
         </div>
 

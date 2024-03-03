@@ -10,6 +10,7 @@ import Login from './login'
 import Cadastro from './Cadastro'
 import ListaEditavel from './ListaEditavel'
 import Alerta from './Alerta'
+import FeedbackMsg from './FeedbackMsg'
 import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 
@@ -20,7 +21,10 @@ function App() {
   const url = useLocation();
   const navigate = useNavigate();
   
-  const { usuarioLogado, primeiroAcesso, postsDisponiveis } = useContext(AuthGoogleContext);
+  const { usuarioLogado, 
+    primeiroAcesso, postsDisponiveis,
+    mensagemAlerta, 
+    setMensagemAlerta } = useContext(AuthGoogleContext);
 
   const [updateApp, setUpdateApp] = useState(false);
   // Info que será passada para o componente de PostAberto.JSX
@@ -190,6 +194,7 @@ function abrirPerfil(username){
   return (
     <div className="container">
       <Nav></Nav>
+      <FeedbackMsg mensagem={mensagemAlerta}></FeedbackMsg>
 
         <div className="conteudo">
 

@@ -42,12 +42,19 @@ main{
     .userFoto{
         width: 35px;
     }
+    .conteudo{
+        // border: 1px solid red;
+        width: 30%;
+    }
 
     textarea{
         
         color: white;
         background: none;
+        width: 100px;
+        height: 40px;
         border: none;
+        transition: 1s;
     }
 
     .publicarPostBtn{
@@ -64,9 +71,17 @@ main{
 }
 
 
+@media (max-width: 1000px){
+
+    .criarPost .conteudo{
+        width: 80%;
+    }
+}
 @media (max-width: 700px){
     main{
         height: 86vh;
 
     }
+
+    
 }
