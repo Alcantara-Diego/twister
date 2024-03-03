@@ -1,0 +1,76 @@
+.feedbackMsg {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    transition: 2s;
+    z-index: 90;
+
+    .simbolo{
+        font-size: 1.6rem;
+    }
+
+    p{
+        margin-left: 3px;
+    }
+
+   
+  }
+  
+#feedbackSucesso{
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+#feedbackErro{
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+  
+@media (max-width: 700px){
+    .feedbackMsg {
+        width: 80%;
+        align-items: flex-start;
+    }
+
+}
+
+
+
+// Define a fade-in animation
+@keyframes fade {
+    0% {
+      top: -1vh;
+      opacity: 0;
+    }
+    20% {
+      top: 7vh;
+      opacity: 1;
+    }
+    80% {
+        top: 7vh;
+        opacity: 1;
+      }
+    100% {
+        top: -1vh;
+        opacity: 0;
+      }
+  }
+  
+  // Apply the animation to a class
+  .fade {
+    animation: fade 5s ease-in-out;
+  }
+  

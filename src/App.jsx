@@ -10,12 +10,10 @@ import Login from './login'
 import Cadastro from './Cadastro'
 import ListaEditavel from './ListaEditavel'
 import Alerta from './Alerta'
-import BoostrapAlerta from './FeedbackMsg'
 import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 
 import { buscarPostPorId, buscarPostsPorIdentificador, buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
-import { ajustarNavegacao } from './functions/extras'
 
 function App() {
 
@@ -199,9 +197,10 @@ function abrirPerfil(username){
           atualizarApp={atualizarApp}
           alterarURL={alterarURL}>
           </Sidebar>
+
+
           
           <div>
-            <BoostrapAlerta></BoostrapAlerta>
 
             <ListaEditavel
             alterarURL={alterarURL}

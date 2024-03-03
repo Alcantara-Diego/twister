@@ -45,26 +45,35 @@ function temporizador(tempo, func){
     }, 1000);
 }
 
+function exibirFeedback(tipo){
+
+    const feedbackErro = document.getElementById("feedbackErro");
+    const feedbackSucesso = document.getElementById("feedbackSucesso");
+
+    // Remover a animacao se estiver ativa para reinicia-la
+    feedbackSucesso.classList.remove("fade");
+    feedbackErro.classList.remove("fade");
+    // Trigger reflow to restart the animation
+    void feedbackSucesso.offsetWidth;
+    void feedbackErro.offsetWidth;
 
 
-window.addEventListener("resize", ajustarNavegacao);
+    switch (tipo) {
+        case "erro":
+            // Iniciar animacao
+            feedbackErro.classList.add("fade");
+            break;
 
-// Evitar que a sidebarmobile não fique visivel devido a url do celular ocupar espaço da tela
-function ajustarNavegacao(){
-    const alturaJanela = window.innerHeight;
-    const larguraJanela = window.innerWidth
-
-    const alturaURL = document.documentElement.clientHeight - alturaJanela;
-
-    // 700 é a largura máxima que a sidebarmobile é exibida 
-    if (larguraJanela < 700) {
-        document.getElementsByClassName("sidebar")[0].style.bottom=alturaURL+"px"
-
-        
+        case "sucesso":
+            feedbackSucesso.classList.add("fade");
+        default:
+            break;
     }
 
+  
 
-    console.log(larguraJanela)
+    
 }
 
-export  {salvarData, temporizador, ajustarNavegacao};
+
+export  {salvarData, temporizador, exibirFeedback};

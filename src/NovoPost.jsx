@@ -2,13 +2,18 @@ import { BsPersonCircle } from "react-icons/bs";
 import { BiSolidPencil } from "react-icons/bi";
 import { useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
+import FeedbackMsg from './FeedbackMsg'
+
 import { addPost } from "./pastaFirebase/addData";
-import {salvarData} from "./functions/extras";
+import {exibirFeedback, salvarData} from "./functions/extras";
 import { uuidv4 } from "@firebase/util";
+import { useState } from "react";
 
 function NovoPost(props){
 
     const { usuarioLogado, recarregarPostsDaDb, setRecarregarPostsDaDb } = useContext(AuthGoogleContext);
+
+    const [mensagemAlerta, setMensagemAlerta] = useState("mensagem modelo");
 
 
     async function validarPost(){
@@ -29,10 +34,16 @@ function NovoPost(props){
 
 
             // Impedir o usuário de postar se não tiver escrito pouco
-            if (txt.value.length < 5 || txt.value.length > 100) {
-                console.log("pouca ou muita");
+            if (txt.value.length < 5) {
+                setMensagemAlerta("O post deve ter pelo menos 5 letras")
+                exibirFeedback("erro");
 
-            } else {
+            } else if(txt.value.length > 100){
+                setMensagemAlerta("O post deve ter menos de 100 caracteres")
+                exibirFeedback("erro");
+
+            } 
+            else{
 
                 let postObj = {
                     displayName: usuarioLogado.displayName,
@@ -54,6 +65,8 @@ function NovoPost(props){
                 console.log(requisicao);
 
                 if(requisicao == "sucesso"){
+                    setMensagemAlerta("Post criado com sucesso!")
+                    exibirFeedback("sucesso");
 
                     txt.value="";
                     console.log(requisicao)
@@ -68,6 +81,10 @@ function NovoPost(props){
     
     return (
         <div className="criarPost postConfigPadrao bordaGradient">
+
+        <FeedbackMsg mensagem={mensagemAlerta}></FeedbackMsg>
+
+
         <header>
 
                 {usuarioLogado? (
