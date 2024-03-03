@@ -36,7 +36,7 @@ function Nav() {
             <h1 className="logo">
                 <span className="titulo">TWISTER</span>
                 <GiTwister className='icone' />
-                <span>alpha</span>
+                <span>alpha 1.1</span>
             </h1>
 
             <div className='navLogadoInfo' onClick={signInGoogle}>
