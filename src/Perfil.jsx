@@ -9,7 +9,7 @@ import { BsPencilFill } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa";
 import { BsCalendar2CheckFill } from "react-icons/bs";
 import { buscarUsuarioPorIdentificador } from "./pastaFirebase/getData";
-import { updateUsuario } from "./pastaFirebase/updateData";
+import { updateUsuario, updateSeguidores } from "./pastaFirebase/updateData";
 
 function Perfil(props){
 
@@ -38,6 +38,8 @@ function Perfil(props){
         if(props.usuarioInfo!="vazio"){  
             setDados(props.usuarioInfo);
             Array.isArray(props.usuarioPosts) && setPosts(props.usuarioPosts)
+
+            console.log(props.usuarioInfo)
 
             
         } else{
@@ -68,13 +70,8 @@ function Perfil(props){
         let users = []
         conteudo.forEach(username => {
             let user = carregarUsuarioPorUsername(username);
-
             users.push(user)
-
-
-            
         });
-
 
         console.log(users)
         props.setListaEditavelInfo(users);
@@ -84,26 +81,31 @@ function Perfil(props){
 
 
     // Apepnas visual ainda, precisa puxar para db(possibilidade de spam)
-    function toggleSeguirSeguindo(seguindo, usuario){
-
-        console.log(dados)       
+    async function toggleSeguirSeguindo(usuario){
 
         if(usuarioLogado.seguindo.includes(usuario.username)){
             // Remover os usuários da lista de seguidores e seguindo um do outro
             usuarioLogado.seguindo = usuarioLogado.seguindo.filter(user => user !== usuario.username);
 
-            usuario.seguidores = usuario.seguidores.filter(user => user !== usuarioLogado.username);
+            usuario.seguidores = usuario.seguidores.filter(user => user !== usuarioLogado.username);            
 
         } else {
             // Adicionar os usuários da lista de seguidores e seguindo um do outro
             usuarioLogado.seguindo.push(usuario.username);
 
-            usuario.seguidores.push(usuarioLogado.username)
+            usuario.seguidores.push(usuarioLogado.username);            
         }
 
+ 
+            const resultado = await updateSeguidores(usuarioLogado.username, usuario.username);
 
-        console.log(usuarioLogado)
-        console.log(usuario)
+            resultado=="sucesso"? console.log("lista de seguidores atualizada") : console.log("Erro ao atualizar lista de seguidores");
+
+
+            
+      
+
+
         setUpdatePerfil(!updatePerfil)
         
     }
@@ -147,12 +149,12 @@ function Perfil(props){
                     (usuarioLogado?.seguindo.includes(dados.username)?(
                     // Se seguir, mostra botão para parar de seguir
                     <button className="bordaGradient"
-                    onClick={() => toggleSeguirSeguindo(true, dados)}>Seguindo
+                    onClick={() => toggleSeguirSeguindo(dados)}>Seguindo
                     </button>)
                     :
                     // Se não segue, botão para começar a seguir
                     (<button className="bordaGradient"
-                    onClick={() => toggleSeguirSeguindo(false, dados)}>Seguir
+                    onClick={() => toggleSeguirSeguindo(dados)}>Seguir
                     </button>))}
                 </div>
 
