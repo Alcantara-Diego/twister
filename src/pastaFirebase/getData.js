@@ -97,6 +97,27 @@ async function buscarPosts(){
     }
 }
 
+async function buscarTodos(tipo){
+    try {
+        console.log("----------------LEITURA FEITA NA DB");
+        const colecao = collection(db, tipo);
+    
+        const resultado = await getDocs(colecao);
+        const usuariosLista = resultado.docs.map(leitura => leitura.data());
+    
+        console.log(usuariosLista);
+    
+        return usuariosLista;
+
+
+        
+    } catch (error) {
+        console.log(error)
+        return null
+        
+    }
+}
+
 
 async function buscarPostPorId(id){
     try {
@@ -162,4 +183,11 @@ async function buscarPostsPorIdentificador(tipo, valor){
 
 }
 
-export {buscarEmailCadastrado, buscarPosts, buscarUsuarios, buscarUsuarioPorIdentificador, buscarPostPorId, buscarPostsPorIdentificador}
+export {
+    buscarEmailCadastrado, 
+    buscarPosts, 
+    buscarTodos,
+    buscarUsuarios, 
+    buscarUsuarioPorIdentificador, 
+    buscarPostPorId, 
+    buscarPostsPorIdentificador}

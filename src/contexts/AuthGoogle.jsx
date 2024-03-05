@@ -1,7 +1,7 @@
 import { useEffect, useState, createContext } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from '../pastaFirebase/firebasePrincipal';
-import { buscarUsuarios, buscarUsuarioPorIdentificador, buscarEmailCadastrado, buscarPosts } from "../pastaFirebase/getData";
+import { buscarUsuarios, buscarUsuarioPorIdentificador, buscarEmailCadastrado, buscarPosts, buscarTodos } from "../pastaFirebase/getData";
 import { useNavigate } from "react-router-dom";
 import { addEmail } from "../pastaFirebase/addData";
 
@@ -16,7 +16,9 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [userAuth, setUserAuth] = useState(null);
     const [usuarioLogado, setUsuarioLogado] = useState(null);
+
     const [postsDisponiveis, setPostsDisponiveis] = useState(null);
+    const [usuariosDisponiveis, setUsuariosDisponiveis] = useState(null);
 
 
     const [primeiroAcesso, setPrimeiroAcesso] = useState(false);
@@ -26,7 +28,6 @@ export const AuthGoogleProvider = ({ children }) => {
 
     // Carregar os posts no feed
     useEffect(()=>{
-      console.log("contexxxxxxxxt")
       async function prepararPosts(){
         // Verificar se os posts já foram baixados nessa sessão
         const localPosts =JSON.parse(sessionStorage.getItem("Firebase:posts"));
@@ -55,7 +56,41 @@ export const AuthGoogleProvider = ({ children }) => {
       }
 
       prepararPosts() ; 
-    }, [userAuth, recarregarPostsDaDb])
+    }, [userAuth, recarregarPostsDaDb]);
+
+       // Buscar todos usuarios
+       useEffect(()=>{
+        async function salvarUsuarios(){
+          // Verificar se os usuarios já foram baixados nessa sessão
+          const localusuarios =JSON.parse(sessionStorage.getItem("Firebase:usuarios"));
+  
+          if(Array.isArray(localusuarios) && usuarioLogado == null){
+            // Se tem usuarios salvos nessa sessão, exibe eles para diminuir o número de leituras na firestore
+            console.log("Usuarios encontrados localmente")
+            console.log(localusuarios)
+            setUsuariosDisponiveis(localusuarios)
+  
+          } else{
+            // Se não tem usuarios salvos localmente, entra na firestore e busca os usuarios de lá
+            console.log("Entrando na db para pegar os usuarios")
+  
+            const usuariosDb = await buscarTodos("usuarios");
+            console.log(usuariosDb)
+  
+            if(Array.isArray(usuariosDb)){
+              console.log(usuariosDb)
+              sessionStorage.setItem("Firebase:usuarios", JSON.stringify(usuariosDb));
+              setUsuariosDisponiveis(usuariosDb)
+
+            } else {
+              console.log("erro ao buscar todos usuários");
+              // console.log(usuariosDb)
+            }
+  
+          }
+        }
+        salvarUsuarios();
+      }, [userAuth])
 
   
     
@@ -156,6 +191,7 @@ export const AuthGoogleProvider = ({ children }) => {
     userAuth: userAuth, 
     primeiroAcesso: primeiroAcesso, 
     usuarioLogado: usuarioLogado, 
+    usuariosDisponiveis: usuariosDisponiveis,
     postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,
     recarregarPostsDaDb: recarregarPostsDaDb,
     mensagemAlerta: mensagemAlerta,

@@ -34,12 +34,12 @@ function App() {
     // Info que será passada para o componente de Post.JSX
   const [usuarioPosts, setUsuarioPosts] = useState([]);
     // Info que será passada para o componente de ListaEditavel.JSX
-  const [listaEditavelInfo, setListaEditavelInfo] = useState([]);
+  const [listaEditavelInfo, setListaEditavelInfo] = useState([[], "teste"]);
 
 
 // Mostrar comentarios assim que forem feitos no postAbertoInfo.JSX
   useEffect(()=>{
-    console.log(postsDisponiveis)
+    // console.log(postsDisponiveis)
 
     // Se o usuario está com um post aberto sendo visualizado....
     if(url.pathname.includes("/post")){
@@ -89,7 +89,7 @@ function App() {
         } else if(url.includes("usuario")){
           let usuario = await tratarURL(url, "usuario");
 
-          console.log(usuario)
+          // console.log(usuario)
         
           setUsuarioInfo(usuario[0]);
 
@@ -149,7 +149,7 @@ function App() {
           usuario[0] = await buscarUsuarioPorIdentificador("username", username)
           
           let posts = await buscarPostsPorIdentificador("username", username);
-          console.log(posts);
+          // console.log(posts);
           Array.isArray(posts) && usuario.push(posts)
 
 

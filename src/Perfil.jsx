@@ -24,7 +24,7 @@ function Perfil(props){
         idPostsCriados: []
     }
 
-    const { usuarioLogado } = useContext(AuthGoogleContext);
+    const { usuarioLogado, usuariosDisponiveis } = useContext(AuthGoogleContext);
     const [dados, setDados] = useState(modelo);
     const [posts, setPosts] = useState([]);
 
@@ -64,17 +64,19 @@ function Perfil(props){
     }
 
     // Mostrar lista de seguidores ou seguindo se clicar em uma das 2 opções no perfil do usuário
-    function exibirLista(conteudo){
-        console.table(conteudo)
+    function exibirLista(conteudo, tipo){
 
         let users = []
-        conteudo.forEach(username => {
-            let user = carregarUsuarioPorUsername(username);
-            users.push(user)
+      
+        usuariosDisponiveis.forEach(usuario => {
+            conteudo.forEach(nomeSalvo => {
+                if (usuario.username === nomeSalvo) {
+                    users.push(usuario);
+                }
+            });
         });
-
-        console.log(users)
-        props.setListaEditavelInfo(users);
+        
+        props.setListaEditavelInfo([users, tipo]);
         document.getElementById("listaEditavel").style.display="block";
         
     }
@@ -164,7 +166,7 @@ function Perfil(props){
 
                     <li className="btn" 
                     onClick={() =>{
-                    exibirLista(dados.seguidores)
+                    exibirLista(dados.seguidores, "Seguidores")
                 }}>
                         <div>
 
@@ -178,7 +180,7 @@ function Perfil(props){
                     </li>
                     <li className="btn"
                     onClick={
-                        () =>{exibirLista(dados.seguindo)}}>
+                        () =>{exibirLista(dados.seguindo, "Seguindo")}}>
                         <div>
 
                             <span className="dadosContagem">

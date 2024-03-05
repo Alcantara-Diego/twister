@@ -5,6 +5,7 @@ import VoltarTela from "./VoltarTela"
 
 
 import { BsPersonCircle } from "react-icons/bs";
+import { useEffect } from "react";
 
 function ListaEditavel(props){
 
@@ -15,6 +16,10 @@ function ListaEditavel(props){
         props.alterarURL(`usuario/${username}`);
 
     }
+
+    useEffect(()=>{
+        console.log(props.conteudo)
+    }, [props.conteudo])
     
     return (
         <div id="listaEditavel">
@@ -25,12 +30,20 @@ function ListaEditavel(props){
             
 
             <ul>
-                <h2>TItulo</h2>
+                {/* Titulo da lista exibida */}
+                {props.conteudo? <h2>{props.conteudo[1]}</h2>: null}
 
-                {props.conteudo? props.conteudo.map((item, index) =>(
+                {/* Listagem de conteúdo */}
+                {props.conteudo? props.conteudo[0].map((item, index) =>(
                     <div key={index} className="itemLista">
                         <div className="usernameDiv">
-                            <BsPersonCircle className='userFoto'></BsPersonCircle>
+                            
+                            {item.fotoURL?
+                            <img className="userFoto" src={item.fotoURL} alt="" />:
+
+                             <BsPersonCircle className='userFoto'></BsPersonCircle>}
+                            
+
                             <span>
                                 <h4>{item.username}</h4>
                                 <p>{item.recado}</p>
@@ -38,7 +51,18 @@ function ListaEditavel(props){
                         </div>
                         <button className="bordaGradient" onClick={()=>{carregarPerfil(item.username)}}>Ver Perfil</button>
                     </div>
-                )) : ""}
+
+                  
+                )) : <div>Algo deu errado. Não foi possível carregar o conteúdo</div>}
+
+               
+
+                {/* Feedback de lista vazia */}
+                {props.conteudo ? (
+                    props.conteudo[0].length < 1 ? (
+                        <div>Essa lista ainda não possui nenhum usuário.</div>
+                    ) : null
+                ) : null}
             </ul>
             
             

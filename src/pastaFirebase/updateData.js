@@ -189,6 +189,7 @@ async function updateSeguidores(usernameDono, segundoUsername){
         // Registrar na DB os valores se teve ref de ambos
         if (usuarioDonoRef && usuarioSegundoRef) {
             console.log("----------------UPDATE FEITO NA DB");
+            // Atualizar  lista de seguindo do usuario logado
             await updateDoc(usuarioDonoRef, {
                 seguindo: novoSeguindo
             });
@@ -196,6 +197,7 @@ async function updateSeguidores(usernameDono, segundoUsername){
 
 
             console.log("----------------UPDATE FEITO NA DB");
+            // Atualizar lista de seguidores do outro usuário
             await updateDoc(usuarioSegundoRef, {
                 seguidores: novoSeguidores
             });
@@ -211,7 +213,7 @@ async function updateSeguidores(usernameDono, segundoUsername){
 
        
     } catch (error) {
-        console.error("Error updating followers:", error);
+        console.error("Erro ao atualizar seguidores:", error);
 
         
     }
