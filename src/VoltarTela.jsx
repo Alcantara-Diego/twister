@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 
 function VoltarTela(props){
+
+    const navigate = useNavigate();
 
 
     useEffect(()=>{
@@ -18,7 +21,7 @@ function VoltarTela(props){
                        
                         seta.addEventListener("click", () =>{
 
-                            props.alterarURL("/")
+                            navigate("/");
                         })
                         
                         break;

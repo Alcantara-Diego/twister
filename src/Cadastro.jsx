@@ -92,7 +92,8 @@ function Cadastro(){
             cadastro: data,
             recado: "Twister social media",
             seguidores: [],
-            seguindo: []
+            seguindo: [],
+            notificacoes: []
 
 
         }

@@ -15,6 +15,7 @@ import { PrivateRoute } from './RotasPrivadas'
 import { AuthGoogleContext } from './contexts/AuthGoogle'
 
 import { buscarPostPorId, buscarPostsPorIdentificador, buscarUsuarioPorIdentificador } from './pastaFirebase/getData'
+import Timeline from './Timeline'
 
 function App() {
 
@@ -23,8 +24,7 @@ function App() {
   
   const { usuarioLogado, 
     primeiroAcesso, postsDisponiveis,
-    mensagemAlerta, 
-    setMensagemAlerta } = useContext(AuthGoogleContext);
+    mensagemAlerta } = useContext(AuthGoogleContext);
 
   const [updateApp, setUpdateApp] = useState(false);
   // Info que será passada para o componente de PostAberto.JSX
@@ -234,6 +234,10 @@ function abrirPerfil(username){
               abrirPerfil={abrirPerfil}
               mostrarPerfilPeloUsername="permitir"
               alterarURL={alterarURL}/>}/>
+
+              <Route path='/notificacoes' element={<Timeline info={"notificacoes"}/>} />
+
+              <Route path='/timeline' element={<Timeline info={"timeline"}/>} />
 
               <Route path='/login' element={
                 <PrivateRoute primeiroAcesso={primeiroAcesso}>

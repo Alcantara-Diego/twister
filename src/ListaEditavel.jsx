@@ -17,9 +17,6 @@ function ListaEditavel(props){
 
     }
 
-    useEffect(()=>{
-        console.log(props.conteudo)
-    }, [props.conteudo])
     
     return (
         <div id="listaEditavel">

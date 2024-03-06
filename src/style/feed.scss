@@ -70,7 +70,12 @@ main{
 
 }
 
-
+.timelineBtn{
+    margin-bottom: 8px;
+    background-color: rgb(37, 37, 37);
+    color: white;
+    padding: 12px;
+}
 @media (max-width: 1000px){
 
     .criarPost .conteudo{

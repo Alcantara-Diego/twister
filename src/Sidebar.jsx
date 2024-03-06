@@ -71,7 +71,7 @@ function Sidebar(props) {
                         Criar post <IoIosAddCircle />
                     </li>
 
-                    <li className='desativado'>
+                    <li onClick={()=>{props.alterarURL("/notificacoes")}}>
                         Notificações <IoMdNotifications />
                     </li>
                     
@@ -93,7 +93,7 @@ function Sidebar(props) {
                 <li className='desativado'>
                     <IoIosAddCircle />
                 </li>
-                <li className='desativado'>
+                <li onClick={()=>{props.alterarURL("/notificacoes")}}>
                     <IoMdNotifications />
                 </li>
                 <li onClick={()=> atualizarPerfil()}>

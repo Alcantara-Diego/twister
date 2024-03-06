@@ -14,8 +14,11 @@ import { useNavigate } from "react-router-dom";
 function PostAberto(props){
 
     const { usuarioLogado, 
-        recarregarPostsDaDb, setRecarregarPostsDaDb,
-        setMensagemAlerta 
+        recarregarPostsDaDb, 
+        setRecarregarPostsDaDb,
+        setMensagemAlerta,
+        postsDisponiveis
+
     } = useContext(AuthGoogleContext);
 
     const navigate = useNavigate()
@@ -31,6 +34,7 @@ function PostAberto(props){
         if(props.postAbertoInfo !== null){
             setComentarios(props.postAbertoInfo.comentarios)
             setComentarioPai(props.postAbertoInfo)
+            console.log(postsDisponiveis)
             
         }
 
@@ -42,7 +46,6 @@ function PostAberto(props){
  
    async function prepararPost(paiId){
     if(!usuarioLogado){
-        console.log("need login");
         navigate("/login")
         return 
     }
@@ -98,6 +101,19 @@ function PostAberto(props){
 
 
    }
+
+    //Encontrar dono do post e notifica-lo do comentario adicionado    
+//    async function notificarPostDono(postId){
+//     postsDisponiveis.forEach(post => {
+//         if (post.localId == postId) {
+            
+            
+//         }
+        
+//     });
+
+//    }
+
 
    function atualizarPostAberto(param){
 
