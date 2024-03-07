@@ -47,7 +47,7 @@
 
         
 
-        button{
+        button, .novidade{
             margin-right: 3px;
             padding: 5px;
             color: white;
@@ -64,7 +64,8 @@
             flex-direction: row;
             .icone{
                 font-size: 2rem;
-                color:red;
+                // color:red;
+                margin-right: 10px;
             }
             .principal{
                 display: flex;
@@ -74,6 +75,10 @@
                     // color: red;
                 }
             }
+        }
+
+        .novidade{
+            font-size: 1.4rem;
         }
     }
 }
