@@ -116,6 +116,27 @@ async function addPost(tipo, objeto, ParenteId){
 
 }
 
+async function addNotificacao(username, novaNotificacao){
+    const colecao = collection(db, "usuarios");
+
+    const q = query(colecao, where("username", "==", username))
+
+    const resultado = await getDocs(q);
+
+    if (!resultado.empty) {
+        const usuarioDoc = resultado.docs[0];
+        const usuarioRef = usuarioDoc.ref;
+        const notificacoes = usuarioDoc.data().notificacoes
+        notificacoes.push(novaNotificacao);
+
+        await updateDoc(usuarioRef, {
+            notificacoes: notificacoes
+        });
+
+        return "sucesso"
+        
+    }
+}
 
 
-export {addEmail,addUsuario, addPost}
+export {addEmail,addUsuario, addPost, addNotificacao}

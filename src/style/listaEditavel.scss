@@ -5,7 +5,7 @@
  
     height: 94vh;
     width: 100%;
-    display: block;
+    display: none;
     background-color: #1e1e1e;
     color: white;
     z-index: 10;
@@ -58,6 +58,7 @@
 }
 
 #timeline{
+    display: block;
     .itemLista{
         .info{
             display: flex;
