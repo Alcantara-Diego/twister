@@ -114,7 +114,7 @@ async function gerarComunicado(tipo, info){
     
         const novoComunicado = {
             tipo: tipo,
-            titulo: info.displayName,
+            titulo: `${info.displayName} criou uma conta no Twister`,
             foto: info.fotoURL,
             data: info.cadastro,
             link: `/usuario/${info.username}`

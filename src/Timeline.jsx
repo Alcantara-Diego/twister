@@ -27,7 +27,7 @@ function Timeline(props){
 
     }
 
-    const { usuarioLogado } = useContext(AuthGoogleContext);
+    const { usuarioLogado, comunicadosDisponiveis } = useContext(AuthGoogleContext);
 
     const navigate = useNavigate();
 
@@ -35,16 +35,44 @@ function Timeline(props){
 
 
     useEffect(()=>{
-        console.log(usuarioLogado)
-        usuarioLogado !== null &&
-        setNotificacoes(usuarioLogado.notificacoes);
+        console.log(usuarioLogado);
+        console.log(comunicadosDisponiveis);
 
-    }, [usuarioLogado])
+        let timelineInfo = []
 
 
-    useEffect(()=>{
-        console.log(notificacoes)
-    }, [notificacoes])
+        if (usuarioLogado) {
+
+            if (usuarioLogado.notificacoes) {
+
+                usuarioLogado.notificacoes.forEach(item => {timelineInfo.push(item);});
+            }
+
+
+            if (comunicadosDisponiveis) {
+
+                comunicadosDisponiveis.forEach(item => {
+                timelineInfo.push(item);
+                
+                });
+            }
+
+            timelineInfo.sort((a, b) => b.data.criacao - a.data.criacao)
+
+            console.log(timelineInfo);  
+            setNotificacoes(timelineInfo);          
+        }
+        
+
+
+
+
+        
+
+    }, [])
+
+
+   
 
     return (
         <div id="timeline">
@@ -66,7 +94,13 @@ function Timeline(props){
                      <li key={index} className="itemLista">
                      <div className="info">
                          {/* <BsPersonCircle className="icone"/> */}
-                         <img src={item.foto} alt="" className="fotoDePerfil"/>
+
+                         {item.tipo == "notificacao" || item.tipo == "novoUsuario"? (
+
+                            <img src={item.foto} alt="" className="fotoDePerfil"/>
+
+                         ) : <MdAddReaction className="icone"/>}
+                         
                          <div className="principal">
                              
                              <h4>{item.titulo}</h4>
@@ -87,7 +121,7 @@ function Timeline(props){
                 )): null}
 
 
-                <li className="itemLista">aaa
+                <li className="itemLista">
                     <div className="info">
                         <MdHealthAndSafety className="icone"/>
                         <div className="principal">
@@ -101,52 +135,9 @@ function Timeline(props){
                     <ImNewspaper className="novidade"/>
                 </li>
             
-                <li className="itemLista">
-                    <div className="info">
-                        <MdAddReaction className="icone"/>
-                        <div className="principal">
-                            
-                            <h4>Adicionado notificações no app</h4>
-                            <p>01/03/2024</p>
-
-                        </div>
-                    </div>
-
-                    <ImNewspaper className="novidade"/>
-                </li>
+             
 
 
-                <li className="itemLista">
-                    <div className="info">
-                        <BsPersonCircle className="icone"/>
-                        <div className="principal">
-                            
-                            <h4>@user123 criou uma conta no twister</h4>
-                            
-                            <p className="secundario">01/03/2024</p>
-
-                        </div>
-                    </div>
-
-                    <button className="bordaGradient">Abrir</button>
-                </li>
-
-
-
-                <li className="itemLista">
-                    <div className="info">
-                        <BsPersonCircle className="icone"/>
-                        <div className="principal">
-                            
-                            <h4>@userteste comentou em seu post</h4>
-                            
-                            <p className="secundario">01/03/2024</p>
-
-                        </div>
-                    </div>
-
-                    <button className="bordaGradient">Abrir</button>
-                </li>
 
                 
 
@@ -166,22 +157,6 @@ function Timeline(props){
                     <ImNewspaper className="novidade"/>
                 </li>
 
-                <li className="itemLista">
-                    <div className="info">
-                        <BsPersonCircle className="icone"/>
-                        <div className="principal">
-                            
-                            <h4>@userteste passou a te seguir</h4>
-                            
-                            <p className="secundario">01/03/2024</p>
-
-                        </div>
-
-
-                    </div>
-
-                    <button className="bordaGradient">Abrir</button>
-                </li>
             </ul>
            
                 

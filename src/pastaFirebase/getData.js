@@ -103,11 +103,11 @@ async function buscarTodos(tipo){
         const colecao = collection(db, tipo);
     
         const resultado = await getDocs(colecao);
-        const usuariosLista = resultado.docs.map(leitura => leitura.data());
+        const lista = resultado.docs.map(leitura => leitura.data());
     
-        console.log(usuariosLista);
+        console.log(lista);
     
-        return usuariosLista;
+        return lista;
 
 
         

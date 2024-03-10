@@ -19,6 +19,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [postsDisponiveis, setPostsDisponiveis] = useState(null);
     const [usuariosDisponiveis, setUsuariosDisponiveis] = useState(null);
+    const [comunicadosDisponiveis, setComunicadosDisponiveis] = useState(null);
 
 
     const [primeiroAcesso, setPrimeiroAcesso] = useState(false);
@@ -84,7 +85,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
             } else {
               console.log("erro ao buscar todos usuários");
-              // console.log(usuariosDb)
+              
             }
   
           }
@@ -92,7 +93,19 @@ export const AuthGoogleProvider = ({ children }) => {
         salvarUsuarios();
       }, [userAuth])
 
-  
+      //Buscar todos comunicados
+      useEffect(() =>{
+        async function salvarComunicados(){
+
+          let comunicados = await buscarTodos("comunicados");
+
+          if (comunicados) {
+            setComunicadosDisponiveis(comunicados);
+          }
+        }
+
+        salvarComunicados();
+      }, [userAuth])
     
     // Identificar o tipo de usuário logado(REMOVER PROD ITENS)
     useEffect(()=>{
@@ -192,7 +205,9 @@ export const AuthGoogleProvider = ({ children }) => {
     primeiroAcesso: primeiroAcesso, 
     usuarioLogado: usuarioLogado, 
     usuariosDisponiveis: usuariosDisponiveis,
-    postsDisponiveis: postsDisponiveis, setRecarregarPostsDaDb,
+    postsDisponiveis: postsDisponiveis, 
+    comunicadosDisponiveis: comunicadosDisponiveis,
+    setRecarregarPostsDaDb,
     recarregarPostsDaDb: recarregarPostsDaDb,
     mensagemAlerta: mensagemAlerta,
     setMensagemAlerta}}>
