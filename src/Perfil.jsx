@@ -1,19 +1,16 @@
 import "./style/perfil.scss"
 import Post from './Post';
-import { carregarUsuarioPorUsername } from "./functions/users";
 import { useContext, useEffect, useState } from "react";
-import { donoPerfil, userInfoDb } from "./dbTeste";
 import { AuthGoogleContext } from "./contexts/AuthGoogle";
-import { BsPersonCircle } from "react-icons/bs";
 import { BsPencilFill } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa";
 import { BsCalendar2CheckFill } from "react-icons/bs";
-import { buscarUsuarioPorIdentificador } from "./pastaFirebase/getData";
+
 import { updateUsuario, updateSeguidores } from "./pastaFirebase/updateData";
 
 function Perfil(props){
 
-    // modelo evita bugs no componente caso os props não tenham chegados quando o componente tentar carregar as info. Ness caso, é passado os dados do modelo invés do props
+    // modelo evita bugs no componente caso os props não tenham chegados quando o componente tentar carregar as info. Nesse caso, é passado os dados do modelo invés do props
     let modelo = {
         username: "username",
         seguidores: ["dcf"],
@@ -25,32 +22,32 @@ function Perfil(props){
     }
 
     const { usuarioLogado, usuariosDisponiveis } = useContext(AuthGoogleContext);
+    // Info que sera renderizada no componente
     const [dados, setDados] = useState(modelo);
     const [posts, setPosts] = useState([]);
 
     const [editandoRecado, setEditandoRecado] = useState(false);
     const [recadoSalvo, setRecadoSalvo] = useState(dados.recado);
 
-    const [updatePerfil, setUpdatePerfil] = useState(false);
+    // Impedir spam de leitura na DB ao seguir o usuario
+    const [seguirContagem, setSeguirContagem] = useState(1);
+    const [contagemBloqueada, setContagemBloqueada] = useState(false);
 
     // Atualizar info do usuário e posts criados
     useEffect(() =>{
         if(props.usuarioInfo!="vazio"){  
+
             setDados(props.usuarioInfo);
             Array.isArray(props.usuarioPosts) && setPosts(props.usuarioPosts)
 
             console.log(props.usuarioInfo)
-
-            
         } else{
-            
             setDados(modelo);
         } 
 
-        
-
     }, [props.usuarioInfo, props.usuarioPosts]);
 
+    
     function autorizarEditarRecado(){
         setEditandoRecado(!editandoRecado);
     }
@@ -82,9 +79,12 @@ function Perfil(props){
     }
 
 
-    // Apepnas visual ainda, precisa puxar para db(possibilidade de spam)
     async function toggleSeguirSeguindo(usuario){
+        console.log(seguirContagem)
+        contagemBloqueada && console.log("Seguir/Seguindo não registrado devido a SPAM");
+        
 
+        // Atualizar perfil visualmente
         if(usuarioLogado.seguindo.includes(usuario.username)){
             // Remover os usuários da lista de seguidores e seguindo um do outro
             usuarioLogado.seguindo = usuarioLogado.seguindo.filter(user => user !== usuario.username);
@@ -99,17 +99,31 @@ function Perfil(props){
         }
 
  
-            const resultado = await updateSeguidores(usuarioLogado.username, usuario.username);
+        if (contagemBloqueada) {
+            console.log("Botão de seguidores bloqueado");
+            // Continuar aumentando contagem para atualizar o componente e dar feedback visual
+            setSeguirContagem(seguirContagem+1)
+            return
+        }
 
-            resultado=="sucesso"? console.log("lista de seguidores atualizada") : console.log("Erro ao atualizar lista de seguidores");
+        // Atualizar perfil na DB
+        const resultado = await updateSeguidores(usuarioLogado.username, usuario.username);
+
+        // Aumentar a contagem para travar o botão em caso de spam
+        setSeguirContagem(seguirContagem+1)
 
 
-            
-      
-
-
-        setUpdatePerfil(!updatePerfil)
+        if (resultado == "sucesso") {
         
+            console.log("lista de seguidores atualizada");
+            // Se a contagem de cliques no botao for maior que 2, nao gravar na DB proximos cliques
+            seguirContagem>2? setContagemBloqueada(true):null;
+            return
+
+        } 
+        
+        console.log("Erro na DB ao atualizar lista de seguidores");
+      
     }
 
 
