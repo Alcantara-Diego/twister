@@ -7,6 +7,7 @@ import { FaCheck } from "react-icons/fa";
 import { BsCalendar2CheckFill } from "react-icons/bs";
 
 import { updateUsuario, updateSeguidores } from "./pastaFirebase/updateData";
+import { avaliarNotificacaoSeguidores } from "./functions/notificacoes";
 
 function Perfil(props){
 
@@ -47,7 +48,7 @@ function Perfil(props){
 
     }, [props.usuarioInfo, props.usuarioPosts]);
 
-    
+
     function autorizarEditarRecado(){
         setEditandoRecado(!editandoRecado);
     }
@@ -115,6 +116,10 @@ function Perfil(props){
 
         if (resultado == "sucesso") {
         
+            // Verificar se o usuario deve ser notificado da atualizacao nos seguidores
+            usuario.seguidores.includes(usuarioLogado.username)? avaliarNotificacaoSeguidores(usuario.username, usuarioLogado):null;
+
+
             console.log("lista de seguidores atualizada");
             // Se a contagem de cliques no botao for maior que 2, nao gravar na DB proximos cliques
             seguirContagem>2? setContagemBloqueada(true):null;
@@ -125,6 +130,8 @@ function Perfil(props){
         console.log("Erro na DB ao atualizar lista de seguidores");
       
     }
+
+ 
 
 
 

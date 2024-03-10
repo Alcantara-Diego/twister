@@ -7,8 +7,9 @@ import { AuthGoogleContext } from "./contexts/AuthGoogle";
 import { exibirFeedback } from "./functions/extras";
 import { salvarData } from "./functions/extras";
 import { uuidv4 } from "@firebase/util";
-import { addNotificacao, addPost } from "./pastaFirebase/addData";
+import { addPost } from "./pastaFirebase/addData";
 import { useNavigate } from "react-router-dom";
+import { notificarPostDono } from "./functions/notificacoes";
 
 
 function PostAberto(props){
@@ -34,11 +35,8 @@ function PostAberto(props){
         if(props.postAbertoInfo !== null){
             setComentarios(props.postAbertoInfo.comentarios)
             setComentarioPai(props.postAbertoInfo)
-            console.log(postsDisponiveis)
-            
+            console.log(postsDisponiveis)   
         }
-
-        
 
     }, [props.postAbertoInfo])
 
@@ -88,7 +86,7 @@ function PostAberto(props){
             exibirFeedback("sucesso");
 
             // Enviar notificacao ao dono do post
-            notificarPostDono(paiId, comentarioObj);
+            notificarPostDono(paiId, comentarioObj, postsDisponiveis, usuarioLogado);
 
             txt.value="";
            
@@ -107,53 +105,11 @@ function PostAberto(props){
 
    }
 
-    // Encontrar dono do post e notifica-lo do comentario adicionado    
-   async function notificarPostDono(postId, comentarioObj){
-
-    const novaNotificacao= {
-        tipo: "notificacao",
-        origem: "comentario",
-        titulo: `${comentarioObj.username} comentou em seu post`,
-        foto: comentarioObj.fotoURL,
-        conteudo: comentarioObj.texto,
-        data: comentarioObj.data,
-        link: `/post/${postId}`
-
-
-    }
-
-
-    let username = null;
-    postsDisponiveis.forEach(post => {
-        if (post.localId == postId) {
-
-            post.username !== usuarioLogado.username? username = post.username : console.log("comentario do dono do post");
-
-            return   
-            
-        }
-        
-    });
-
-    if (username) {
-        const notificarUsuario = await addNotificacao(username, novaNotificacao);
-
-        notificarUsuario=="sucesso"? console.log("Notificação enviada ao dono do post") : console.log("erro ao enviar notificação do novo comentário");
-
-
-    }
-
-
-
-
-   }
 
 
    function atualizarPostAberto(param){
-
     console.log(param)
     setRenderPostAberto(!renderPostAberto);
-
    }
 
     return (

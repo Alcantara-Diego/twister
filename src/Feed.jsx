@@ -34,8 +34,8 @@ function Feed(props){
                 prepararPost={prepararPost}
                 alterarURL={props.alterarURL}></NovoPost>
 
-                <div className='timelineBtn' onClick={()=>{navigate("/timeline")}}><ImNewspaper />
-                Clique aqui para acessar a timeline</div>
+                {/* <div className='timelineBtn' onClick={()=>{navigate("/timeline")}}><ImNewspaper />
+                Clique aqui para acessar a timeline</div> */}
                 
 
                 <Post

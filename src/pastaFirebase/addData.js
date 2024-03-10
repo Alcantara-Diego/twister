@@ -135,6 +135,8 @@ async function addNotificacao(username, novaNotificacao){
 
         return "sucesso"
         
+    } else {
+        return "erro"
     }
 }
 
