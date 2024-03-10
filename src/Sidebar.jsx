@@ -42,6 +42,13 @@ function Sidebar(props) {
         document.getElementById("listaEditavel").style.display="none";
 
     }
+
+
+    function mostrarNotificacoes(){
+        usuarioLogado?props.alterarURL("/notificacoes") : props.alterarURL("/login")
+
+
+    }
     return (
         <ul className="sidebar bordaGradient">
             
@@ -54,9 +61,6 @@ function Sidebar(props) {
                         Home <IoHomeSharp />
                     </li>
 
-                    <li className='desativado'>
-                        Notificações <IoMdNotifications />
-                    </li>
 
                     <li className='desativado'>
                         Curtidos <FaHeart/>
@@ -71,7 +75,7 @@ function Sidebar(props) {
                         Criar post <IoIosAddCircle />
                     </li>
 
-                    <li onClick={()=>{props.alterarURL("/notificacoes")}}>
+                    <li onClick={()=>{mostrarNotificacoes()}}>
                         Notificações <IoMdNotifications />
                     </li>
                     
@@ -93,7 +97,7 @@ function Sidebar(props) {
                 <li className='desativado'>
                     <IoIosAddCircle />
                 </li>
-                <li onClick={()=>{props.alterarURL("/notificacoes")}}>
+                <li onClick={()=>{mostrarNotificacoes()}}>
                     <IoMdNotifications />
                 </li>
                 <li onClick={()=> atualizarPerfil()}>

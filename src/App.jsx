@@ -36,6 +36,8 @@ function App() {
     // Info que será passada para o componente de ListaEditavel.JSX
   const [listaEditavelInfo, setListaEditavelInfo] = useState([[], "teste"]);
 
+  // const [notificacoes, setNotificacoes] = useState([])
+
 
 // Mostrar comentarios assim que forem feitos no postAbertoInfo.JSX
   useEffect(()=>{
@@ -235,7 +237,7 @@ function abrirPerfil(username){
               mostrarPerfilPeloUsername="permitir"
               alterarURL={alterarURL}/>}/>
 
-              <Route path='/notificacoes' element={<Timeline info={"notificacoes"}/>} />
+              <Route path='/notificacoes' element={<Timeline notificacoes={usuarioPosts}/>} />
 
               <Route path='/timeline' element={<Timeline info={"timeline"}/>} />
 

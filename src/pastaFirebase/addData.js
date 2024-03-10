@@ -3,6 +3,7 @@ import {collection, addDoc, query, where, getDocs, updateDoc, arrayUnion } from 
 import {salvarData} from '../functions/extras';
 import { AuthGoogleContext } from '../contexts/AuthGoogle';
 import { useContext } from 'react';
+import { GiConsoleController } from 'react-icons/gi';
 
 
 async function addEmail(email, nome, allInfo){
@@ -47,7 +48,7 @@ async function addUsuario(usuario){
         const adicionandoUsuario = await addDoc(colecao, usuario);
         console.log(adicionandoUsuario);
 
-        return "successo"
+        return "sucesso"
         
     } catch (error) {
         
@@ -141,4 +142,22 @@ async function addNotificacao(username, novaNotificacao){
 }
 
 
-export {addEmail,addUsuario, addPost, addNotificacao}
+async function addComunicado(comunicado){
+
+    try {
+        const colecao = collection(db, "comunicados");
+
+        const adicionandoComunicado = await addDoc(colecao, comunicado);
+    
+        return "sucesso"
+        
+    } catch (error) {
+        console.log(error);
+        return "erro"
+        
+    }
+   
+}
+
+
+export {addEmail,addUsuario, addPost, addNotificacao, addComunicado}

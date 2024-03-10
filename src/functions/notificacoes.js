@@ -1,4 +1,4 @@
-import { addNotificacao } from "../pastaFirebase/addData";
+import { addComunicado, addNotificacao } from "../pastaFirebase/addData";
 import { salvarData } from "./extras"
 
 
@@ -105,9 +105,36 @@ async function notificarPostDono(postId, comentarioObj, postsDisponiveis, usuari
         notificarUsuario=="sucesso"? console.log("Notificação enviada ao dono do post") : console.log("erro ao enviar notificação do novo comentário");
     }
 
+}
+
+
+async function gerarComunicado(tipo, info){
+    if (tipo == "novoUsuario") {
+        console.log(info)
+    
+        const novoComunicado = {
+            tipo: tipo,
+            titulo: info.displayName,
+            foto: info.fotoURL,
+            data: info.cadastro,
+            link: `/usuario/${info.username}`
+        }
+
+        console.log(novoComunicado)
+
+        const adicionar = await addComunicado(novoComunicado);
+
+        adicionar == "sucesso"? console.log("comunicado de novo usuário criado com sucesso") : console.log("Erro ao comunicar novo usuário");
+        
+    } else {
+        console.log("tipo de comunicado não encontrado")
+        
     }
 
+}
 
 
 
-export {avaliarNotificacaoSeguidores, notificarPostDono}
+
+
+export {avaliarNotificacaoSeguidores, notificarPostDono, gerarComunicado}

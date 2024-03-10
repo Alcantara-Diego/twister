@@ -6,23 +6,88 @@ import { BsPersonCircle } from "react-icons/bs";
 import { IoMdNotifications } from "react-icons/io";
 import { MdAddReaction } from "react-icons/md";
 import { MdHealthAndSafety } from "react-icons/md";
+import { AuthGoogleContext } from "./contexts/AuthGoogle";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
 
 
 function Timeline(props){
+
+    const notificacaoModelo = {
+        tipo: "notificacao",
+        origem: "comentario",
+        titulo: `usuario comentou em seu post`,
+        foto: "comentarioObj.fotoURL",
+        conteudo: "comentarioObj.texto",
+        data: "comentarioObj.data",
+        link: `/`
+
+
+    }
+
+    const { usuarioLogado } = useContext(AuthGoogleContext);
+
+    const navigate = useNavigate();
+
+    const [notificacoes, setNotificacoes] = useState([])
+
+
+    useEffect(()=>{
+        console.log(usuarioLogado)
+        usuarioLogado !== null &&
+        setNotificacoes(usuarioLogado.notificacoes);
+
+    }, [usuarioLogado])
+
+
+    useEffect(()=>{
+        console.log(notificacoes)
+    }, [notificacoes])
+
     return (
         <div id="timeline">
+
             <VoltarTela 
-          
             funcao={"home"}
-            setaId={"fecharTimeline"}></VoltarTela>
+            setaId={"fecharTimeline"}>
+            </VoltarTela>
             
-           
 
             <ul className="timelineLista">
                 <h2> Notificações
                 </h2>
 
-                <li className="itemLista">
+
+              
+
+                {notificacoes? notificacoes.map((item, index) => (
+                     <li key={index} className="itemLista">
+                     <div className="info">
+                         {/* <BsPersonCircle className="icone"/> */}
+                         <img src={item.foto} alt="" className="fotoDePerfil"/>
+                         <div className="principal">
+                             
+                             <h4>{item.titulo}</h4>
+                             
+                             <p className="secundario">{item.data.data}</p>
+ 
+                         </div>
+                     </div>
+ 
+                     {item.link? (
+
+                        <button className="bordaGradient" onClick={() => { navigate(item.link) }}>
+                            Abrir
+                        </button>
+
+                    ) : <ImNewspaper className="novidade"/>}
+                 </li>
+                )): null}
+
+
+                <li className="itemLista">aaa
                     <div className="info">
                         <MdHealthAndSafety className="icone"/>
                         <div className="principal">

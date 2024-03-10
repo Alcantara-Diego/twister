@@ -4,13 +4,14 @@ import { useEffect, useState, useContext } from 'react';
 import { AuthGoogleContext } from './contexts/AuthGoogle';
 import { GiTwister } from "react-icons/gi";
 import { buscarUsuarioPorIdentificador } from './pastaFirebase/getData';
-import {salvarData} from './functions/extras';
+import {exibirFeedback, salvarData} from './functions/extras';
 import { addUsuario } from './pastaFirebase/addData';
 import { useNavigate } from 'react-router-dom';
+import { gerarComunicado } from './functions/notificacoes';
 
 function Cadastro(){
 
-    const { userAuth } = useContext(AuthGoogleContext);
+    const { userAuth, setMensagemAlerta } = useContext(AuthGoogleContext);
     const navigate = useNavigate();
 
 
@@ -100,7 +101,24 @@ function Cadastro(){
 
         let user = await addUsuario(novoUsuario);
         console.log(user);
-        navigate("/");
+
+        if (user == "sucesso") {
+            // Enviar mensagem de feedback
+            setMensagemAlerta("Usuário criado com sucesso. Faça login para acessa-lo");
+            exibirFeedback("sucesso");
+
+            // Notificar outros usuários do novo cadastro
+            gerarComunicado("novoUsuario", novoUsuario);
+
+            navigate("/");
+        } else {
+
+            setMensagemAlerta("Erro ao criar usuário, tente novamente");
+            exibirFeedback("erro");
+
+            navigate("/");
+        }
+        
 
     }
 
