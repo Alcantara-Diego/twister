@@ -1,6 +1,7 @@
 :root {
     --gradientLeve: linear-gradient(95deg, rgb(0, 0, 150), rgb(150, 0, 0));
     --gradientForte: linear-gradient(95deg, rgb(0, 0, 255), rgb(255, 0, 0));
+    --gradientMobile: linear-gradient(95deg, rgb(92, 92, 238), rgb(255, 0, 0));
     --corFundo1: #1e1e1e;
     --corPrimaria: #fdfdfd;
     --corSecundaria: #aeadad;
@@ -41,6 +42,7 @@
 
 body{
 
+    background-color: var(--corFundo1);
     font-family: sans-serif;
     height: 100vh;
     overflow: hidden;
@@ -90,5 +92,14 @@ button{
 @media (max-width: 700px){
     .conteudo{
         grid-template-columns: 100%;
+    }
+
+    .logo{
+        
+        .titulo {
+            background: var(--gradientMobile);
+            -webkit-background-clip: text;
+            color: transparent;
+          }
     }
 }

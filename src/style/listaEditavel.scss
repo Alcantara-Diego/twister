@@ -59,6 +59,7 @@
 
 #timeline{
     display: block;
+    overflow-y: auto;
     .itemLista{
         .info{
             display: flex;

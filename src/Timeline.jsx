@@ -93,13 +93,13 @@ function Timeline(props){
                 {notificacoes? notificacoes.map((item, index) => (
                      <li key={index} className="itemLista">
                      <div className="info">
-                         {/* <BsPersonCircle className="icone"/> */}
+                         
 
                          {item.tipo == "notificacao" || item.tipo == "novoUsuario"? (
 
                             <img src={item.foto} alt="" className="fotoDePerfil"/>
 
-                         ) : <MdAddReaction className="icone"/>}
+                         ) : (item.tipo == "atualizacao"? ( <MdAddReaction className="icone"/>) : <GiTwister className="icone"/>)}
                          
                          <div className="principal">
                              
@@ -112,7 +112,7 @@ function Timeline(props){
  
                      {item.link? (
 
-                        <button className="bordaGradient" onClick={() => { navigate(item.link) }}>
+                        <button className="bordaGradient" onClick={() => { props.alterarURL(item.link) }}>
                             Abrir
                         </button>
 
@@ -121,7 +121,7 @@ function Timeline(props){
                 )): null}
 
 
-                <li className="itemLista">
+                {/* <li className="itemLista">
                     <div className="info">
                         <MdHealthAndSafety className="icone"/>
                         <div className="principal">
@@ -133,30 +133,10 @@ function Timeline(props){
                     </div>
 
                     <ImNewspaper className="novidade"/>
-                </li>
+                </li> */}
             
              
-
-
-
-                
-
-                
-
-                <li className="itemLista">
-                    <div className="info">
-                        <GiTwister className="icone"/>
-                        <div className="principal">
-                            
-                            <h4>Twister versão alpha sendo lançada</h4>
-                            <p>01/03/2024</p>
-
-                        </div>
-                    </div>
-
-                    <ImNewspaper className="novidade"/>
-                </li>
-
+             
             </ul>
            
                 

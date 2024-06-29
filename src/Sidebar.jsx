@@ -62,18 +62,18 @@ function Sidebar(props) {
                     </li>
 
 
-                    <li className='desativado'>
+                    {/* <li className='desativado'>
                         Curtidos <FaHeart/>
-                    </li>
+                    </li> */}
                 </div>
 
                 <div className="sidebarGrupo">
 
                     <p>Pessoal</p>
 
-                    <li className='desativado'>
+                    {/* <li className='desativado'>
                         Criar post <IoIosAddCircle />
-                    </li>
+                    </li> */}
 
                     <li onClick={()=>{mostrarNotificacoes()}}>
                         Notificações <IoMdNotifications />
@@ -91,12 +91,12 @@ function Sidebar(props) {
                 <IoHomeSharp />
 
                 </li>
-                <li className='desativado'>
+                {/* <li className='desativado'>
                     <FaSearch />
                 </li>
                 <li className='desativado'>
                     <IoIosAddCircle />
-                </li>
+                </li> */}
                 <li onClick={()=>{mostrarNotificacoes()}}>
                     <IoMdNotifications />
                 </li>

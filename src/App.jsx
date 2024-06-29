@@ -237,9 +237,7 @@ function abrirPerfil(username){
               mostrarPerfilPeloUsername="permitir"
               alterarURL={alterarURL}/>}/>
 
-              <Route path='/notificacoes' element={<Timeline notificacoes={usuarioPosts}/>} />
-
-              <Route path='/timeline' element={<Timeline info={"timeline"}/>} />
+              <Route path='/notificacoes' element={<Timeline alterarURL={alterarURL}/>} />
 
               <Route path='/login' element={
                 <PrivateRoute primeiroAcesso={primeiroAcesso}>

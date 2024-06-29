@@ -68,9 +68,11 @@ function Cadastro(){
 
     function filtrarCaracteres(valor){
 
-        const regexComplementar = /[^a-z0-9_]|(_[^a-z0-9_]+)?/g;
+        const regexComplementar = /[^a-zA-Z0-9_]|(_[^a-zA-Z0-9_]+)?/g;
 
-        const valorFiltrado = valor.replace(regexComplementar, '');
+        const valorFiltrado = valor.toLowerCase().replace(regexComplementar, '');
+
+
 
         let input = document.getElementById("cadastrarUsernameInput")
             
